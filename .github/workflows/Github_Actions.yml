@@ -28,7 +28,7 @@ jobs: #Liste des tests
 
     - name: Build # Essaie de construire l'application
       working-directory: ${{runner.workspace}}/build
-      shell: bashù
+      shell: bash
       # Execute l'application. Possibilité de spécifier une cible avec "--target <NAME>"
       run: cmake --build . --config $BUILD_TYPE
 
