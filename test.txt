@@ -1,0 +1,3 @@
+Essai:		test
+comment ca va ?		un	deux
+trois?./!	quatre		$E
