@@ -13,7 +13,7 @@ unsigned int readFile(char file[]){
     unsigned int size = ftell(fp); // Stockage de la taille
     rewind(fp); // Replacement du pointeur au début du fichier
 
-    for (int i = 0; i < size; i++) fscanf_s(fp, "%c", &file[i]);
+    for (int i = 0; i < size; i++) fscanf(fp, "%c", &file[i]);
     fclose(fp);
     return size;
 }
