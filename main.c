@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #define EncryptionKey "NF05 Rules" //TODO Demander la clé de chiffrement
 
 //Fonction permettant de lire un fichier externe en indiquant le lien relatif et qui renvoie la taille du fichier
-unsigned int readFile(unsigned char file[]){
+unsigned char *readFile(int *size){
     FILE *fp;
     char link[] = "../test.txt"; //TODO Demander le lien du fichier à encoder
     //printf("Entrer le lien du fichier relatif au programme (ex: \"../test.txt\") : ");
@@ -10,12 +11,13 @@ unsigned int readFile(unsigned char file[]){
     fp = fopen(link, "rb"); // On accède au fichier à encoder
 
     fseek(fp, 0L, SEEK_END); // Recherche de la fin du fichier
-    unsigned int size = ftell(fp); // Stockage de la taille
+    *size = ftell(fp); // Stockage de la taille
     rewind(fp); // Replacement du pointeur au début du fichier
 
-    for (int i = 0; i < size; i++) fscanf(fp, "%c", &file[i]);
+    unsigned char *file = (unsigned char*)malloc(*size * sizeof(char)); //Création d'un tableau pour contenir les octets du fichier
+    for (int i = 0; i < *size; i++) fscanf(fp, "%c", &file[i]);
     fclose(fp);
-    return size;
+    return file;
 }
 
 //Fonction 1 : Permutation des caractères (on les décale de la valeur de key puis on applique modulo 255)
@@ -30,8 +32,7 @@ char CharPermutationReverse(unsigned char car, int key){
 //Utilisé pour la multiplication d'un vecteur et d'une matrice dans la fonction 3
 int *multiplyMatrices(const int *v, int H[][8]){
     static int vRes[8];
-    int temp = 0;
-    for (int rowFinal = 0; rowFinal < 8; rowFinal++) {
+    for (int rowFinal = 0, temp = 0; rowFinal < 8; rowFinal++) {
         for (int k = 0; k < 8; k++) temp += H[rowFinal][k] * v[k];
         vRes[rowFinal] = temp % 2; //On fait %2 pour rester en binaire
         temp = 0;
@@ -66,8 +67,7 @@ unsigned char BitsToByte(const int *bits){
 
 //Fonction 3 : application de l'opération H x v + c
 unsigned char CharApplyMatrix(unsigned char byte){
-    int *bits = ByteToBits(byte);
-    int H[][8] = {
+    int *bits = ByteToBits(byte), H[][8] = {
             1, 0, 0, 0, 1, 1, 1, 1,
             1, 1, 0, 0, 0, 1, 1, 1,
             1, 1, 1, 0, 0, 0, 1, 1,
@@ -82,11 +82,9 @@ unsigned char CharApplyMatrix(unsigned char byte){
     for (int j = 0; j < 8; j++) Xi[j] = (Xi[j] + c[j]) % 2; //Ce qui correspond à Xi = H x vi + c
     return BitsToByte(Xi);
 }
-
 //Fonction inverse de celle ci-dessus (H' x Xi + c')
 unsigned char CharApplyMatrixReverse(unsigned char byte){
-    int *bits = ByteToBits(byte);
-    int HPrime[][8] = {
+    int *bits = ByteToBits(byte), HPrime[][8] = {
             0, 0, 1, 0, 0, 1, 0, 1,
             1, 0, 0, 1, 0, 0, 1, 0,
             0, 1, 0, 0, 1, 0, 0, 1,
@@ -105,13 +103,10 @@ unsigned char CharApplyMatrixReverse(unsigned char byte){
 int main() {
     int iterationkey1 = 0, i = 0;
     //Création d'une valeur utilisée pour la permutation des charactères dépendante d'EncryptionKey
-    while (EncryptionKey[i] != '\0'){
-        iterationkey1 += EncryptionKey[i];
-        i++;
-    }
+    while (EncryptionKey[i] != '\0'){ iterationkey1 += EncryptionKey[i]; i++;}
     printf("Cle d'iteration K1 : %d\n", iterationkey1);
-    unsigned char file[1000]; //TODO Mettre en place l'allocation dynamique de mémoire
-    unsigned int size = readFile(file);
+    int size;
+    unsigned char *file = readFile(&size);
 
     printf("\n============Depart============\n");
     for (i = 0; i < size; i++) printf("%c", file[i]);
