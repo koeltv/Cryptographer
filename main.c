@@ -5,10 +5,13 @@
 //Fonction permettant de lire un fichier externe en indiquant le lien relatif et qui renvoie la taille du fichier
 unsigned char *readFile(int *size){
     FILE *fp;
-    char link[] = "../test.txt"; //TODO Demander le lien du fichier à encoder
+    char link[] = "../test.txt"; //TODO Demander le lien du fichier à encoder + allocation dynamique
     //printf("Entrer le lien du fichier relatif au programme (ex: \"../test.txt\") : ");
     //scanf("%s", link);
-    fp = fopen(link, "rb"); // On accède au fichier à encoder
+    if ((fp = fopen(link, "rb")) == NULL){//Gestion d'erreurs
+        fprintf(stderr, "Erreur: Impossible d'ouvrir le fichier %s\n", link);
+        return NULL;
+    }; // On accède au fichier à encoder
 
     fseek(fp, 0L, SEEK_END); // Recherche de la fin du fichier
     *size = ftell(fp); // Stockage de la taille
@@ -106,7 +109,8 @@ int main() {
     while (EncryptionKey[i] != '\0'){ iterationkey1 += EncryptionKey[i]; i++;}
     printf("Cle d'iteration K1 : %d\n", iterationkey1);
     int size;
-    unsigned char *file = readFile(&size);
+    unsigned char *file;
+    if((file = readFile(&size)) == NULL) return EXIT_FAILURE;
 
     printf("\n============Depart============\n");
     for (i = 0; i < size; i++) printf("%c", file[i]);
