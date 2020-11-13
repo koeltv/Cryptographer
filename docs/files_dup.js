@@ -1,5 +1,5 @@
 var files_dup =
 [
-    [ "documentation_pages", "dir_8e935dde59b4c791c3613b535b565bdc.html", null ],
+    [ "docs_pages", "dir_1f8d36950bf496cee0e0f39cb9c40961.html", null ],
     [ "main.c", "main_8c.html", "main_8c" ]
 ];
