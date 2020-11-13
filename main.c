@@ -18,10 +18,10 @@ unsigned char *readFile(int *size){
     char link[] = "../test.txt"; //TODO Demander le lien du fichier à encoder + allocation dynamique
     //printf("Entrer le lien du fichier relatif au programme (ex: \"../test.txt\") : ");
     //scanf("%s", link);
-    if ((fp = fopen(link, "rb")) == NULL){//Gestion d'erreurs
+    if ((fp = fopen(link, "rb")) == NULL) {//Gestion d'erreurs
         fprintf(stderr, "Erreur: Impossible d'ouvrir le fichier %s\n", link);
         return NULL;
-    }; // On accède au fichier à encoder
+    } // On accède au fichier à encoder
 
     fseek(fp, 0L, SEEK_END); // Recherche de la fin du fichier
     *size = ftell(fp); // Stockage de la taille
