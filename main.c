@@ -1,28 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define EncryptionKey "NF05 Rules" //TODO Demander la clé de chiffrement
+#define encryptionKey "NF05 Rules" //A enlever, remplacer par demande à l'utilisateur début de main()
+#define link "../test.txt" //Pareil, juste la pour les tests
 
 ///Lit une chaîne de caractère dans un fichier donné
 ///La fonction writeString() permet de lire une chaîne de caractère quelconque terminée par un retour à la ligne dans un fichier
 ///@note Il est possible de choisir stdin comme fichier pour une entrée manuelle
-///@param string addresse où stocker la chaîne de caractère
-///@param fp fichier dans lequel lire la chaîne de caractère
-void writeString(unsigned char *string, FILE *fp){
+///@param fp - fichier dans lequel lire la chaîne de caractère
+///@return addresse où est stocké la chaîne de caractère
+char *writeString(FILE *fp){
     int i=0; char temp;
-    string = (unsigned char*) malloc (20 * sizeof(unsigned char)); //On part d'une chaîne de 20 caractères
+    char *string = (char*) malloc (20 * sizeof(char)); //On part d'une chaîne de 20 caractères
     fscanf(fp, " %c", &temp);
     while (temp >= ' ' && temp <= '~'){
-        if (i % 19 == 1 && i > 19) string = (unsigned char*) realloc (string, (i+20) * sizeof(unsigned char)); //Si on dépasse 20 caractères, on ajoute un espace de 20 caractères à la chaîne
+        if (i % 19 == 1 && i > 19) string = (char*) realloc (string, (i+20) * sizeof(char)); //Si on dépasse 20 caractères, on ajoute un espace de 20 caractères à la chaîne
         string[i] = temp;
         fscanf(fp, "%c", &temp);
         i++;
     } string[i] = '\0';
+    return string;
 }
 
-///Lit un fichier
-///La fonction readFile() permet de lire un fichier quelconque dont on lui donne le lien (relatif au projet)
+///Lit le contenu d'un fichier
+///La fonction readFile() permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au projet)
 ///@warning Si la fonction ne peut pas ouvrir le fichier (par exemple un chemin non valide), elle renvoie NULL
+///@param fp - pointeur sur le fichier à lire
 ///@param size - pointeur vers un entier qui recevra la taille du fichier lu
 ///@return pointeur vers caractère correspondant au 1er octet du fichier lu
 ///### Example
@@ -32,37 +35,34 @@ void writeString(unsigned char *string, FILE *fp){
 /// for (i = 0; i < size; i++) printf("%c", file[i]);
 ///~~~~~~~~~~~~~~
 unsigned char *readFile(FILE *fp, const int *size){
-    unsigned char *file = (unsigned char*)malloc(*size * sizeof(char)); //Création d'un tableau pour contenir les octets du fichier
+    unsigned char *file = (unsigned char*) malloc (*size * sizeof(unsigned char)); //Création d'un tableau pour contenir les octets du fichier
     for (int i = 0; i < *size; i++) fscanf(fp, "%c", &file[i]);
     fclose(fp);
     return file;
 }
 
-///Ecrit dans fichier
-///La fonction writeInFile() permet d'écrire des donnees dans un fichier basé sur le fichier d'entree selon le mode choisi
+///Ecrit dans un fichier
+///La fonction writeInFile() permet d'écrire des donnees dans un fichier basé sur le fichier d'entrée selon le mode choisi
 ///@note l'extension "_encrypted" ou "decrypted" sera ajouté à la fin du nom du fichier selon le mode choisi
-///@param data pointeur vers les données à écrire dans le fichier
-///@param size quantité de données à écrire
-///@param sourcelink lien vers le fichier source (utilisé pour le nom du fichier de destination)
-///@param selectionne l'extension "_encrypted" ou "decrypted" (0 pour la 1ère, toute autre valeur pour la 2ème)
-void writeInFile(unsigned char *data, int size, const unsigned char *sourcelink, int action){
-    int posPoint=3, i=0, taille=0;
-    //Recherche de la position du \0
-    while (sourcelink[taille] != '\0') taille++;
-    unsigned char *destlink = (unsigned char *) malloc ((taille + 10) * sizeof(unsigned char));
-    //Recherche de la position du point
-    while (sourcelink[i] != '\0') {if (sourcelink[i] == '.') posPoint = i; i++;}
-    //Copie du debut du lien jusqu'au point
-    for (i = 0; i < posPoint; i++) destlink[i] = sourcelink[i]; destlink[posPoint] = '\0';
-    //Ajout de "_encrypted" ou "_decrypted", longueur = 10
+///@param data - pointeur sur les données à écrire dans le fichier
+///@param size - quantité de données à écrire
+///@param sourcelink - lien vers le fichier source (utilisé pour le nom du fichier de destination)
+///@param action - selectionne l'extension "_encrypted" ou "decrypted" (0 pour la 1ère, toute autre valeur pour la 2ème)
+void writeInFile(unsigned char *data, int size, const char *sourcelink, int action){
+    int pointPosition=0, linkLenght=0;
+    //Recherche taille du lien et position du point de l'extension de fichier
+    while (sourcelink[linkLenght] != '\0'){if (sourcelink[linkLenght] == '.') pointPosition = linkLenght; linkLenght++;}
+    char *destlink = (char *) malloc ((linkLenght + 10) * sizeof(char));
+    //Copie du début du lien jusqu'au point
+    for (int i = 0; i < pointPosition; i++) destlink[i] = sourcelink[i]; destlink[pointPosition] = '\0';
     if (action == 0) strcat(destlink, "_encrypted");
     else strcat(destlink, "_decrypted");
     //Ajout de l'extension du lien original
-    for (i = posPoint; i <= taille; i++) destlink[i+10] = sourcelink[i];
+    for (int i = pointPosition; i <= linkLenght; i++) destlink[i + 10] = sourcelink[i];
     //Ecriture des données
-    FILE *destinationFile;
-    if ((destinationFile = fopen(destlink, "wb")) == NULL) {fprintf(stderr, "Erreur: Impossible d'ouvrir le fichier %s\n", destlink);}
-    for (i = 0; i < size; i++) fprintf(destinationFile, "%c", data[i]);
+    FILE *destinationFile = fopen(destlink, "wb");
+    for (int i = 0; i < size; i++) fprintf(destinationFile, "%c", data[i]);
+    fclose(destinationFile);
 }
 
 ///Permutation d'un octet
@@ -76,9 +76,7 @@ void writeInFile(unsigned char *data, int size, const unsigned char *sourcelink,
 /// unsigned char octet = 'a';
 /// printf("%c", CharPermutation(car, 2)); //Le résultat sera 'c'
 ///~~~~~~~~~~~~~~
-unsigned char CharPermutation(unsigned char car, int key){
-    return (char)(((int)car+key)%255);
-}
+unsigned char CharPermutation(unsigned char car, int key){return car + key % 256;}
 
 ///Inversion de la permutation d'un octet
 ///La fonction CharPermutationReverse() va prendre un octet et le décaler vers la gauche dans la table ASCII
@@ -91,9 +89,7 @@ unsigned char CharPermutation(unsigned char car, int key){
 /// unsigned char octet = 'c';
 /// printf("%c", CharPermutationReverse(car, 2)); //Le résultat sera 'a'
 ///~~~~~~~~~~~~~~
-unsigned char CharPermutationReverse(unsigned char car, int key){
-    return (char)((int)car - key%255);
-}
+unsigned char CharPermutationReverse(unsigned char car, int key){return car - key % 256;}
 
 ///Multiplication matrice par vecteur
 ///La fonction multiplyMatrices() effectue une multiplication entre une matrice et un vecteur dans cet ordre
@@ -107,8 +103,7 @@ int *multiplyMatrices(const int *v, int H[][8]){
         for (int k = 0; k < 8; k++) temp += H[rowFinal][k] * v[k];
         vRes[rowFinal] = temp % 2; //On fait %2 pour rester en binaire
         temp = 0;
-    }
-    return vRes;
+    } return vRes;
 }
 
 ///Conversion d'un octet/caractère vers un tableau de bits
@@ -129,7 +124,7 @@ int *ByteToBits(unsigned char byte){
         byte /= 2;
         i++;
     }
-    bits[i] = (int)byte;
+    bits[i] = byte;
     for (int j = i+1; j < 8; j++) bits[j] = 0;
     return bits;
 }
@@ -148,8 +143,7 @@ unsigned char BitsToByte(const int *bits){
     for (int i = 0, powerOf2 = 1; i < 8; i++) {
         byte += bits[i] * powerOf2;
         powerOf2 *= 2;
-    }
-    return byte;
+    } return byte;
 }
 
 ///Fonction Matriciel
@@ -199,62 +193,38 @@ unsigned char CharApplyMatrixReverse(unsigned char byte){
 }
 
 int main() {
-    //Enregistrement de la clé de chiffrement
-    //unsigned char *encryptionKey = NULL;
-    //printf("Entrer la clé de chiffrement : ");
-    //writeString(encryptionKey, stdin);
+    //printf("Entrer la cle de chiffrement :\n");
+    //char *encryptionKey = writeString(stdin);
+    //printf("Entrer le lien du fichier a convertir (lien relatif, ex \"../test.txt\")\n");
+    //char *link = writeString(stdin);
 
-    FILE *fp;
-    //Enregistrement du lien du fichier
-    //unsigned char *link = NULL;
-    //printf("Entrer le lien du fichier à encrypter/décrypter (lien relatif au programme, ex \"..test.txt\")\n");
-    //writeString(link, stdin);
-    char link[] = "../test.txt"; //TODO Demander le lien du fichier à encoder + allocation dynamique
+    FILE *sourceFile;
+    if ((sourceFile = fopen(link, "rb")) == NULL) {fprintf(stderr, "Erreur: Impossible d'ouvrir le fichier %s\n", link); return EXIT_FAILURE;}
+    fseek(sourceFile, 0L, SEEK_END); // Recherche de la fin du fichier
+    int size = ftell(sourceFile); rewind(sourceFile);// Stockage de la taille
+    unsigned char *fileData = readFile(sourceFile, &size); fclose(sourceFile);
 
-    if ((fp = fopen(link, "rb")) == NULL) {//Gestion d'erreurs
-        fprintf(stderr, "Erreur: Impossible d'ouvrir le fichier %s\n", link);
-        return EXIT_FAILURE;
-    } // On accède au fichier à encoder
+    int action, i = 0; unsigned char iterationKey1 = 0;
+    //Création d'une valeur utilisée pour la permutation des charactères dépendante d'encryptionKey
+    while (encryptionKey[i] != '\0'){iterationKey1 += encryptionKey[i]; i++;}
 
-    fseek(fp, 0L, SEEK_END); // Recherche de la fin du fichier
-    int size = ftell(fp); // Stockage de la taille
-    rewind(fp); // Replacement du pointeur au début du fichier
-
-    int iterationkey1 = 0, i = 0;
-    //Création d'une valeur utilisée pour la permutation des charactères dépendante d'EncryptionKey
-    while (EncryptionKey[i] != '\0'){ iterationkey1 += EncryptionKey[i]; i++;}
-    printf("Cle d'iteration K1 : %d\n", iterationkey1);
-
-    unsigned char *file;
-    if((file = readFile(fp, &size)) == NULL) return EXIT_FAILURE;
-
-    printf("\n============Depart============\n");
-    for (i = 0; i < size; i++) printf("%c", file[i]);
-    printf("\n==============================\n");
-
-    //Etape 1
-    for (int j = 0; j < size; j++) file[j] = CharPermutation(file[j], iterationkey1);
-
-    //Affichage du fichier après encodage
-    printf("\n==========Permutation==========\n");
-    for (i = 0; i < size; i++) printf("%c", file[i]);
-    printf("\n===============================\n");
-
-    for (int j = 0; j < size; j++) file[j] = CharApplyMatrix(file[j]);
-
-    //Affichage du fichier après encodage
-    printf("\n============Matrice============\n");
-    for (i = 0; i < size; i++) printf("%c", file[i]);
-    printf("\n===============================\n");
-
-    //Etape 3
-    for (int j = 0; j < size; j++) file[j] = CharApplyMatrixReverse(file[j]);
-    for (int j = 0; j < size; j++) file[j] = CharPermutationReverse(file[j], iterationkey1);
-
-    //Affichage du fichier après encodage
-    printf("\n===========Decodage===========\n");
-    for (i = 0; i < size; i++) printf("%c", file[i]);
-    printf("\n==============================");
-
+    //printf("Voulez-vous encoder ou decoder un fichier ? (0 pour encodage, 1 pour decodage) : ");
+    //scanf("%d", &action);
+    //if (action == 0){ //Encodage if() else desactive pour les tests
+        for (int j = 0; j < size; j++) fileData[j] = CharPermutation(fileData[j], iterationKey1);
+        for (int j = 0; j < size; j++) fileData[j] = CharApplyMatrix(fileData[j]);
+        printf("Encodage termine !");
+        printf("\n======================Encode======================\n");
+        for (int j = 0; j < size; j++) printf("%c", fileData[j]);
+        printf("\n==================================================\n");
+    //} else { //Decodage
+        for (int j = 0; j < size; j++) fileData[j] = CharApplyMatrixReverse(fileData[j]);
+        for (int j = 0; j < size; j++) fileData[j] = CharPermutationReverse(fileData[j], iterationKey1);
+        printf("Decodage termine !");
+        printf("\n======================Decode======================\n");
+        for (int j = 0; j < size; j++) printf("%c", fileData[j]);
+        printf("\n==================================================");
+    //}
+    //writeInFile(fileData, size, link, action); fonction pour écrire les résultats dans un fichier, désactivé pour les test
     return 0; //TODO utiliser free() pour libérer les allocations dynamiques
 }

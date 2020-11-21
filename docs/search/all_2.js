@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['encryptionkey_7',['EncryptionKey',['../main_8c.html#a2632fe3939019e80f8ccd80c930b4d4b',1,'main.c']]]
+  ['encryptionkey_7',['encryptionKey',['../main_8c.html#a602275544f2ff39f24acd799a4e369cb',1,'main.c']]]
 ];

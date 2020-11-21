@@ -103,25 +103,34 @@ $(document).ready(function(){initNavTree('main_8c.html',''); initResizable(); })
 <div class="contents">
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a2632fe3939019e80f8ccd80c930b4d4b"><td align="right" class="memItemLeft" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a2632fe3939019e80f8ccd80c930b4d4b">EncryptionKey</a>&#160;&#160;&#160;&quot;NF05 Rules&quot;</td></tr>
-<tr class="separator:a2632fe3939019e80f8ccd80c930b4d4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a602275544f2ff39f24acd799a4e369cb"><td align="right" class="memItemLeft" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a602275544f2ff39f24acd799a4e369cb">encryptionKey</a>&#160;&#160;&#160;&quot;NF05 Rules&quot;</td></tr>
+<tr class="separator:a602275544f2ff39f24acd799a4e369cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a085ab65b81cf5f58cf9ea5f4b4e4d2c0"><td align="right" class="memItemLeft" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a085ab65b81cf5f58cf9ea5f4b4e4d2c0">link</a>&#160;&#160;&#160;&quot;../test.txt&quot;</td></tr>
+<tr class="separator:a085ab65b81cf5f58cf9ea5f4b4e4d2c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a432f0b3f970f79ebf1a41cc29a98a634"><td align="right" class="memItemLeft" valign="top">unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a432f0b3f970f79ebf1a41cc29a98a634">readFile</a> (int *size)</td></tr>
-<tr class="memdesc:a432f0b3f970f79ebf1a41cc29a98a634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un fichier.  <a href="main_8c.html#a432f0b3f970f79ebf1a41cc29a98a634">More...</a><br /></td></tr>
-<tr class="separator:a432f0b3f970f79ebf1a41cc29a98a634"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedc3448855058bbebaa5b56ccdf59921"><td align="right" class="memItemLeft" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#aedc3448855058bbebaa5b56ccdf59921">writeString</a> (FILE *fp)</td></tr>
+<tr class="memdesc:aedc3448855058bbebaa5b56ccdf59921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une chaîne de caractère dans un fichier donné La fonction <a class="el" href="main_8c.html#aedc3448855058bbebaa5b56ccdf59921" title="Lit une chaîne de caractère dans un fichier donné La fonction writeString() permet de lire une chaîne...">writeString()</a> permet de lire une chaîne de caractère quelconque terminée par un retour à la ligne dans un fichier.  <a href="main_8c.html#aedc3448855058bbebaa5b56ccdf59921">More...</a><br /></td></tr>
+<tr class="separator:aedc3448855058bbebaa5b56ccdf59921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3df3bc491b3c4eb8cda3911f33858ecd"><td align="right" class="memItemLeft" valign="top">unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a3df3bc491b3c4eb8cda3911f33858ecd">readFile</a> (FILE *fp, const int *size)</td></tr>
+<tr class="memdesc:a3df3bc491b3c4eb8cda3911f33858ecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit le contenu d'un fichier La fonction <a class="el" href="main_8c.html#a3df3bc491b3c4eb8cda3911f33858ecd" title="Lit le contenu d&#39;un fichier La fonction readFile() permet de lire le contenu d&#39;un fichier quelconque ...">readFile()</a> permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au projet)  <a href="main_8c.html#a3df3bc491b3c4eb8cda3911f33858ecd">More...</a><br /></td></tr>
+<tr class="separator:a3df3bc491b3c4eb8cda3911f33858ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3fb2d127333408bd42bb151b586e4a1"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#ac3fb2d127333408bd42bb151b586e4a1">writeInFile</a> (unsigned char *data, int size, const char *sourcelink, int action)</td></tr>
+<tr class="memdesc:ac3fb2d127333408bd42bb151b586e4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ecrit dans un fichier La fonction <a class="el" href="main_8c.html#ac3fb2d127333408bd42bb151b586e4a1" title="Ecrit dans un fichier La fonction writeInFile() permet d&#39;écrire des donnees dans un fichier basé sur ...">writeInFile()</a> permet d'écrire des donnees dans un fichier basé sur le fichier d'entrée selon le mode choisi.  <a href="main_8c.html#ac3fb2d127333408bd42bb151b586e4a1">More...</a><br /></td></tr>
+<tr class="separator:ac3fb2d127333408bd42bb151b586e4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a627d91d52358fcb5a6fe8d0de58deccc"><td align="right" class="memItemLeft" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a627d91d52358fcb5a6fe8d0de58deccc">CharPermutation</a> (unsigned char car, int key)</td></tr>
-<tr class="memdesc:a627d91d52358fcb5a6fe8d0de58deccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permutation d'un octet.  <a href="main_8c.html#a627d91d52358fcb5a6fe8d0de58deccc">More...</a><br /></td></tr>
+<tr class="memdesc:a627d91d52358fcb5a6fe8d0de58deccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permutation d'un octet La fonction <a class="el" href="main_8c.html#a627d91d52358fcb5a6fe8d0de58deccc" title="Permutation d&#39;un octet La fonction CharPermutation() va prendre un octet et le décaler vers la droite...">CharPermutation()</a> va prendre un octet et le décaler vers la droite dans la table ASCII.  <a href="main_8c.html#a627d91d52358fcb5a6fe8d0de58deccc">More...</a><br /></td></tr>
 <tr class="separator:a627d91d52358fcb5a6fe8d0de58deccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27bdc1b34c4bb40f77a175fd26c238a8"><td align="right" class="memItemLeft" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a27bdc1b34c4bb40f77a175fd26c238a8">CharPermutationReverse</a> (unsigned char car, int key)</td></tr>
-<tr class="memdesc:a27bdc1b34c4bb40f77a175fd26c238a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inversion de la permutation d'un octet.  <a href="main_8c.html#a27bdc1b34c4bb40f77a175fd26c238a8">More...</a><br /></td></tr>
+<tr class="memdesc:a27bdc1b34c4bb40f77a175fd26c238a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inversion de la permutation d'un octet La fonction <a class="el" href="main_8c.html#a27bdc1b34c4bb40f77a175fd26c238a8" title="Inversion de la permutation d&#39;un octet La fonction CharPermutationReverse() va prendre un octet et le...">CharPermutationReverse()</a> va prendre un octet et le décaler vers la gauche dans la table ASCII.  <a href="main_8c.html#a27bdc1b34c4bb40f77a175fd26c238a8">More...</a><br /></td></tr>
 <tr class="separator:a27bdc1b34c4bb40f77a175fd26c238a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a618dcefa3a7be9d1757032ab215a46eb"><td align="right" class="memItemLeft" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb">multiplyMatrices</a> (const int *v, int H[][8])</td></tr>
-<tr class="memdesc:a618dcefa3a7be9d1757032ab215a46eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplication matrice par vecteur.  <a href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb">More...</a><br /></td></tr>
+<tr class="memdesc:a618dcefa3a7be9d1757032ab215a46eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplication matrice par vecteur La fonction <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur La fonction multiplyMatrices() effectue une multiplication entre u...">multiplyMatrices()</a> effectue une multiplication entre une matrice et un vecteur dans cet ordre.  <a href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb">More...</a><br /></td></tr>
 <tr class="separator:a618dcefa3a7be9d1757032ab215a46eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7589454bffe4fedc29ce9a553d8cca22"><td align="right" class="memItemLeft" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22">ByteToBits</a> (unsigned char byte)</td></tr>
 <tr class="memdesc:a7589454bffe4fedc29ce9a553d8cca22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'un octet/caractère vers un tableau de bits La fonction <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits()</a> prend un octet/caractère et donne en sorti un tableau de bits correspondant à sa valeur en binaire.  <a href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22">More...</a><br /></td></tr>
@@ -139,14 +148,28 @@ Functions</h2></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a2632fe3939019e80f8ccd80c930b4d4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2632fe3939019e80f8ccd80c930b4d4b">&#9670;&nbsp;</a></span>EncryptionKey</h2>
+<a id="a602275544f2ff39f24acd799a4e369cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a602275544f2ff39f24acd799a4e369cb">&#9670;&nbsp;</a></span>encryptionKey</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EncryptionKey&#160;&#160;&#160;&quot;NF05 Rules&quot;</td>
+          <td class="memname">#define encryptionKey&#160;&#160;&#160;&quot;NF05 Rules&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a085ab65b81cf5f58cf9ea5f4b4e4d2c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a085ab65b81cf5f58cf9ea5f4b4e4d2c0">&#9670;&nbsp;</a></span>link</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define link&#160;&#160;&#160;&quot;../test.txt&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -242,7 +265,7 @@ Example</h2>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>caractère/octet encodé </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d" title="Conversion d&#39;un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...">BitsToByte()</a> <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits</a> <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur.">multiplyMatrices()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d" title="Conversion d&#39;un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...">BitsToByte()</a> <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits</a> <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur La fonction multiplyMatrices() effectue une multiplication entre u...">multiplyMatrices()</a> </dd></dl>
 
 </div>
 </div>
@@ -271,7 +294,7 @@ Example</h2>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>caractère/octet décodé </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d" title="Conversion d&#39;un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...">BitsToByte()</a> <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits</a> <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur.">multiplyMatrices()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d" title="Conversion d&#39;un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...">BitsToByte()</a> <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits</a> <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur La fonction multiplyMatrices() effectue une multiplication entre u...">multiplyMatrices()</a> </dd></dl>
 
 </div>
 </div>
@@ -301,8 +324,8 @@ Example</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Permutation d'un octet. </p>
-<p>La fonction <a class="el" href="main_8c.html#a627d91d52358fcb5a6fe8d0de58deccc" title="Permutation d&#39;un octet.">CharPermutation()</a> va prendre un octet et le décaler vers la droite dans la table ASCII </p><dl class="section note"><dt>Note</dt><dd>Si la valeur dépasse 255, on repart de 0 </dd></dl>
+<p>Permutation d'un octet La fonction <a class="el" href="main_8c.html#a627d91d52358fcb5a6fe8d0de58deccc" title="Permutation d&#39;un octet La fonction CharPermutation() va prendre un octet et le décaler vers la droite...">CharPermutation()</a> va prendre un octet et le décaler vers la droite dans la table ASCII. </p>
+<dl class="section note"><dt>Note</dt><dd>Si la valeur dépasse 255, on repart de 0 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">car</td><td>- caractère/octet à permuter </td></tr>
@@ -344,8 +367,8 @@ Example</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Inversion de la permutation d'un octet. </p>
-<p>La fonction <a class="el" href="main_8c.html#a27bdc1b34c4bb40f77a175fd26c238a8" title="Inversion de la permutation d&#39;un octet.">CharPermutationReverse()</a> va prendre un octet et le décaler vers la gauche dans la table ASCII </p><dl class="section note"><dt>Note</dt><dd>Si la valeur atteint 0, on repart de 255 </dd></dl>
+<p>Inversion de la permutation d'un octet La fonction <a class="el" href="main_8c.html#a27bdc1b34c4bb40f77a175fd26c238a8" title="Inversion de la permutation d&#39;un octet La fonction CharPermutationReverse() va prendre un octet et le...">CharPermutationReverse()</a> va prendre un octet et le décaler vers la gauche dans la table ASCII. </p>
+<dl class="section note"><dt>Note</dt><dd>Si la valeur atteint 0, on repart de 255 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">car</td><td>- caractère/octet à permuter </td></tr>
@@ -404,8 +427,8 @@ Example</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Multiplication matrice par vecteur. </p>
-<p>La fonction <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur.">multiplyMatrices()</a> effectue une multiplication entre une matrice et un vecteur dans cet ordre </p><dl class="section warning"><dt>Warning</dt><dd>La matrice doit être de dimension 8x8 et le vecteur de dimension 8x1 </dd></dl>
+<p>Multiplication matrice par vecteur La fonction <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur La fonction multiplyMatrices() effectue une multiplication entre u...">multiplyMatrices()</a> effectue une multiplication entre une matrice et un vecteur dans cet ordre. </p>
+<dl class="section warning"><dt>Warning</dt><dd>La matrice doit être de dimension 8x8 et le vecteur de dimension 8x1 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">v</td><td>- vecteur V </td></tr>
@@ -417,8 +440,8 @@ Example</h2>
 
 </div>
 </div>
-<a id="a432f0b3f970f79ebf1a41cc29a98a634"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a432f0b3f970f79ebf1a41cc29a98a634">&#9670;&nbsp;</a></span>readFile()</h2>
+<a id="a3df3bc491b3c4eb8cda3911f33858ecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3df3bc491b3c4eb8cda3911f33858ecd">&#9670;&nbsp;</a></span>readFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -426,17 +449,28 @@ Example</h2>
         <tr>
           <td class="memname">unsigned char* readFile </td>
           <td>(</td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>fp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const int *&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Lit un fichier. </p>
-<p>La fonction <a class="el" href="main_8c.html#a432f0b3f970f79ebf1a41cc29a98a634" title="Lit un fichier.">readFile()</a> permet de lire un fichier quelconque dont on lui donne le lien (relatif au projet) </p><dl class="section warning"><dt>Warning</dt><dd>Si la fonction ne peut pas ouvrir le fichier (par exemple un chemin non valide), elle renvoie un NULL </dd></dl>
+<p>Lit le contenu d'un fichier La fonction <a class="el" href="main_8c.html#a3df3bc491b3c4eb8cda3911f33858ecd" title="Lit le contenu d&#39;un fichier La fonction readFile() permet de lire le contenu d&#39;un fichier quelconque ...">readFile()</a> permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au projet) </p>
+<dl class="section warning"><dt>Warning</dt><dd>Si la fonction ne peut pas ouvrir le fichier (par exemple un chemin non valide), elle renvoie NULL </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">fp</td><td>- pointeur sur le fichier à lire </td></tr>
     <tr><td class="paramname">size</td><td>- pointeur vers un entier qui recevra la taille du fichier lu </td></tr>
   </table>
   </dd>
@@ -444,19 +478,99 @@ Example</h2>
 <dl class="section return"><dt>Returns</dt><dd>pointeur vers caractère correspondant au 1er octet du fichier lu </dd></dl>
 <h2><a class="anchor" id="autotoc_md0"></a>
 Example</h2>
-<div class="fragment"><div class="line"><span class="comment">//This will print the content of the file</span></div>
-<div class="line"><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *file = <a class="code" href="main_8c.html#a432f0b3f970f79ebf1a41cc29a98a634">readFile</a>(size);</div>
+<div class="fragment"><div class="line"><span class="comment">//Ceci affiche le contenu du fichier</span></div>
+<div class="line"><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *file = <a class="code" href="main_8c.html#a3df3bc491b3c4eb8cda3911f33858ecd">readFile</a>(size);</div>
 <div class="line"><span class="keywordflow">for</span> (i = 0; i &lt; size; i++) printf(<span class="stringliteral">&quot;%c&quot;</span>, file[i]);</div>
 </div><!-- fragment --> 
 </div>
 </div>
+<a id="ac3fb2d127333408bd42bb151b586e4a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3fb2d127333408bd42bb151b586e4a1">&#9670;&nbsp;</a></span>writeInFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void writeInFile </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>sourcelink</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>action</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ecrit dans un fichier La fonction <a class="el" href="main_8c.html#ac3fb2d127333408bd42bb151b586e4a1" title="Ecrit dans un fichier La fonction writeInFile() permet d&#39;écrire des donnees dans un fichier basé sur ...">writeInFile()</a> permet d'écrire des donnees dans un fichier basé sur le fichier d'entrée selon le mode choisi. </p>
+<dl class="section note"><dt>Note</dt><dd>l'extension "_encrypted" ou "decrypted" sera ajouté à la fin du nom du fichier selon le mode choisi </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>- pointeur sur les données à écrire dans le fichier </td></tr>
+    <tr><td class="paramname">size</td><td>- quantité de données à écrire </td></tr>
+    <tr><td class="paramname">sourcelink</td><td>- lien vers le fichier source (utilisé pour le nom du fichier de destination) </td></tr>
+    <tr><td class="paramname">action</td><td>- selectionne l'extension "_encrypted" ou "decrypted" (0 pour la 1ère, toute autre valeur pour la 2ème) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aedc3448855058bbebaa5b56ccdf59921"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedc3448855058bbebaa5b56ccdf59921">&#9670;&nbsp;</a></span>writeString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* writeString </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>fp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lit une chaîne de caractère dans un fichier donné La fonction <a class="el" href="main_8c.html#aedc3448855058bbebaa5b56ccdf59921" title="Lit une chaîne de caractère dans un fichier donné La fonction writeString() permet de lire une chaîne...">writeString()</a> permet de lire une chaîne de caractère quelconque terminée par un retour à la ligne dans un fichier. </p>
+<dl class="section note"><dt>Note</dt><dd>Il est possible de choisir stdin comme fichier pour une entrée manuelle </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fp</td><td>- fichier dans lequel lire la chaîne de caractère </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>addresse où est stocké la chaîne de caractère </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="amain_8c_html_a627d91d52358fcb5a6fe8d0de58deccc"><div class="ttname"><a href="main_8c.html#a627d91d52358fcb5a6fe8d0de58deccc">CharPermutation</a></div><div class="ttdeci">unsigned char CharPermutation(unsigned char car, int key)</div><div class="ttdoc">Permutation d'un octet.</div><div class="ttdef"><b>Definition:</b> main.c:47</div></div>
-<div class="ttc" id="amain_8c_html_a432f0b3f970f79ebf1a41cc29a98a634"><div class="ttname"><a href="main_8c.html#a432f0b3f970f79ebf1a41cc29a98a634">readFile</a></div><div class="ttdeci">unsigned char * readFile(int *size)</div><div class="ttdoc">Lit un fichier.</div><div class="ttdef"><b>Definition:</b> main.c:16</div></div>
-<div class="ttc" id="amain_8c_html_a02a08eb62dacd37c21836b5ca4b1b14d"><div class="ttname"><a href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d">BitsToByte</a></div><div class="ttdeci">unsigned char BitsToByte(const int *bits)</div><div class="ttdoc">Conversion d'un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...</div><div class="ttdef"><b>Definition:</b> main.c:114</div></div>
-<div class="ttc" id="amain_8c_html_a27bdc1b34c4bb40f77a175fd26c238a8"><div class="ttname"><a href="main_8c.html#a27bdc1b34c4bb40f77a175fd26c238a8">CharPermutationReverse</a></div><div class="ttdeci">unsigned char CharPermutationReverse(unsigned char car, int key)</div><div class="ttdoc">Inversion de la permutation d'un octet.</div><div class="ttdef"><b>Definition:</b> main.c:62</div></div>
-<div class="ttc" id="amain_8c_html_a7589454bffe4fedc29ce9a553d8cca22"><div class="ttname"><a href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22">ByteToBits</a></div><div class="ttdeci">int * ByteToBits(unsigned char byte)</div><div class="ttdoc">Conversion d'un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...</div><div class="ttdef"><b>Definition:</b> main.c:92</div></div>
+<div class="ttc" id="amain_8c_html_a627d91d52358fcb5a6fe8d0de58deccc"><div class="ttname"><a href="main_8c.html#a627d91d52358fcb5a6fe8d0de58deccc">CharPermutation</a></div><div class="ttdeci">unsigned char CharPermutation(unsigned char car, int key)</div><div class="ttdoc">Permutation d'un octet La fonction CharPermutation() va prendre un octet et le décaler vers la droite...</div><div class="ttdef"><b>Definition:</b> main.c:79</div></div>
+<div class="ttc" id="amain_8c_html_a02a08eb62dacd37c21836b5ca4b1b14d"><div class="ttname"><a href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d">BitsToByte</a></div><div class="ttdeci">unsigned char BitsToByte(const int *bits)</div><div class="ttdoc">Conversion d'un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...</div><div class="ttdef"><b>Definition:</b> main.c:141</div></div>
+<div class="ttc" id="amain_8c_html_a27bdc1b34c4bb40f77a175fd26c238a8"><div class="ttname"><a href="main_8c.html#a27bdc1b34c4bb40f77a175fd26c238a8">CharPermutationReverse</a></div><div class="ttdeci">unsigned char CharPermutationReverse(unsigned char car, int key)</div><div class="ttdoc">Inversion de la permutation d'un octet La fonction CharPermutationReverse() va prendre un octet et le...</div><div class="ttdef"><b>Definition:</b> main.c:92</div></div>
+<div class="ttc" id="amain_8c_html_a3df3bc491b3c4eb8cda3911f33858ecd"><div class="ttname"><a href="main_8c.html#a3df3bc491b3c4eb8cda3911f33858ecd">readFile</a></div><div class="ttdeci">unsigned char * readFile(FILE *fp, const int *size)</div><div class="ttdoc">Lit le contenu d'un fichier La fonction readFile() permet de lire le contenu d'un fichier quelconque ...</div><div class="ttdef"><b>Definition:</b> main.c:37</div></div>
+<div class="ttc" id="amain_8c_html_a7589454bffe4fedc29ce9a553d8cca22"><div class="ttname"><a href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22">ByteToBits</a></div><div class="ttdeci">int * ByteToBits(unsigned char byte)</div><div class="ttdoc">Conversion d'un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...</div><div class="ttdef"><b>Definition:</b> main.c:119</div></div>
 <!-- start footer part -->
 <div class="navpath" id="nav-path"><!-- id is needed for treeview function! -->
   <ul>
