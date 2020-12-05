@@ -209,11 +209,30 @@ unsigned char ApplyXOROnByte(unsigned char byte, int key){
 }
 
 //utiliser "doxygen Doxyfile" pour mettre à jour la documentation
-int main() {
-    //printf("Entrer la cle de chiffrement :\n");
-    //char *encryptionKey = writeString(stdin);
-    //printf("Entrer le lien du fichier a convertir (lien relatif, ex \"../test.txt\")\n");
-    //char *link = writeString(stdin);
+int main() { //TODO Mettre en place les N répétitions et varier clé d'itération selon l'itération
+    /*
+    printf("==========================================================================================================\n\n");
+    printf("#######  #######  #     #  #######  #######  #######  #######  #######  #######  #######  #     #  #######\n");
+    printf("#        #     #  #     #  #     #     #     #     #  #        #     #  #     #  #        #     #  #\n");
+    printf("#        #######   #   #   #######     #     #     #  #        #######  #######  #        #######  #\n");
+    printf("#        #    #      #     #           #     #     #  #   ###  #    #   #     #  #   ###  #     #  #####\n");
+    printf("#        #     #     #     #           #     #     #  #     #  #     #  #     #  #     #  #     #  #\n");
+    printf("#######  #     #     #     #           #     #######  #######  #     #  #     #  #######  #     #  #######\n");
+    printf("\n==========================================================================================================\n");
+    printf("Bonjour ! Cette application vous permet d'encrypter/decrypter tous types de fichier.\nQue voulez-vous faire ? (0 pour encryptage, 1 pour decryptage)\n");
+    int action, N;
+    scanf("%d", &action);
+    if (action == 0) printf("Encryptage selectionne, ");
+    else printf("Decryptage selectionne, ");
+    printf("veuillez entrer le lien du fichier relatif au programme (ex: ../toto.txt)\n");
+    char *link = writeString(stdin);
+    printf("Entrer la cle de chiffrement\n");
+    char *encryptionKey = writeString(stdin);
+    printf("Enfin, entrez le nombre d'iterations a effectuer (nombre plus grand, plus de securite mais processus plus long)\n");
+    scanf("%d", &N);
+    for (int i = 1; i <= N; i++);
+    printf("Termine ! Retrouvez le resultat au meme emplacement que le fichier de depart.");
+     */
 
     FILE *sourceFile;
     if ((sourceFile = fopen(link, "rb")) == NULL) {fprintf(stderr, "Erreur: Impossible d'ouvrir le fichier %s\n", link); return EXIT_FAILURE;}
@@ -221,14 +240,12 @@ int main() {
     int size = ftell(sourceFile); rewind(sourceFile);// Stockage de la taille
     unsigned char *fileData = readFile(sourceFile, &size); fclose(sourceFile);
 
-    int action, i = 0; unsigned char iterationKey1 = 0, iterationKey2 = 0;
+    int i = 0; unsigned char iterationKey1 = 0, iterationKey2 = 0;
     //Création d'une valeur utilisée pour la permutation des charactères dépendante d'encryptionKey
     while (encryptionKey[i] != '\0'){iterationKey1 += encryptionKey[i]; i++;}
     i = 0;
     while (encryptionKey[i] != '\0'){iterationKey2 *= encryptionKey[i]; i++;}
 
-    //printf("Voulez-vous encoder ou decoder un fichier ? (0 pour encodage, 1 pour decodage) : ");
-    //scanf("%d", &action);
     //if (action == 0){ //Encodage if else désactivé pour les tests
         for (int j = 0; j < size; j++) {
             fileData[j] = CharPermutation(fileData[j], iterationKey1);
@@ -251,5 +268,6 @@ int main() {
         printf("\n==================================================");
     //}
     //writeInFile(fileData, size, link, action); fonction pour écrire les résultats dans un fichier, désactivé pour les test
+    //printf("Termine ! Retrouvez le resultat au meme emplacement que le fichier de depart.");
     return 0; //TODO utiliser free() pour libérer les allocations dynamiques
 }
