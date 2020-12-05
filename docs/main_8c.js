@@ -2,6 +2,7 @@ var main_8c =
 [
     [ "encryptionKey", "main_8c.html#a602275544f2ff39f24acd799a4e369cb", null ],
     [ "link", "main_8c.html#a085ab65b81cf5f58cf9ea5f4b4e4d2c0", null ],
+    [ "ApplyXOROnByte", "main_8c.html#adf6c4025c9af9e12b602e566cc5dd1e0", null ],
     [ "BitsToByte", "main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d", null ],
     [ "ByteToBits", "main_8c.html#a7589454bffe4fedc29ce9a553d8cca22", null ],
     [ "CharApplyMatrix", "main_8c.html#ab764ac9c469397f7be764d97f8066322", null ],

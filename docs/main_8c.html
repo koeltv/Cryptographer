@@ -133,7 +133,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a618dcefa3a7be9d1757032ab215a46eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplication matrice par vecteur La fonction <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur La fonction multiplyMatrices() effectue une multiplication entre u...">multiplyMatrices()</a> effectue une multiplication entre une matrice et un vecteur dans cet ordre.  <a href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb">More...</a><br /></td></tr>
 <tr class="separator:a618dcefa3a7be9d1757032ab215a46eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7589454bffe4fedc29ce9a553d8cca22"><td align="right" class="memItemLeft" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22">ByteToBits</a> (unsigned char byte)</td></tr>
-<tr class="memdesc:a7589454bffe4fedc29ce9a553d8cca22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'un octet/caractère vers un tableau de bits La fonction <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits()</a> prend un octet/caractère et donne en sorti un tableau de bits correspondant à sa valeur en binaire.  <a href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22">More...</a><br /></td></tr>
+<tr class="memdesc:a7589454bffe4fedc29ce9a553d8cca22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'un octet/caractère vers un tableau de bits La fonction <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits()</a> prend un octet/caractère et donne en sortie un tableau de bits correspondant à sa valeur en binaire.  <a href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22">More...</a><br /></td></tr>
 <tr class="separator:a7589454bffe4fedc29ce9a553d8cca22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02a08eb62dacd37c21836b5ca4b1b14d"><td align="right" class="memItemLeft" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d">BitsToByte</a> (const int *bits)</td></tr>
 <tr class="memdesc:a02a08eb62dacd37c21836b5ca4b1b14d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion d'un tableau de bits vers un octet/caractère La fonction <a class="el" href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d" title="Conversion d&#39;un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...">BitsToByte()</a> prend un tableau de bits et donne en sorti un octet/caractère correspondant à sa valeur base 10.  <a href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d">More...</a><br /></td></tr>
@@ -144,6 +144,9 @@ Functions</h2></td></tr>
 <tr class="memitem:add8deb01e2cd37e9cf2d4c683ede5e5d"><td align="right" class="memItemLeft" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#add8deb01e2cd37e9cf2d4c683ede5e5d">CharApplyMatrixReverse</a> (unsigned char byte)</td></tr>
 <tr class="memdesc:add8deb01e2cd37e9cf2d4c683ede5e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction Matriciel Inverse La fonction <a class="el" href="main_8c.html#add8deb01e2cd37e9cf2d4c683ede5e5d" title="Fonction Matriciel Inverse La fonction CharApplyMatrixReverse() prend un octet/caractère et va le mul...">CharApplyMatrixReverse()</a> prend un octet/caractère et va le multiplier par une matrice H' puis effectuer une addition avec C' pour décoder cet octet/caractère après passage dans <a class="el" href="main_8c.html#ab764ac9c469397f7be764d97f8066322" title="Fonction Matriciel La fonction CharApplyMatrix() prend un octet/caractère et va le multiplier par une...">CharApplyMatrix()</a>  <a href="main_8c.html#add8deb01e2cd37e9cf2d4c683ede5e5d">More...</a><br /></td></tr>
 <tr class="separator:add8deb01e2cd37e9cf2d4c683ede5e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf6c4025c9af9e12b602e566cc5dd1e0"><td align="right" class="memItemLeft" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#adf6c4025c9af9e12b602e566cc5dd1e0">ApplyXOROnByte</a> (unsigned char byte, int key)</td></tr>
+<tr class="memdesc:adf6c4025c9af9e12b602e566cc5dd1e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction XOR logique La fonction <a class="el" href="main_8c.html#adf6c4025c9af9e12b602e566cc5dd1e0" title="Fonction XOR logique La fonction ApplyXOROnByte() prend un octet/caractère et va appliquer l&#39;opératio...">ApplyXOROnByte()</a> prend un octet/caractère et va appliquer l'opération logique XOR individuellement entre chaque bit de l'octet et la clé d'itération n°2.  <a href="main_8c.html#adf6c4025c9af9e12b602e566cc5dd1e0">More...</a><br /></td></tr>
+<tr class="separator:adf6c4025c9af9e12b602e566cc5dd1e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td align="right" class="memItemLeft" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -177,6 +180,45 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="adf6c4025c9af9e12b602e566cc5dd1e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf6c4025c9af9e12b602e566cc5dd1e0">&#9670;&nbsp;</a></span>ApplyXOROnByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char ApplyXOROnByte </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>byte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction XOR logique La fonction <a class="el" href="main_8c.html#adf6c4025c9af9e12b602e566cc5dd1e0" title="Fonction XOR logique La fonction ApplyXOROnByte() prend un octet/caractère et va appliquer l&#39;opératio...">ApplyXOROnByte()</a> prend un octet/caractère et va appliquer l'opération logique XOR individuellement entre chaque bit de l'octet et la clé d'itération n°2. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">byte</td><td>- caractère/octet à encoder </td></tr>
+    <tr><td class="paramname">key</td><td>- clé d'itération n°2 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>caractère/octet résultat de l'opération XOR </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d" title="Conversion d&#39;un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...">BitsToByte()</a> <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits()</a> </dd></dl>
+
+</div>
+</div>
 <a id="a02a08eb62dacd37c21836b5ca4b1b14d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a02a08eb62dacd37c21836b5ca4b1b14d">&#9670;&nbsp;</a></span>BitsToByte()</h2>
 
@@ -224,7 +266,7 @@ Example</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Conversion d'un octet/caractère vers un tableau de bits La fonction <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits()</a> prend un octet/caractère et donne en sorti un tableau de bits correspondant à sa valeur en binaire. </p>
+<p>Conversion d'un octet/caractère vers un tableau de bits La fonction <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits()</a> prend un octet/caractère et donne en sortie un tableau de bits correspondant à sa valeur en binaire. </p>
 <dl class="section note"><dt>Note</dt><dd>Le bit de poids le plus faible se trouve en position 0 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -265,7 +307,7 @@ Example</h2>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>caractère/octet encodé </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d" title="Conversion d&#39;un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...">BitsToByte()</a> <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits</a> <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur La fonction multiplyMatrices() effectue une multiplication entre u...">multiplyMatrices()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d" title="Conversion d&#39;un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...">BitsToByte()</a> <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits()</a> <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur La fonction multiplyMatrices() effectue une multiplication entre u...">multiplyMatrices()</a> </dd></dl>
 
 </div>
 </div>
@@ -289,12 +331,12 @@ Example</h2>
 <dl class="section note"><dt>Note</dt><dd>La matrice H' et le vecteur C' sont connu auparavant </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">byte</td><td>- caractère/octet à encoder </td></tr>
+    <tr><td class="paramname">byte</td><td>- caractère/octet à décoder </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>caractère/octet décodé </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d" title="Conversion d&#39;un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...">BitsToByte()</a> <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits</a> <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur La fonction multiplyMatrices() effectue une multiplication entre u...">multiplyMatrices()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d" title="Conversion d&#39;un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...">BitsToByte()</a> <a class="el" href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22" title="Conversion d&#39;un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...">ByteToBits()</a> <a class="el" href="main_8c.html#a618dcefa3a7be9d1757032ab215a46eb" title="Multiplication matrice par vecteur La fonction multiplyMatrices() effectue une multiplication entre u...">multiplyMatrices()</a> </dd></dl>
 
 </div>
 </div>
@@ -467,7 +509,6 @@ Example</h2>
 </div><div class="memdoc">
 
 <p>Lit le contenu d'un fichier La fonction <a class="el" href="main_8c.html#a3df3bc491b3c4eb8cda3911f33858ecd" title="Lit le contenu d&#39;un fichier La fonction readFile() permet de lire le contenu d&#39;un fichier quelconque ...">readFile()</a> permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au projet) </p>
-<dl class="section warning"><dt>Warning</dt><dd>Si la fonction ne peut pas ouvrir le fichier (par exemple un chemin non valide), elle renvoie NULL </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fp</td><td>- pointeur sur le fichier à lire </td></tr>
@@ -524,6 +565,7 @@ Example</h2>
 
 <p>Ecrit dans un fichier La fonction <a class="el" href="main_8c.html#ac3fb2d127333408bd42bb151b586e4a1" title="Ecrit dans un fichier La fonction writeInFile() permet d&#39;écrire des donnees dans un fichier basé sur ...">writeInFile()</a> permet d'écrire des donnees dans un fichier basé sur le fichier d'entrée selon le mode choisi. </p>
 <dl class="section note"><dt>Note</dt><dd>l'extension "_encrypted" ou "decrypted" sera ajouté à la fin du nom du fichier selon le mode choisi </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Si un fichier du même nom existe déjà, il sera écrasé et remplacé par celui généré par la fonction </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>- pointeur sur les données à écrire dans le fichier </td></tr>
@@ -567,9 +609,9 @@ Example</h2>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="amain_8c_html_a627d91d52358fcb5a6fe8d0de58deccc"><div class="ttname"><a href="main_8c.html#a627d91d52358fcb5a6fe8d0de58deccc">CharPermutation</a></div><div class="ttdeci">unsigned char CharPermutation(unsigned char car, int key)</div><div class="ttdoc">Permutation d'un octet La fonction CharPermutation() va prendre un octet et le décaler vers la droite...</div><div class="ttdef"><b>Definition:</b> main.c:79</div></div>
-<div class="ttc" id="amain_8c_html_a02a08eb62dacd37c21836b5ca4b1b14d"><div class="ttname"><a href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d">BitsToByte</a></div><div class="ttdeci">unsigned char BitsToByte(const int *bits)</div><div class="ttdoc">Conversion d'un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...</div><div class="ttdef"><b>Definition:</b> main.c:141</div></div>
+<div class="ttc" id="amain_8c_html_a02a08eb62dacd37c21836b5ca4b1b14d"><div class="ttname"><a href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d">BitsToByte</a></div><div class="ttdeci">unsigned char BitsToByte(const int *bits)</div><div class="ttdoc">Conversion d'un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...</div><div class="ttdef"><b>Definition:</b> main.c:140</div></div>
 <div class="ttc" id="amain_8c_html_a27bdc1b34c4bb40f77a175fd26c238a8"><div class="ttname"><a href="main_8c.html#a27bdc1b34c4bb40f77a175fd26c238a8">CharPermutationReverse</a></div><div class="ttdeci">unsigned char CharPermutationReverse(unsigned char car, int key)</div><div class="ttdoc">Inversion de la permutation d'un octet La fonction CharPermutationReverse() va prendre un octet et le...</div><div class="ttdef"><b>Definition:</b> main.c:92</div></div>
-<div class="ttc" id="amain_8c_html_a3df3bc491b3c4eb8cda3911f33858ecd"><div class="ttname"><a href="main_8c.html#a3df3bc491b3c4eb8cda3911f33858ecd">readFile</a></div><div class="ttdeci">unsigned char * readFile(FILE *fp, const int *size)</div><div class="ttdoc">Lit le contenu d'un fichier La fonction readFile() permet de lire le contenu d'un fichier quelconque ...</div><div class="ttdef"><b>Definition:</b> main.c:37</div></div>
+<div class="ttc" id="amain_8c_html_a3df3bc491b3c4eb8cda3911f33858ecd"><div class="ttname"><a href="main_8c.html#a3df3bc491b3c4eb8cda3911f33858ecd">readFile</a></div><div class="ttdeci">unsigned char * readFile(FILE *fp, const int *size)</div><div class="ttdoc">Lit le contenu d'un fichier La fonction readFile() permet de lire le contenu d'un fichier quelconque ...</div><div class="ttdef"><b>Definition:</b> main.c:36</div></div>
 <div class="ttc" id="amain_8c_html_a7589454bffe4fedc29ce9a553d8cca22"><div class="ttname"><a href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22">ByteToBits</a></div><div class="ttdeci">int * ByteToBits(unsigned char byte)</div><div class="ttdoc">Conversion d'un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...</div><div class="ttdef"><b>Definition:</b> main.c:119</div></div>
 <!-- start footer part -->
 <div class="navpath" id="nav-path"><!-- id is needed for treeview function! -->

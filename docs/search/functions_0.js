@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['bitstobyte_22',['BitsToByte',['../main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d',1,'main.c']]],
-  ['bytetobits_23',['ByteToBits',['../main_8c.html#a7589454bffe4fedc29ce9a553d8cca22',1,'main.c']]]
+  ['applyxoronbyte_23',['ApplyXOROnByte',['../main_8c.html#adf6c4025c9af9e12b602e566cc5dd1e0',1,'main.c']]]
 ];

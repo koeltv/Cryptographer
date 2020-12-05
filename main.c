@@ -24,7 +24,6 @@ char *writeString(FILE *fp){
 
 ///Lit le contenu d'un fichier
 ///La fonction readFile() permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au projet)
-///@warning Si la fonction ne peut pas ouvrir le fichier (par exemple un chemin non valide), elle renvoie NULL
 ///@param fp - pointeur sur le fichier à lire
 ///@param size - pointeur vers un entier qui recevra la taille du fichier lu
 ///@return pointeur vers caractère correspondant au 1er octet du fichier lu
@@ -44,6 +43,7 @@ unsigned char *readFile(FILE *fp, const int *size){
 ///Ecrit dans un fichier
 ///La fonction writeInFile() permet d'écrire des donnees dans un fichier basé sur le fichier d'entrée selon le mode choisi
 ///@note l'extension "_encrypted" ou "decrypted" sera ajouté à la fin du nom du fichier selon le mode choisi
+///@warning Si un fichier du même nom existe déjà, il sera écrasé et remplacé par celui généré par la fonction
 ///@param data - pointeur sur les données à écrire dans le fichier
 ///@param size - quantité de données à écrire
 ///@param sourcelink - lien vers le fichier source (utilisé pour le nom du fichier de destination)
@@ -107,7 +107,7 @@ int *multiplyMatrices(const int *v, int H[][8]){
 }
 
 ///Conversion d'un octet/caractère vers un tableau de bits
-///La fonction ByteToBits() prend un octet/caractère et donne en sorti un tableau de bits correspondant à sa valeur en binaire
+///La fonction ByteToBits() prend un octet/caractère et donne en sortie un tableau de bits correspondant à sa valeur en binaire
 ///@note Le bit de poids le plus faible se trouve en position 0
 ///@param byte - caractère/octet à convertir
 ///@return tableau de bits correspondant à la valeur en binaire de l'octet
@@ -117,14 +117,13 @@ int *multiplyMatrices(const int *v, int H[][8]){
 /// for (int i=7; i>=0; i--) printf("%d", byte[i]); //On aura 01100011
 ///~~~~~~~~~~~~~~
 int *ByteToBits(unsigned char byte){
-    static int bits[8];
+    int *bits = (int *) malloc(8 * sizeof(int));
     int i=0;
     while (byte > 1){
         bits[i] = byte % 2;
         byte /= 2;
         i++;
-    }
-    bits[i] = byte;
+    } bits[i] = byte;
     for (int j = i+1; j < 8; j++) bits[j] = 0;
     return bits;
 }
@@ -151,7 +150,7 @@ unsigned char BitsToByte(const int *bits){
 ///@note La matrice H et le vecteur C sont connu auparavant
 ///@param byte - caractère/octet à encoder
 ///@return caractère/octet encodé
-///@see BitsToByte() ByteToBits multiplyMatrices()
+///@see BitsToByte() ByteToBits() multiplyMatrices()
 unsigned char CharApplyMatrix(unsigned char byte){
     int *bits = ByteToBits(byte), H[][8] = {
             1, 0, 0, 0, 1, 1, 1, 1,
@@ -164,6 +163,7 @@ unsigned char CharApplyMatrix(unsigned char byte){
             0, 0, 0, 1, 1, 1, 1, 1
     };
     int *Xi = multiplyMatrices(bits, H); //Ce qui correspond à H x vi
+    free(bits);
     int c[] = {1, 1, 0, 0, 0, 1, 1, 0};
     for (int j = 0; j < 8; j++) Xi[j] = (Xi[j] + c[j]) % 2; //Ce qui correspond à Xi = H x vi + c
     return BitsToByte(Xi);
@@ -172,9 +172,9 @@ unsigned char CharApplyMatrix(unsigned char byte){
 ///Fonction Matriciel Inverse
 ///La fonction CharApplyMatrixReverse() prend un octet/caractère et va le multiplier par une matrice H' puis effectuer une addition avec C' pour décoder cet octet/caractère après passage dans CharApplyMatrix()
 ///@note La matrice H' et le vecteur C' sont connu auparavant
-///@param byte - caractère/octet à encoder
+///@param byte - caractère/octet à décoder
 ///@return caractère/octet décodé
-///@see BitsToByte() ByteToBits multiplyMatrices()
+///@see BitsToByte() ByteToBits() multiplyMatrices()
 unsigned char CharApplyMatrixReverse(unsigned char byte){
     int *bits = ByteToBits(byte), HPrime[][8] = {
             0, 0, 1, 0, 0, 1, 0, 1,
@@ -187,11 +187,28 @@ unsigned char CharApplyMatrixReverse(unsigned char byte){
             0, 1, 0, 0, 1, 0, 1, 0
     };
     int *vi = multiplyMatrices(bits, HPrime); //Ce qui correspond à H' x Xi
+    free(bits);
     int cPrime[] = {1, 0, 1, 0, 0, 0, 0, 0};
     for (int j = 0; j < 8; j++) vi[j] = (vi[j] + cPrime[j]) % 2; //Ce qui correspond à vi = H' x Xi + c'
     return BitsToByte(vi);
 }
 
+///Fonction XOR logique
+///La fonction ApplyXOROnByte() prend un octet/caractère et va appliquer l'opération logique XOR individuellement entre chaque bit de l'octet et la clé d'itération n°2
+///@param byte - caractère/octet à encoder
+///@param key - clé d'itération n°2
+///@return caractère/octet résultat de l'opération XOR
+///@see BitsToByte() ByteToBits()
+unsigned char ApplyXOROnByte(unsigned char byte, int key){
+    int *bits = ByteToBits(byte), *keyBits = ByteToBits((unsigned char)key);
+    for (int i = 0; i < 8; i++) bits[i] = (bits[i] + keyBits[i]) % 2;
+    free(keyBits);
+    int toSendBack = BitsToByte(bits);
+    free(bits);
+    return toSendBack;
+}
+
+//utiliser "doxygen Doxyfile" pour mettre à jour la documentation
 int main() {
     //printf("Entrer la cle de chiffrement :\n");
     //char *encryptionKey = writeString(stdin);
@@ -204,22 +221,30 @@ int main() {
     int size = ftell(sourceFile); rewind(sourceFile);// Stockage de la taille
     unsigned char *fileData = readFile(sourceFile, &size); fclose(sourceFile);
 
-    int action, i = 0; unsigned char iterationKey1 = 0;
+    int action, i = 0; unsigned char iterationKey1 = 0, iterationKey2 = 0;
     //Création d'une valeur utilisée pour la permutation des charactères dépendante d'encryptionKey
     while (encryptionKey[i] != '\0'){iterationKey1 += encryptionKey[i]; i++;}
+    i = 0;
+    while (encryptionKey[i] != '\0'){iterationKey2 *= encryptionKey[i]; i++;}
 
     //printf("Voulez-vous encoder ou decoder un fichier ? (0 pour encodage, 1 pour decodage) : ");
     //scanf("%d", &action);
-    //if (action == 0){ //Encodage if() else desactive pour les tests
-        for (int j = 0; j < size; j++) fileData[j] = CharPermutation(fileData[j], iterationKey1);
-        for (int j = 0; j < size; j++) fileData[j] = CharApplyMatrix(fileData[j]);
+    //if (action == 0){ //Encodage if else désactivé pour les tests
+        for (int j = 0; j < size; j++) {
+            fileData[j] = CharPermutation(fileData[j], iterationKey1);
+            fileData[j] = CharApplyMatrix(fileData[j]);
+            fileData[j] = ApplyXOROnByte(fileData[j], iterationKey2);
+        }
         printf("Encodage termine !");
         printf("\n======================Encode======================\n");
         for (int j = 0; j < size; j++) printf("%c", fileData[j]);
         printf("\n==================================================\n");
-    //} else { //Decodage
-        for (int j = 0; j < size; j++) fileData[j] = CharApplyMatrixReverse(fileData[j]);
-        for (int j = 0; j < size; j++) fileData[j] = CharPermutationReverse(fileData[j], iterationKey1);
+    //} else{ //Decodage
+        for (int j = 0; j < size; j++){
+            fileData[j] = ApplyXOROnByte(fileData[j], iterationKey2);
+            fileData[j] = CharApplyMatrixReverse(fileData[j]);
+            fileData[j] = CharPermutationReverse(fileData[j], iterationKey1);
+        }
         printf("Decodage termine !");
         printf("\n======================Decode======================\n");
         for (int j = 0; j < size; j++) printf("%c", fileData[j]);
