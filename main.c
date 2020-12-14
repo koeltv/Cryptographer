@@ -79,7 +79,7 @@ void writeInFile(unsigned char *data, const int *size, const char *sourceLink, c
     //Ecriture des données
     FILE *destinationFile = fopen(destlink, "wb");
     for (int i = 0; i < *size; i++) fprintf(destinationFile, "%c", data[i]);
-    fclose(destinationFile);
+    fclose(destinationFile); free(destlink);
 }
 
 /**
@@ -197,6 +197,7 @@ void CharApplyMatrix(unsigned char *byte){
     int c[] = {1, 1, 0, 0, 0, 1, 1, 0};
     for (int j = 0; j < 8; j++) bits[j] = (bits[j] + c[j]) % 2; //Ce qui correspond à Xi = H x vi + c
     *byte = BitsToByte(bits);
+    free(bits);
 }
 
 /**
@@ -221,6 +222,7 @@ void CharApplyMatrixReverse(unsigned char *byte){
     int cPrime[] = {1, 0, 1, 0, 0, 0, 0, 0};
     for (int j = 0; j < 8; j++) bits[j] = (bits[j] + cPrime[j]) % 2; //Ce qui correspond à vi = H' x Xi + c'
     *byte = BitsToByte(bits);
+    free(bits);
 }
 
 /**
@@ -344,8 +346,9 @@ int main() { //TODO Mettre en place les N répétitions et varier clé d'itérat
         printf("\n======================Decode======================\n");
         for (int j = 0; j < size; j++) printf("%c", fileData[j]);
         printf("\n==================================================");
+        free(fileData);
     /*}
     writeInFile(fileData, size, link, action); fonction pour écrire les résultats dans un fichier, désactivé pour les test
     printf("Termine ! Retrouvez le resultat au meme emplacement que le fichier de depart.");*/
-    return 0; //TODO utiliser free() pour libérer les allocations dynamiques
+    return 0;
 }
