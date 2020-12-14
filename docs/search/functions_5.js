@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['writeinfile_33',['writeInFile',['../main_8c.html#ac3fb2d127333408bd42bb151b586e4a1',1,'main.c']]],
-  ['writestring_34',['writeString',['../main_8c.html#aedc3448855058bbebaa5b56ccdf59921',1,'main.c']]]
+  ['writeinfile_37',['writeInFile',['../main_8c.html#a82443875982dfd4d9b15204b99a7572d',1,'main.c']]],
+  ['writestring_38',['writeString',['../main_8c.html#abcf2ff60db99f9cc108e4a0b0c51beb0',1,'main.c']]]
 ];
