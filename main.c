@@ -196,7 +196,7 @@ unsigned char CharApplyMatrixReverse(unsigned char byte){
 ///Fonction XOR logique
 ///La fonction ApplyXOROnByte() prend un octet/caractère et va appliquer l'opération logique XOR individuellement entre chaque bit de l'octet et la clé d'itération n°2
 ///@param byte - caractère/octet à encoder
-///@param key - clé d'itération n°2
+///@param key - 2ème valeur (sous forme d'entier) pour faire le XOR
 ///@return caractère/octet résultat de l'opération XOR
 ///@see BitsToByte() ByteToBits()
 unsigned char ApplyXOROnByte(unsigned char byte, int key){
@@ -206,6 +206,40 @@ unsigned char ApplyXOROnByte(unsigned char byte, int key){
     int toSendBack = BitsToByte(bits);
     free(bits);
     return toSendBack;
+}
+
+///Fonction de Concaténation
+///La fonction concatenate() prend 4 octets/caractères et va les concaténer en respectant un ordre d'opération précis (voir ci-dessous)
+///@note opération effectuées :
+///Z[0] = Y[0] + Y[1]
+///Z[1] = Y[0] + Y[1] + Y[2]
+///Z[2] = Y[1] + Y[2] + Y[3]
+///Z[3] = Y[2] + Y[3]
+///Y étant l'entrée et Z la sortie
+///@param bytes - caractère/octet à encoder
+void concatenate(unsigned char (*bytes)[4]){
+    unsigned char temp0 = (*bytes)[0], temp1 = (*bytes)[1], temp2 = (*bytes)[2], temp3 = (*bytes)[3];
+    (*bytes)[0] = (temp0 + temp1) % 256;
+    (*bytes)[1] = (temp0 + temp1 + temp2) % 256;
+    (*bytes)[2] = (temp1 + temp2 + temp3) % 256;
+    (*bytes)[3] = (temp2 + temp3) % 256;
+}
+
+///Fonction de Concaténation
+///La fonction concatenateReverse() prend 4 octets/caractères et va inverser la concaténation de concatenate() en respectant un ordre d'opération précis (voir ci-dessous)
+///@note opération effectuées :
+///Y[0] = Z[0] - Z[2] + Z[3]
+///Y[1] = Z[2] - Z[3]
+///Y[2] = Z[1] - Z[0]
+///Y[3] = Z[0] - Z[1] + Z[3]
+///Z étant l'entrée et Y la sortie
+///@param bytes - caractère/octet à décoder
+void concatenateReverse(unsigned char (*bytes)[4]){
+    unsigned char temp0 = (*bytes)[0], temp1 = (*bytes)[1], temp2 = (*bytes)[2], temp3 = (*bytes)[3];
+    (*bytes)[0] = (temp0 - temp2 + temp3) % 256;
+    (*bytes)[1] = (temp2 - temp3) % 256;
+    (*bytes)[2] = (temp1 - temp0) % 256;
+    (*bytes)[3] = (temp0 - temp1 + temp3) % 256;
 }
 
 //utiliser "doxygen Doxyfile" pour mettre à jour la documentation
@@ -252,12 +286,22 @@ int main() { //TODO Mettre en place les N répétitions et varier clé d'itérat
             fileData[j] = CharApplyMatrix(fileData[j]);
             fileData[j] = ApplyXOROnByte(fileData[j], iterationKey2);
         }
+        for (int j = 0; j < size - 3; j+=4) {
+            unsigned char bytes[4] = {fileData[j], fileData[j+1], fileData[j+2], fileData[j+3]};
+            concatenate(&bytes);
+            fileData[j] = bytes[0]; fileData[j+1] = bytes[1]; fileData[j+2] = bytes[2]; fileData[j+3] = bytes[3];
+        }
         printf("Encodage termine !");
         printf("\n======================Encode======================\n");
         for (int j = 0; j < size; j++) printf("%c", fileData[j]);
         printf("\n==================================================\n");
     //} else{ //Decodage
         for (int j = 0; j < size; j++){
+            if (j % 4 == 0){
+                unsigned char bytes[4] = {fileData[j], fileData[j+1], fileData[j+2], fileData[j+3]};
+                concatenateReverse(&bytes);
+                fileData[j] = bytes[0]; fileData[j+1] = bytes[1]; fileData[j+2] = bytes[2]; fileData[j+3] = bytes[3];
+            }
             fileData[j] = ApplyXOROnByte(fileData[j], iterationKey2);
             fileData[j] = CharApplyMatrixReverse(fileData[j]);
             fileData[j] = CharPermutationReverse(fileData[j], iterationKey1);
