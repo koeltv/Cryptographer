@@ -76,7 +76,9 @@ void writeInFile(unsigned char *data, int size, const char *sourcelink, int acti
 /// unsigned char octet = 'a';
 /// printf("%c", CharPermutation(car, 2)); //Le résultat sera 'c'
 ///~~~~~~~~~~~~~~
-unsigned char CharPermutation(unsigned char car, int key){return car + key % 256;}
+void CharPermutation(unsigned char *car, int key){
+    *car += key % 256;
+}
 
 ///Inversion de la permutation d'un octet
 ///La fonction CharPermutationReverse() va prendre un octet et le décaler vers la gauche dans la table ASCII
@@ -89,7 +91,9 @@ unsigned char CharPermutation(unsigned char car, int key){return car + key % 256
 /// unsigned char octet = 'c';
 /// printf("%c", CharPermutationReverse(car, 2)); //Le résultat sera 'a'
 ///~~~~~~~~~~~~~~
-unsigned char CharPermutationReverse(unsigned char car, int key){return car - key % 256;}
+void CharPermutationReverse(unsigned char *car, int key){
+    *car -= key % 256;
+}
 
 ///Multiplication matrice par vecteur
 ///La fonction multiplyMatrices() effectue une multiplication entre une matrice et un vecteur dans cet ordre
@@ -97,13 +101,14 @@ unsigned char CharPermutationReverse(unsigned char car, int key){return car - ke
 ///@param v - vecteur V
 ///@param H - matrice M
 ///@return résultat de M x V
-int *multiplyMatrices(const int *v, int H[][8]){
-    static int vRes[8];
+void multiplyMatrices(int **v, int H[][8]){
+    int vRes[8];
     for (int rowFinal = 0, temp = 0; rowFinal < 8; rowFinal++) {
-        for (int k = 0; k < 8; k++) temp += H[rowFinal][k] * v[k];
+        for (int k = 0; k < 8; k++) temp += H[rowFinal][k] * (*v)[k];
         vRes[rowFinal] = temp % 2; //On fait %2 pour rester en binaire
         temp = 0;
-    } return vRes;
+    }
+    for (int i = 0; i < 8; i++) (*v)[i] = vRes[i];
 }
 
 ///Conversion d'un octet/caractère vers un tableau de bits
@@ -151,8 +156,8 @@ unsigned char BitsToByte(const int *bits){
 ///@param byte - caractère/octet à encoder
 ///@return caractère/octet encodé
 ///@see BitsToByte() ByteToBits() multiplyMatrices()
-unsigned char CharApplyMatrix(unsigned char byte){
-    int *bits = ByteToBits(byte), H[][8] = {
+void CharApplyMatrix(unsigned char *byte){
+    int *bits = ByteToBits(*byte), H[][8] = {
             1, 0, 0, 0, 1, 1, 1, 1,
             1, 1, 0, 0, 0, 1, 1, 1,
             1, 1, 1, 0, 0, 0, 1, 1,
@@ -162,11 +167,10 @@ unsigned char CharApplyMatrix(unsigned char byte){
             0, 0, 1, 1, 1, 1, 1, 0,
             0, 0, 0, 1, 1, 1, 1, 1
     };
-    int *Xi = multiplyMatrices(bits, H); //Ce qui correspond à H x vi
-    free(bits);
+    multiplyMatrices(&bits, H); //Ce qui correspond à H x vi
     int c[] = {1, 1, 0, 0, 0, 1, 1, 0};
-    for (int j = 0; j < 8; j++) Xi[j] = (Xi[j] + c[j]) % 2; //Ce qui correspond à Xi = H x vi + c
-    return BitsToByte(Xi);
+    for (int j = 0; j < 8; j++) bits[j] = (bits[j] + c[j]) % 2; //Ce qui correspond à Xi = H x vi + c
+    *byte = BitsToByte(bits);
 }
 
 ///Fonction Matriciel Inverse
@@ -175,8 +179,8 @@ unsigned char CharApplyMatrix(unsigned char byte){
 ///@param byte - caractère/octet à décoder
 ///@return caractère/octet décodé
 ///@see BitsToByte() ByteToBits() multiplyMatrices()
-unsigned char CharApplyMatrixReverse(unsigned char byte){
-    int *bits = ByteToBits(byte), HPrime[][8] = {
+void CharApplyMatrixReverse(unsigned char *byte){
+    int *bits = ByteToBits(*byte), HPrime[][8] = {
             0, 0, 1, 0, 0, 1, 0, 1,
             1, 0, 0, 1, 0, 0, 1, 0,
             0, 1, 0, 0, 1, 0, 0, 1,
@@ -186,11 +190,10 @@ unsigned char CharApplyMatrixReverse(unsigned char byte){
             1, 0, 0, 1, 0, 1, 0, 0,
             0, 1, 0, 0, 1, 0, 1, 0
     };
-    int *vi = multiplyMatrices(bits, HPrime); //Ce qui correspond à H' x Xi
-    free(bits);
+    multiplyMatrices(&bits, HPrime); //Ce qui correspond à H' x Xi
     int cPrime[] = {1, 0, 1, 0, 0, 0, 0, 0};
-    for (int j = 0; j < 8; j++) vi[j] = (vi[j] + cPrime[j]) % 2; //Ce qui correspond à vi = H' x Xi + c'
-    return BitsToByte(vi);
+    for (int j = 0; j < 8; j++) bits[j] = (bits[j] + cPrime[j]) % 2; //Ce qui correspond à vi = H' x Xi + c'
+    *byte = BitsToByte(bits);
 }
 
 ///Fonction XOR logique
@@ -199,13 +202,12 @@ unsigned char CharApplyMatrixReverse(unsigned char byte){
 ///@param key - 2ème valeur (sous forme d'entier) pour faire le XOR
 ///@return caractère/octet résultat de l'opération XOR
 ///@see BitsToByte() ByteToBits()
-unsigned char ApplyXOROnByte(unsigned char byte, int key){
-    int *bits = ByteToBits(byte), *keyBits = ByteToBits((unsigned char)key);
+void ApplyXOROnByte(unsigned char *byte, int key){
+    int *bits = ByteToBits(*byte), *keyBits = ByteToBits((unsigned char)key);
     for (int i = 0; i < 8; i++) bits[i] = (bits[i] + keyBits[i]) % 2;
     free(keyBits);
-    int toSendBack = BitsToByte(bits);
+    *byte = BitsToByte(bits);
     free(bits);
-    return toSendBack;
 }
 
 ///Fonction de Concaténation
@@ -276,20 +278,22 @@ int main() { //TODO Mettre en place les N répétitions et varier clé d'itérat
 
     int i = 0; unsigned char iterationKey1 = 0, iterationKey2 = 0;
     //Création d'une valeur utilisée pour la permutation des charactères dépendante d'encryptionKey
-    while (encryptionKey[i] != '\0'){iterationKey1 += encryptionKey[i]; i++;}
-    i = 0;
-    while (encryptionKey[i] != '\0'){iterationKey2 *= encryptionKey[i]; i++;}
+    while (encryptionKey[i] != '\0'){
+        iterationKey1 += encryptionKey[i];
+        iterationKey2 *= encryptionKey[i];
+        i++;
+    }
 
     //if (action == 0){ //Encodage if else désactivé pour les tests
         for (int j = 0; j < size; j++) {
-            fileData[j] = CharPermutation(fileData[j], iterationKey1);
-            fileData[j] = CharApplyMatrix(fileData[j]);
-            fileData[j] = ApplyXOROnByte(fileData[j], iterationKey2);
-        }
-        for (int j = 0; j < size - 3; j+=4) {
-            unsigned char bytes[4] = {fileData[j], fileData[j+1], fileData[j+2], fileData[j+3]};
-            concatenate(&bytes);
-            fileData[j] = bytes[0]; fileData[j+1] = bytes[1]; fileData[j+2] = bytes[2]; fileData[j+3] = bytes[3];
+            CharPermutation(&fileData[j], iterationKey1);
+            CharApplyMatrix(&fileData[j]);
+            ApplyXOROnByte(&fileData[j], iterationKey2);
+            if ((j+1) % 4 == 0 && j > 0){
+                unsigned char bytes[4] = {fileData[j-3], fileData[j-2], fileData[j-1], fileData[j]};
+                concatenate(&bytes);
+                fileData[j-3] = bytes[0]; fileData[j-2] = bytes[1]; fileData[j-1] = bytes[2]; fileData[j] = bytes[3];
+            }
         }
         printf("Encodage termine !");
         printf("\n======================Encode======================\n");
@@ -302,9 +306,9 @@ int main() { //TODO Mettre en place les N répétitions et varier clé d'itérat
                 concatenateReverse(&bytes);
                 fileData[j] = bytes[0]; fileData[j+1] = bytes[1]; fileData[j+2] = bytes[2]; fileData[j+3] = bytes[3];
             }
-            fileData[j] = ApplyXOROnByte(fileData[j], iterationKey2);
-            fileData[j] = CharApplyMatrixReverse(fileData[j]);
-            fileData[j] = CharPermutationReverse(fileData[j], iterationKey1);
+            ApplyXOROnByte(&fileData[j], iterationKey2);
+            CharApplyMatrixReverse(&fileData[j]);
+            CharPermutationReverse(&fileData[j], iterationKey1);
         }
         printf("Decodage termine !");
         printf("\n======================Decode======================\n");
