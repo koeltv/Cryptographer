@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#define encryptionKey "NF05 Rules" //A enlever, remplacer par demande à l'utilisateur début de main()
-#define link "../test.txt" //Pareil, juste la pour les tests
+//#define encryptionKey "NF05 Rules" //A enlever, remplacer par demande à l'utilisateur début de main()
+//#define link "../test.txt" //Pareil, juste la pour les tests
 
 /**
- * Lit une chaîne de caractère dans un fichier donné
- * La fonction writeString() permet de lire une chaîne de caractère quelconque terminée par un retour à la ligne dans un fichier
- * @note Il est possible de choisir stdin comme fichier pour une entrée manuelle
- * @param fp - fichier dans lequel lire la chaîne de caractère
+ * Lit une chaîne de caractère
+ * La fonction writeString() permet de lire une chaîne de caractère quelconque terminée par un retour à la ligne
+ * @note Cette fonction prend tout caractère visible à l'exception des retours à la ligne
+ * @attention Cette fonction ne prendra pas un espace situé en début de chaîne (ex: " exemple" donnera "exemple")
  * @return addresse où est stocké la chaîne de caractère
  */
 char *writeString(){
@@ -26,21 +25,23 @@ char *writeString(){
 
 /**
  * Lit le contenu d'un fichier
- * La fonction readFile() permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au projet)
+ * La fonction readFile() permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au programme)
+ * @warning Si le fichier n'existe pas ou que la fonction n'arrive pas à le lire, elle affiche l'erreur suivante : "Erreur: Impossible d'ouvrir le fichier <fichier>", <fichier> étant le fichier que la fonction à essayer d'ouvrir
+ * @note Dans le cas d'une erreur de lecture la fonction ne change pas size
  * @param fileLink - lien vers le fichier à lire
- * @param fileData - pointeur sur les données récuperées du fichier
- * @param size - pointeur vers un entier qui recevra la taille du fichier lu
+ * @param fileData - données récuperées du fichier
+ * @param size - entier qui recevra la taille du fichier lu
  * ### Exemple
  * ~~~~~~~~~~~~~~.c
  *  //Ceci affiche le contenu du fichier test.txt à l'emplacement du programme
- *  unsigned char *file = NULL;
- *  file = readFile("./test.txt", &file, &size);
- *  for (i = 0; i < size; i++) printf("%c", file[i]);
+ *  unsigned char *file = NULL; int size = 0;
+ *  readFile("./test.txt", &file, &size);
+ *  if (size > 0) for (i = 0; i < size; i++) printf("%c", file[i]);
  * ~~~~~~~~~~~~~~
  */
 void readFile(char *fileLink, unsigned char **fileData, int *size){
     FILE *sourceFile = NULL;
-    if ((sourceFile = fopen(fileLink, "rb")) == NULL) fprintf(stderr, "Erreur: Impossible d'ouvrir le fichier %s\n", link);
+    if ((sourceFile = fopen(fileLink, "rb")) == NULL) fprintf(stderr, "Erreur: Impossible d'ouvrir le fichier %s\n", fileLink);
     else {
         fseek(sourceFile, 0L, SEEK_END); // Recherche de la fin du fichier
         *size = ftell(sourceFile);
@@ -51,12 +52,13 @@ void readFile(char *fileLink, unsigned char **fileData, int *size){
         *fileData = temp;
     }
 }
+
 /**
  * Ecrit dans un fichier
- * La fonction writeInFile() permet d'écrire des données dans un fichier basé sur le fichier d'entrée selon le mode choisi
+ * La fonction writeInFile() permet d'écrire des données dans un fichier basé sur le fichier d'entrée et le mode choisi
  * @note l'extension "_encrypted" ou "decrypted" sera ajouté à la fin du nom du fichier selon le mode choisi
  * @warning Si un fichier du même nom existe déjà, il sera écrasé et remplacé par celui généré par la fonction
- * @param data - pointeur sur les données à écrire dans le fichier
+ * @param data - données à écrire dans le fichier
  * @param size - quantité de données à écrire
  * @param sourceLink - lien vers le fichier source (utilisé pour le nom du fichier de destination)
  * @param action - sélectionne l'extension "_encrypted" ou "decrypted" (0 pour la 1ère, toute autre valeur pour la 2ème)
@@ -68,27 +70,33 @@ void writeInFile(unsigned char *data, const int *size, const char *sourceLink, c
         if (sourceLink[linkLenght] == '.') pointPosition = linkLenght;
         linkLenght++;
     }
-    char *destlink = (char *) malloc((linkLenght + 10) * sizeof(char));
+    char *destlink = (char *) malloc((linkLenght + 11) * sizeof(char));
     //Copie du début du lien jusqu'au point
     for (int i = 0; i < pointPosition; i++) destlink[i] = sourceLink[i];
-    destlink[pointPosition] = '\0';
-    if (*action == 0) strcat(destlink, "_encrypted");
-    else strcat(destlink, "_decrypted");
+    if (*action == 0) {
+        char encrypted[] = "_encrypted";
+        for (int j = 0; j <= 10; j++) destlink[pointPosition + j] = encrypted[j];
+    }
+    else {
+        char decrypted[] = "_decrypted";
+        for (int j = 0; j <= 10; j++) destlink[pointPosition + j] = decrypted[j];
+    }
     //Ajout de l'extension du lien original
-    for (int i = pointPosition; i <= linkLenght; i++) destlink[i + 10] = sourceLink[i];
+    for (int i = pointPosition; i <= linkLenght; i++) destlink[10 + i] = sourceLink[i];
     //Ecriture des données
     FILE *destinationFile = fopen(destlink, "wb");
     for (int i = 0; i < *size; i++) fprintf(destinationFile, "%c", data[i]);
-    fclose(destinationFile); free(destlink);
+    fclose(destinationFile);
+    printf("Termine ! Retrouvez le resultat a l'emplacement suivant: %s", destlink);
+    free(destlink);
 }
 
 /**
  * Permutation d'un octet
  * La fonction CharPermutation() va prendre un octet et le décaler vers la droite dans la table ASCII
  * @note Si la valeur dépasse 255, on repart de 0
- * @param car - caractère/octet à permuter
+ * @param car - caractère/octet à permuter, mis à jour suite à la permutation
  * @param key - valeur selon laquel car sera décalé
- * @return caractère/octet permuté
  * ### Exemple
  * ~~~~~~~~~~~~~~.c
  *  unsigned char octet = 'a';
@@ -103,9 +111,8 @@ void CharPermutation(unsigned char *car, const unsigned char *key){
  * Inversion de la permutation d'un octet
  * La fonction CharPermutationReverse() va prendre un octet et le décaler vers la gauche dans la table ASCII
  * @note Si la valeur atteint 0, on repart de 255
- * @param car - caractère/octet à permuter
+ * @param car - caractère/octet à permuter, mis à jour suite à la permutation
  * @param key - valeur selon laquel car sera décalé
- * @return caractère/octet permuté
  * ### Exemple
  * ~~~~~~~~~~~~~~.c
  *  unsigned char octet = 'c';
@@ -120,8 +127,8 @@ void CharPermutationReverse(unsigned char *car, const unsigned char *key){
  * Multiplication matrice par vecteur
  * La fonction multiplyMatrices() effectue une multiplication entre une matrice et un vecteur dans cet ordre
  * @warning La matrice doit être de dimension 8x8 et le vecteur de dimension 8x1
- * @param v - vecteur V, mis à jour suite à la multiplication
- * @param H - matrice M
+ * @param v - vecteur V de taille 8x1, mis à jour suite à la multiplication
+ * @param H - matrice de taille 8x8
  */
 void multiplyMatrices(int **v, int H[][8]){
     int vRes[8];
@@ -145,14 +152,12 @@ void multiplyMatrices(int **v, int H[][8]){
  * ~~~~~~~~~~~~~~
  */
 int *ByteToBits(unsigned char byte){
-    int *bits = (int *) malloc(8 * sizeof(int));
-    int i=0;
+    int i = 0, *bits = (int *) calloc(8, sizeof(int));
     while (byte > 1){
         bits[i] = byte % 2;
         byte /= 2;
         i++;
     } bits[i] = byte;
-    for (int j = i+1; j < 8; j++) bits[j] = 0;
     return bits;
 }
 
@@ -169,10 +174,8 @@ int *ByteToBits(unsigned char byte){
  */
 unsigned char BitsToByte(const int *bits){
     unsigned char byte = 0;
-    for (int i = 0, powerOf2 = 1; i < 8; i++) {
-        byte += bits[i] * powerOf2;
-        powerOf2 *= 2;
-    } return byte;
+    for (int i = 0, powerOf2 = 1; i < 8; i++, powerOf2 *= 2) byte += bits[i] * powerOf2;
+    return byte;
 }
 
 /**
@@ -230,6 +233,12 @@ void CharApplyMatrixReverse(unsigned char *byte){
  * La fonction ApplyXOROnByte() prend un octet/caractère et va appliquer l'opération logique XOR individuellement entre chaque bit de l'octet et la clé d'itération n°2
  * @param byte - caractère/octet à encoder, mis à jour suite à la fonction
  * @param key - 2ème valeur (sous forme d'entier) pour faire le XOR
+ * ### Exemple
+ * ~~~~~~~~~~~~~~.c
+ *  unsigned char example = 'c'; //Valeur ASCII de 'c': 99
+ *  ApplyXOROnByte(&example, ' '); //Valeur ASCII de ' ': 32
+ *  printf("%c", example); //On aura 'C' (écart de 32 entre majuscule et minuscule)
+ * ~~~~~~~~~~~~~~
  * @see BitsToByte() ByteToBits()
  */
 void ApplyXOROnByte(unsigned char *byte, const unsigned char *key){
@@ -242,12 +251,17 @@ void ApplyXOROnByte(unsigned char *byte, const unsigned char *key){
 
 /**
  * Fonction de Concaténation
- * La fonction concatenate() prend 4 octets/caractères et va les concaténer en respectant un ordre d'opération précis (voir ci-dessous)
- * @note opération effectuées :
+ * La fonction concatenate() prend 4 octets/caractères et va les concaténer en respectant un ordre d'opération précis (voir ci-dessous).
+ * Opération effectuées :
+ *
  * Z[0] = Y[0] + Y[1]
+ *
  * Z[1] = Y[0] + Y[1] + Y[2]
+ *
  * Z[2] = Y[1] + Y[2] + Y[3]
+ *
  * Z[3] = Y[2] + Y[3]
+ *
  * Y étant l'entrée et Z la sortie
  * @param bytes - caractère/octet à encoder, mis à jour suite à la fonction
  */
@@ -261,12 +275,17 @@ void concatenate(unsigned char (*bytes)[4]){
 
 /**
  * Fonction de Concaténation Inverse
- * La fonction concatenateReverse() prend 4 octets/caractères et va inverser la concaténation de concatenate() en respectant un ordre d'opération précis (voir ci-dessous)
- * @note opération effectuées :
+ * La fonction concatenateReverse() prend 4 octets/caractères et va inverser la concaténation de concatenate() en respectant un ordre d'opération précis (voir ci-dessous).
+ * Opération effectuées :
+ *
  * Y[0] = Z[0] - Z[2] + Z[3]
+ *
  * Y[1] = Z[2] - Z[3]
+ *
  * Y[2] = Z[1] - Z[0]
+ *
  * Y[3] = Z[0] - Z[1] + Z[3]
+ *
  * Z étant l'entrée et Y la sortie
  * @param bytes - caractère/octet à décoder, mis à jour suite à la fonction
  */
@@ -279,8 +298,7 @@ void concatenateReverse(unsigned char (*bytes)[4]){
 }
 
 //utiliser "doxygen Doxyfile" pour mettre à jour la documentation
-int main() { //TODO Mettre en place les N répétitions et varier clé d'itération selon l'itération
-    /*
+int main() { //TODO Varier les clés d'itération selon les itérations + en cas d'erreur demander si l'utilisateur veut réessayer
     printf("==========================================================================================================\n\n");
     printf("#######  #######  #     #  #######  #######  #######  #######  #######  #######  #######  #     #  #######\n");
     printf("#        #     #  #     #  #     #     #     #     #  #        #     #  #     #  #        #     #  #\n");
@@ -300,55 +318,60 @@ int main() { //TODO Mettre en place les N répétitions et varier clé d'itérat
     char *encryptionKey = writeString();
     printf("Enfin, entrez le nombre d'iterations a effectuer (nombre plus grand, plus de securite mais processus plus long)\n");
     scanf("%d", &N);
-    for (int i = 1; i <= N; i++);
-    printf("Termine ! Retrouvez le resultat au meme emplacement que le fichier de depart.");
-     */
 
     int size = 0; unsigned char *fileData = NULL;
     readFile(link, &fileData, &size);
     if (size < 1) return EXIT_FAILURE;
 
-    int i = 0; unsigned char iterationKey1 = 0, iterationKey2 = 0;
-    //Création d'une valeur utilisée pour la permutation des charactères dépendante d'encryptionKey
-    while (encryptionKey[i] != '\0'){
-        iterationKey1 += encryptionKey[i];
-        iterationKey2 *= encryptionKey[i];
-        i++;
-    }
+    for (int i = 1; i <= N; i++) {
+        int keyGeneratorIterator = 0;
+        unsigned char iterationKey1 = 0, iterationKey2 = 0;
+        //Création d'une valeur utilisée pour la permutation des charactères dépendante d'encryptionKey
+        while (encryptionKey[keyGeneratorIterator] != '\0') {
+            iterationKey1 += encryptionKey[keyGeneratorIterator];
+            iterationKey2 *= encryptionKey[keyGeneratorIterator];
+            keyGeneratorIterator++;
+        }
 
-    //if (action == 0){ //Encodage if else désactivé pour les tests
-        for (int j = 0; j < size; j++) {
-            CharPermutation(&fileData[j], &iterationKey1);
-            CharApplyMatrix(&fileData[j]);
-            ApplyXOROnByte(&fileData[j], &iterationKey2);
-            if ((j+1) % 4 == 0 && j > 0){
-                unsigned char bytes[4] = {fileData[j-3], fileData[j-2], fileData[j-1], fileData[j]};
-                concatenate(&bytes);
-                fileData[j-3] = bytes[0]; fileData[j-2] = bytes[1]; fileData[j-1] = bytes[2]; fileData[j] = bytes[3];
+        if (action == 0) { //Encodage if else désactivé pour les tests
+            for (int j = 0; j < size; j++) {
+                CharPermutation(&fileData[j], &iterationKey1);
+                CharApplyMatrix(&fileData[j]);
+                ApplyXOROnByte(&fileData[j], &iterationKey2);
+                if ((j + 1) % 4 == 0 && j > 0) {
+                    unsigned char bytes[4] = {fileData[j - 3], fileData[j - 2], fileData[j - 1], fileData[j]};
+                    concatenate(&bytes);
+                    fileData[j - 3] = bytes[0];
+                    fileData[j - 2] = bytes[1];
+                    fileData[j - 1] = bytes[2];
+                    fileData[j] = bytes[3];
+                }
             }
-        }
-        printf("Encodage termine !");
-        printf("\n======================Encode======================\n");
-        for (int j = 0; j < size; j++) printf("%c", fileData[j]);
-        printf("\n==================================================\n");
-    //} else{ //Decodage
-        for (int j = 0; j < size; j++){
-            if (j % 4 == 0){
-                unsigned char bytes[4] = {fileData[j], fileData[j+1], fileData[j+2], fileData[j+3]};
-                concatenateReverse(&bytes);
-                fileData[j] = bytes[0]; fileData[j+1] = bytes[1]; fileData[j+2] = bytes[2]; fileData[j+3] = bytes[3];
+            /*printf("Encodage termine !");
+            printf("\n======================Encode======================\n");
+            for (int j = 0; j < size; j++) printf("%c", fileData[j]);
+            printf("\n==================================================\n");*/
+        } else { //Decodage
+            for (int j = 0; j < size; j++) {
+                if (j % 4 == 0) {
+                    unsigned char bytes[4] = {fileData[j], fileData[j + 1], fileData[j + 2], fileData[j + 3]};
+                    concatenateReverse(&bytes);
+                    fileData[j] = bytes[0];
+                    fileData[j + 1] = bytes[1];
+                    fileData[j + 2] = bytes[2];
+                    fileData[j + 3] = bytes[3];
+                }
+                ApplyXOROnByte(&fileData[j], &iterationKey2);
+                CharApplyMatrixReverse(&fileData[j]);
+                CharPermutationReverse(&fileData[j], &iterationKey1);
             }
-            ApplyXOROnByte(&fileData[j], &iterationKey2);
-            CharApplyMatrixReverse(&fileData[j]);
-            CharPermutationReverse(&fileData[j], &iterationKey1);
+            /*printf("Decodage termine !");
+            printf("\n======================Decode======================\n");
+            for (int j = 0; j < size; j++) printf("%c", fileData[j]);
+            printf("\n==================================================");*/
         }
-        printf("Decodage termine !");
-        printf("\n======================Decode======================\n");
-        for (int j = 0; j < size; j++) printf("%c", fileData[j]);
-        printf("\n==================================================");
-        free(fileData);
-    /*}
-    writeInFile(fileData, size, link, action); fonction pour écrire les résultats dans un fichier, désactivé pour les test
-    printf("Termine ! Retrouvez le resultat au meme emplacement que le fichier de depart.");*/
-    return 0;
+    }
+    writeInFile(fileData, &size, link, &action); //fonction pour écrire les résultats dans un fichier, désactivé pour les test
+    free(fileData);
+    return EXIT_SUCCESS;
 }
