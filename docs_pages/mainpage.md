@@ -20,6 +20,18 @@ A l’ouverture du programme, celui-ci commencera par vous demander si vous voul
 4.	Le nombre d’itérations voulues (plus d’itérations donne un meilleur encryptage mais cela est plus long).
 
 Une fois toutes ces informations saisies, le programme va commencer le cryptage/décryptage, quand il aura fini vous serez informé par le texte suivant « Termine ! Retrouvez le résultat au même emplacement que le fichier de départ. ».
+
 En cas d’erreur, si le fichier à encrypter n’existe pas par exemple, le programme vous indiquera cette erreur et vous donnera la possibilité de la corriger (dans le cas d’un fichier non existant, il vous proposera d’entrer à nouveau un lien vers un fichier).
 
 Une fois que vous avez trouvé votre fichier, au même emplacement que le fichier de départ (cet emplacement vous sera indiqué par le programme), vous pouvez fermer la fenêtre du programme sans problème en appuyant sur n’importe quelle touche du clavier.
+
+####Attention ! 
+Le programme ne fonctionne que pour les caractères standard, les caractères sortant de la table ASCII (ex : é, è, ê, à, voir ci-dessous) n’entraîneront pas la fermeture du programme, mais ils provoqueront des modifications qui seront visibles lors du décodage, par exemple, le(s) caractère(s) problématique(s) remplacés par des chaînes de caractères illisibles, comme ceci : « Ã§Ã© ».
+
+Table ASCII standard :
+
+ ![](asciitable.png)
+ 
+Ajouts de la table ASCII étendue :
+
+ ![](extendedasciitable.png)

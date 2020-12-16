@@ -74,8 +74,7 @@ void writeInFile(unsigned char *data, const int *size, const char *sourceLink, c
     if (*action == 0) {
         char encrypted[] = "_encrypted";
         for (int j = 0; j <= 10; j++) destlink[pointPosition + j] = encrypted[j];
-    }
-    else {
+    } else {
         char decrypted[] = "_decrypted";
         for (int j = 0; j <= 10; j++) destlink[pointPosition + j] = decrypted[j];
     }
@@ -93,32 +92,32 @@ void writeInFile(unsigned char *data, const int *size, const char *sourceLink, c
  * Permutation d'un octet
  * La fonction CharPermutation() va prendre un octet et le décaler vers la droite dans la table ASCII
  * @note Si la valeur dépasse 255, on repart de 0
- * @param car - caractère/octet à permuter, mis à jour suite à la permutation
- * @param key - valeur selon laquel car sera décalé
+ * @param byte - caractère/octet à permuter, mis à jour suite à la permutation
+ * @param key - valeur selon laquel byte sera décalé
  * ### Exemple
  * ~~~~~~~~~~~~~~.c
  *  unsigned char octet = 'a';
- *  printf("%c", CharPermutation(car, 2)); //Le résultat sera 'c'
+ *  printf("%c", CharPermutation(byte, 2)); //Le résultat sera 'c'
  * ~~~~~~~~~~~~~~
  */
-void CharPermutation(unsigned char *car, const unsigned char *key){
-    *car += *key % 256;
+void CharPermutation(unsigned char *byte, const unsigned char *key){
+    *byte += *key % 256;
 }
 
 /**
  * Inversion de la permutation d'un octet
  * La fonction CharPermutationReverse() va prendre un octet et le décaler vers la gauche dans la table ASCII
  * @note Si la valeur atteint 0, on repart de 255
- * @param car - caractère/octet à permuter, mis à jour suite à la permutation
- * @param key - valeur selon laquel car sera décalé
+ * @param byte - caractère/octet à permuter, mis à jour suite à la permutation
+ * @param key - valeur selon laquel byte sera décalé
  * ### Exemple
  * ~~~~~~~~~~~~~~.c
  *  unsigned char octet = 'c';
- *  printf("%c", CharPermutationReverse(car, 2)); //Le résultat sera 'a'
+ *  printf("%c", CharPermutationReverse(byte, 2)); //Le résultat sera 'a'
  * ~~~~~~~~~~~~~~
  */
-void CharPermutationReverse(unsigned char *car, const unsigned char *key){
-    *car -= *key % 256;
+void CharPermutationReverse(unsigned char *byte, const unsigned char *key){
+    *byte -= *key % 256;
 }
 
 /**
@@ -303,14 +302,14 @@ void concatenateReverse(unsigned char *byte0, unsigned char *byte1, unsigned cha
 
 //utiliser "doxygen Doxyfile" pour mettre à jour la documentation
 int main() {
-    printf("==========================================================================================================\n\n");
-    printf("#######  #######  #     #  #######  #######  #######  #######  #######  #######  #######  #     #  #######\n");
-    printf("#        #     #  #     #  #     #     #     #     #  #        #     #  #     #  #        #     #  #\n");
-    printf("#        #######   #   #   #######     #     #     #  #        #######  #######  #        #######  #\n");
-    printf("#        #    #      #     #           #     #     #  #   ###  #    #   #     #  #   ###  #     #  #####\n");
-    printf("#        #     #     #     #           #     #     #  #     #  #     #  #     #  #     #  #     #  #\n");
-    printf("#######  #     #     #     #           #     #######  #######  #     #  #     #  #######  #     #  #######\n");
-    printf("\n==========================================================================================================\n");
+    printf("===================================================================================================================\n\n");
+    printf("#######  #######  #     #  #######  #######  #######  #######  #######  #######  #######  #     #  #######  #######\n");
+    printf("#        #     #  #     #  #     #     #     #     #  #        #     #  #     #  #     #  #     #  #        #     #\n");
+    printf("#        #######   #   #   #######     #     #     #  #        #######  #######  #######  #######  #        #######\n");
+    printf("#        #    #      #     #           #     #     #  #   ###  #    #   #     #  #        #     #  #####    #    #\n");
+    printf("#        #     #     #     #           #     #     #  #     #  #     #  #     #  #        #     #  #        #     #\n");
+    printf("#######  #     #     #     #           #     #######  #######  #     #  #     #  #        #     #  #######  #     #\n");
+    printf("\n===================================================================================================================\n");
     printf("Bonjour ! Cette application vous permet d'encrypter/decrypter tous types de fichier.\n");
     unsigned char action; int N;
     do {
@@ -319,7 +318,6 @@ int main() {
     } while (action < 0 || action > 1);
     if (action == 0) printf("Encryptage selectionne, ");
     else printf("Decryptage selectionne, ");
-
     int size = 0; char *link; unsigned char *fileData = NULL, temp = 1;
     do {
         printf("veuillez entrer le lien du fichier relatif au programme (ex: ../toto.txt)\n");
@@ -368,6 +366,6 @@ int main() {
         }
     }
     writeInFile(fileData, &size, link, &action); //fonction pour écrire les résultats dans un fichier, désactivé pour les test
-    free(fileData);
+    //free(fileData); //TODO gérer problème en cas de présence de caractère table ASCII étendue
     return EXIT_SUCCESS;
 }
