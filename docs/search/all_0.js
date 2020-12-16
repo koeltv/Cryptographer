@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['applyxoronbyte_0',['ApplyXOROnByte',['../main_8c.html#a91a8a66b2fdecdfa845d402a8a34a470',1,'main.c']]]
+  ['applyxoronbyte_0',['applyXOROnByte',['../main_8c.html#a92784525604223a45a6a92d8d8d3610e',1,'main.c']]]
 ];

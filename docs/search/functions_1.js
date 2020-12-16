@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['bitstobyte_24',['BitsToByte',['../main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d',1,'main.c']]],
-  ['bytetobits_25',['ByteToBits',['../main_8c.html#a7589454bffe4fedc29ce9a553d8cca22',1,'main.c']]]
+  ['bitstobyte_24',['bitsToByte',['../main_8c.html#a3e5c20e55d739ebe70c4906363fb17d2',1,'main.c']]],
+  ['bytetobits_25',['byteToBits',['../main_8c.html#a1b1662e06981eeaebae897f5291d51aa',1,'main.c']]]
 ];
