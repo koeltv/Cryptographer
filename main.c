@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#define encryptionKey "NF05 Rules" //A enlever, remplacer par demande à l'utilisateur début de main()
-//#define link "../test.txt" //Pareil, juste la pour les tests
 
 /**
  * Lit une chaîne de caractère
@@ -41,7 +39,7 @@ char *writeString(){
  */
 void readFile(char *fileLink, unsigned char **fileData, int *size){
     FILE *sourceFile = NULL;
-    if ((sourceFile = fopen(fileLink, "rb")) == NULL) fprintf(stderr, "Erreur: Impossible d'ouvrir le fichier %s\n", fileLink);
+    if ((sourceFile = fopen(fileLink, "rb")) == NULL) fprintf(stderr, "Erreur: Impossible d'ouvrir le fichier %s", fileLink);
     else {
         fseek(sourceFile, 0L, SEEK_END); // Recherche de la fin du fichier
         *size = ftell(sourceFile);
@@ -63,7 +61,7 @@ void readFile(char *fileLink, unsigned char **fileData, int *size){
  * @param sourceLink - lien vers le fichier source (utilisé pour le nom du fichier de destination)
  * @param action - sélectionne l'extension "_encrypted" ou "decrypted" (0 pour la 1ère, toute autre valeur pour la 2ème)
  */
-void writeInFile(unsigned char *data, const int *size, const char *sourceLink, const int *action){
+void writeInFile(unsigned char *data, const int *size, const char *sourceLink, const unsigned char *action){
     int pointPosition=0, linkLenght=0;
     //Recherche taille du lien et position du point de l'extension de fichier
     while (sourceLink[linkLenght] != '\0'){
@@ -263,14 +261,17 @@ void ApplyXOROnByte(unsigned char *byte, const unsigned char *key){
  * Z[3] = Y[2] + Y[3]
  *
  * Y étant l'entrée et Z la sortie
- * @param bytes - caractère/octet à encoder, mis à jour suite à la fonction
+ * @param byte0 - correspond à Y[0], devient Z[0] suite à l'appel de la fonction
+ * @param byte1 - correspond à Y[1], devient Z[1] suite à l'appel de la fonction
+ * @param byte2 - correspond à Y[2], devient Z[2] suite à l'appel de la fonction
+ * @param byte3 - correspond à Y[3], devient Z[3] suite à l'appel de la fonction
  */
-void concatenate(unsigned char (*bytes)[4]){
-    unsigned char temp0 = (*bytes)[0], temp1 = (*bytes)[1], temp2 = (*bytes)[2], temp3 = (*bytes)[3];
-    (*bytes)[0] = (temp0 + temp1) % 256;
-    (*bytes)[1] = (temp0 + temp1 + temp2) % 256;
-    (*bytes)[2] = (temp1 + temp2 + temp3) % 256;
-    (*bytes)[3] = (temp2 + temp3) % 256;
+void concatenate(unsigned char *byte0, unsigned char *byte1, unsigned char *byte2, unsigned char *byte3){
+    unsigned char temp0 = *byte0, temp1 = *byte1, temp2 = *byte2, temp3 = *byte3;
+    *byte0 = (temp0 + temp1) % 256;
+    *byte1 = (temp0 + temp1 + temp2) % 256;
+    *byte2 = (temp1 + temp2 + temp3) % 256;
+    *byte3 = (temp2 + temp3) % 256;
 }
 
 /**
@@ -287,18 +288,21 @@ void concatenate(unsigned char (*bytes)[4]){
  * Y[3] = Z[0] - Z[1] + Z[3]
  *
  * Z étant l'entrée et Y la sortie
- * @param bytes - caractère/octet à décoder, mis à jour suite à la fonction
+ * @param byte0 - correspond à Z[0], devient Y[0] suite à l'appel de la fonction
+ * @param byte1 - correspond à Z[1], devient Y[1] suite à l'appel de la fonction
+ * @param byte2 - correspond à Z[2], devient Y[2] suite à l'appel de la fonction
+ * @param byte3 - correspond à Z[3], devient Y[3] suite à l'appel de la fonction
  */
-void concatenateReverse(unsigned char (*bytes)[4]){
-    unsigned char temp0 = (*bytes)[0], temp1 = (*bytes)[1], temp2 = (*bytes)[2], temp3 = (*bytes)[3];
-    (*bytes)[0] = (temp0 - temp2 + temp3) % 256;
-    (*bytes)[1] = (temp2 - temp3) % 256;
-    (*bytes)[2] = (temp1 - temp0) % 256;
-    (*bytes)[3] = (temp0 - temp1 + temp3) % 256;
+void concatenateReverse(unsigned char *byte0, unsigned char *byte1, unsigned char *byte2, unsigned char *byte3){
+    unsigned char temp0 = *byte0, temp1 = *byte1, temp2 = *byte2, temp3 = *byte3;
+    *byte0 = (temp0 - temp2 + temp3) % 256;
+    *byte1 = (temp2 - temp3) % 256;
+    *byte2 = (temp1 - temp0) % 256;
+    *byte3 = (temp0 - temp1 + temp3) % 256;
 }
 
 //utiliser "doxygen Doxyfile" pour mettre à jour la documentation
-int main() { //TODO Varier les clés d'itération selon les itérations + en cas d'erreur demander si l'utilisateur veut réessayer
+int main() {
     printf("==========================================================================================================\n\n");
     printf("#######  #######  #     #  #######  #######  #######  #######  #######  #######  #######  #     #  #######\n");
     printf("#        #     #  #     #  #     #     #     #     #  #        #     #  #     #  #        #     #  #\n");
@@ -307,68 +311,60 @@ int main() { //TODO Varier les clés d'itération selon les itérations + en cas
     printf("#        #     #     #     #           #     #     #  #     #  #     #  #     #  #     #  #     #  #\n");
     printf("#######  #     #     #     #           #     #######  #######  #     #  #     #  #######  #     #  #######\n");
     printf("\n==========================================================================================================\n");
-    printf("Bonjour ! Cette application vous permet d'encrypter/decrypter tous types de fichier.\nQue voulez-vous faire ? (0 pour encryptage, 1 pour decryptage)\n");
-    int action, N;
-    scanf("%d", &action);
+    printf("Bonjour ! Cette application vous permet d'encrypter/decrypter tous types de fichier.\n");
+    unsigned char action; int N;
+    do {
+        printf("Que voulez-vous faire ? (0 pour encryptage, 1 pour decryptage)\n");
+        scanf(" %c", &action); action -= '0';
+    } while (action < 0 || action > 1);
     if (action == 0) printf("Encryptage selectionne, ");
     else printf("Decryptage selectionne, ");
-    printf("veuillez entrer le lien du fichier relatif au programme (ex: ../toto.txt)\n");
-    char *link = writeString();
+
+    int size = 0; char *link; unsigned char *fileData = NULL, temp = 1;
+    do {
+        printf("veuillez entrer le lien du fichier relatif au programme (ex: ../toto.txt)\n");
+        link = writeString();
+        readFile(link, &fileData, &size);
+        if (size < 1) {
+            fprintf(stderr, ", voulez-vous reessayer ? (0 pour oui, 1 pour non)\n");
+            scanf(" %c", &temp); temp -= '0';
+            if (temp == 1) return EXIT_SUCCESS;
+        }
+    } while (size < 1);
+
     printf("Entrer la cle de chiffrement\n");
     char *encryptionKey = writeString();
-    printf("Enfin, entrez le nombre d'iterations a effectuer (nombre plus grand, plus de securite mais processus plus long)\n");
-    scanf("%d", &N);
-
-    int size = 0; unsigned char *fileData = NULL;
-    readFile(link, &fileData, &size);
-    if (size < 1) return EXIT_FAILURE;
+    do {
+        char temp1[10], *temp2;
+        printf("Enfin, entrez le nombre d'iterations a effectuer (nombre plus grand, plus de securite mais processus plus long)\n");
+        scanf(" %s", temp1);
+        N = strtol(temp1, &temp2, 10);
+    } while (N <= 0);
 
     for (int i = 1; i <= N; i++) {
-        int keyGeneratorIterator = 0;
         unsigned char iterationKey1 = 0, iterationKey2 = 0;
-        //Création d'une valeur utilisée pour la permutation des charactères dépendante d'encryptionKey
-        while (encryptionKey[keyGeneratorIterator] != '\0') {
-            iterationKey1 += encryptionKey[keyGeneratorIterator];
-            iterationKey2 *= encryptionKey[keyGeneratorIterator];
+        int keyGeneratorIterator = 0;
+        while (encryptionKey[keyGeneratorIterator] != '\0') { //Création des clés d'itérations
+            int iterationVariation = i;
+            if (action == 1) iterationVariation = N - i + 1;
+            iterationKey1 += encryptionKey[keyGeneratorIterator] + iterationVariation;
+            iterationKey2 *= encryptionKey[keyGeneratorIterator] + iterationVariation;
             keyGeneratorIterator++;
         }
-
-        if (action == 0) { //Encodage if else désactivé pour les tests
+        if (action == 0) { //Encodage
             for (int j = 0; j < size; j++) {
                 CharPermutation(&fileData[j], &iterationKey1);
                 CharApplyMatrix(&fileData[j]);
                 ApplyXOROnByte(&fileData[j], &iterationKey2);
-                if ((j + 1) % 4 == 0 && j > 0) {
-                    unsigned char bytes[4] = {fileData[j - 3], fileData[j - 2], fileData[j - 1], fileData[j]};
-                    concatenate(&bytes);
-                    fileData[j - 3] = bytes[0];
-                    fileData[j - 2] = bytes[1];
-                    fileData[j - 1] = bytes[2];
-                    fileData[j] = bytes[3];
-                }
+                if ((j + 1) % 4 == 0 && j > 0) concatenate(&fileData[j - 3], &fileData[j - 2], &fileData[j - 1], &fileData[j]);
             }
-            /*printf("Encodage termine !");
-            printf("\n======================Encode======================\n");
-            for (int j = 0; j < size; j++) printf("%c", fileData[j]);
-            printf("\n==================================================\n");*/
         } else { //Decodage
             for (int j = 0; j < size; j++) {
-                if (j % 4 == 0) {
-                    unsigned char bytes[4] = {fileData[j], fileData[j + 1], fileData[j + 2], fileData[j + 3]};
-                    concatenateReverse(&bytes);
-                    fileData[j] = bytes[0];
-                    fileData[j + 1] = bytes[1];
-                    fileData[j + 2] = bytes[2];
-                    fileData[j + 3] = bytes[3];
-                }
+                if (j % 4 == 0) concatenateReverse(&fileData[j], &fileData[j + 1], &fileData[j + 2], &fileData[j + 3]);
                 ApplyXOROnByte(&fileData[j], &iterationKey2);
                 CharApplyMatrixReverse(&fileData[j]);
                 CharPermutationReverse(&fileData[j], &iterationKey1);
             }
-            /*printf("Decodage termine !");
-            printf("\n======================Decode======================\n");
-            for (int j = 0; j < size; j++) printf("%c", fileData[j]);
-            printf("\n==================================================");*/
         }
     }
     writeInFile(fileData, &size, link, &action); //fonction pour écrire les résultats dans un fichier, désactivé pour les test

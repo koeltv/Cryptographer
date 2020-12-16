@@ -111,9 +111,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a47659298dd719a9de5d85be0950e6152"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a47659298dd719a9de5d85be0950e6152">readFile</a> (char *fileLink, unsigned char **fileData, int *size)</td></tr>
 <tr class="memdesc:a47659298dd719a9de5d85be0950e6152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit le contenu d'un fichier La fonction <a class="el" href="main_8c.html#a47659298dd719a9de5d85be0950e6152" title="Lit le contenu d&#39;un fichier La fonction readFile() permet de lire le contenu d&#39;un fichier quelconque ...">readFile()</a> permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au programme)  <a href="main_8c.html#a47659298dd719a9de5d85be0950e6152">More...</a><br /></td></tr>
 <tr class="separator:a47659298dd719a9de5d85be0950e6152"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82443875982dfd4d9b15204b99a7572d"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a82443875982dfd4d9b15204b99a7572d">writeInFile</a> (unsigned char *data, const int *size, const char *sourceLink, const int *action)</td></tr>
-<tr class="memdesc:a82443875982dfd4d9b15204b99a7572d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ecrit dans un fichier La fonction <a class="el" href="main_8c.html#a82443875982dfd4d9b15204b99a7572d" title="Ecrit dans un fichier La fonction writeInFile() permet d&#39;écrire des données dans un fichier basé sur ...">writeInFile()</a> permet d'écrire des données dans un fichier basé sur le fichier d'entrée et le mode choisi.  <a href="main_8c.html#a82443875982dfd4d9b15204b99a7572d">More...</a><br /></td></tr>
-<tr class="separator:a82443875982dfd4d9b15204b99a7572d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67c9cc078d3b7b915c88ef87601ca032"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a67c9cc078d3b7b915c88ef87601ca032">writeInFile</a> (unsigned char *data, const int *size, const char *sourceLink, const unsigned char *action)</td></tr>
+<tr class="memdesc:a67c9cc078d3b7b915c88ef87601ca032"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ecrit dans un fichier La fonction <a class="el" href="main_8c.html#a67c9cc078d3b7b915c88ef87601ca032" title="Ecrit dans un fichier La fonction writeInFile() permet d&#39;écrire des données dans un fichier basé sur ...">writeInFile()</a> permet d'écrire des données dans un fichier basé sur le fichier d'entrée et le mode choisi.  <a href="main_8c.html#a67c9cc078d3b7b915c88ef87601ca032">More...</a><br /></td></tr>
+<tr class="separator:a67c9cc078d3b7b915c88ef87601ca032"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a722ee1e388734ba23b5fa2f1bd15a3a7"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a722ee1e388734ba23b5fa2f1bd15a3a7">CharPermutation</a> (unsigned char *car, const unsigned char *key)</td></tr>
 <tr class="memdesc:a722ee1e388734ba23b5fa2f1bd15a3a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permutation d'un octet La fonction <a class="el" href="main_8c.html#a722ee1e388734ba23b5fa2f1bd15a3a7" title="Permutation d&#39;un octet La fonction CharPermutation() va prendre un octet et le décaler vers la droite...">CharPermutation()</a> va prendre un octet et le décaler vers la droite dans la table ASCII.  <a href="main_8c.html#a722ee1e388734ba23b5fa2f1bd15a3a7">More...</a><br /></td></tr>
 <tr class="separator:a722ee1e388734ba23b5fa2f1bd15a3a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,12 +138,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a91a8a66b2fdecdfa845d402a8a34a470"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a91a8a66b2fdecdfa845d402a8a34a470">ApplyXOROnByte</a> (unsigned char *byte, const unsigned char *key)</td></tr>
 <tr class="memdesc:a91a8a66b2fdecdfa845d402a8a34a470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction XOR logique La fonction <a class="el" href="main_8c.html#a91a8a66b2fdecdfa845d402a8a34a470" title="Fonction XOR logique La fonction ApplyXOROnByte() prend un octet/caractère et va appliquer l&#39;opératio...">ApplyXOROnByte()</a> prend un octet/caractère et va appliquer l'opération logique XOR individuellement entre chaque bit de l'octet et la clé d'itération n°2.  <a href="main_8c.html#a91a8a66b2fdecdfa845d402a8a34a470">More...</a><br /></td></tr>
 <tr class="separator:a91a8a66b2fdecdfa845d402a8a34a470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d218edfd0f630f70ac8eadbf858985a"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a8d218edfd0f630f70ac8eadbf858985a">concatenate</a> (unsigned char(*bytes)[4])</td></tr>
-<tr class="memdesc:a8d218edfd0f630f70ac8eadbf858985a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de Concaténation La fonction <a class="el" href="main_8c.html#a8d218edfd0f630f70ac8eadbf858985a" title="Fonction de Concaténation La fonction concatenate() prend 4 octets/caractères et va les concaténer en...">concatenate()</a> prend 4 octets/caractères et va les concaténer en respectant un ordre d'opération précis (voir ci-dessous).  <a href="main_8c.html#a8d218edfd0f630f70ac8eadbf858985a">More...</a><br /></td></tr>
-<tr class="separator:a8d218edfd0f630f70ac8eadbf858985a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31b70855b3bdc7fbf017db1cd5533e4d"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a31b70855b3bdc7fbf017db1cd5533e4d">concatenateReverse</a> (unsigned char(*bytes)[4])</td></tr>
-<tr class="memdesc:a31b70855b3bdc7fbf017db1cd5533e4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de Concaténation Inverse La fonction <a class="el" href="main_8c.html#a31b70855b3bdc7fbf017db1cd5533e4d" title="Fonction de Concaténation Inverse La fonction concatenateReverse() prend 4 octets/caractères et va in...">concatenateReverse()</a> prend 4 octets/caractères et va inverser la concaténation de <a class="el" href="main_8c.html#a8d218edfd0f630f70ac8eadbf858985a" title="Fonction de Concaténation La fonction concatenate() prend 4 octets/caractères et va les concaténer en...">concatenate()</a> en respectant un ordre d'opération précis (voir ci-dessous).  <a href="main_8c.html#a31b70855b3bdc7fbf017db1cd5533e4d">More...</a><br /></td></tr>
-<tr class="separator:a31b70855b3bdc7fbf017db1cd5533e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0632b0440947be94480d43031da5be77"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a0632b0440947be94480d43031da5be77">concatenate</a> (unsigned char *byte0, unsigned char *byte1, unsigned char *byte2, unsigned char *byte3)</td></tr>
+<tr class="memdesc:a0632b0440947be94480d43031da5be77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de Concaténation La fonction <a class="el" href="main_8c.html#a0632b0440947be94480d43031da5be77" title="Fonction de Concaténation La fonction concatenate() prend 4 octets/caractères et va les concaténer en...">concatenate()</a> prend 4 octets/caractères et va les concaténer en respectant un ordre d'opération précis (voir ci-dessous).  <a href="main_8c.html#a0632b0440947be94480d43031da5be77">More...</a><br /></td></tr>
+<tr class="separator:a0632b0440947be94480d43031da5be77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f3173258e001c229da2e6e552610299"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a7f3173258e001c229da2e6e552610299">concatenateReverse</a> (unsigned char *byte0, unsigned char *byte1, unsigned char *byte2, unsigned char *byte3)</td></tr>
+<tr class="memdesc:a7f3173258e001c229da2e6e552610299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de Concaténation Inverse La fonction <a class="el" href="main_8c.html#a7f3173258e001c229da2e6e552610299" title="Fonction de Concaténation Inverse La fonction concatenateReverse() prend 4 octets/caractères et va in...">concatenateReverse()</a> prend 4 octets/caractères et va inverser la concaténation de <a class="el" href="main_8c.html#a0632b0440947be94480d43031da5be77" title="Fonction de Concaténation La fonction concatenate() prend 4 octets/caractères et va les concaténer en...">concatenate()</a> en respectant un ordre d'opération précis (voir ci-dessous).  <a href="main_8c.html#a7f3173258e001c229da2e6e552610299">More...</a><br /></td></tr>
+<tr class="separator:a7f3173258e001c229da2e6e552610299"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td align="right" class="memItemLeft" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -394,8 +394,8 @@ Exemple</h3>
 </div><!-- fragment --> 
 </div>
 </div>
-<a id="a8d218edfd0f630f70ac8eadbf858985a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d218edfd0f630f70ac8eadbf858985a">&#9670;&nbsp;</a></span>concatenate()</h2>
+<a id="a0632b0440947be94480d43031da5be77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0632b0440947be94480d43031da5be77">&#9670;&nbsp;</a></span>concatenate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -403,14 +403,36 @@ Exemple</h3>
         <tr>
           <td class="memname">void concatenate </td>
           <td>(</td>
-          <td class="paramtype">unsigned char(*)&#160;</td>
-          <td class="paramname"><em>bytes</em>[4]</td><td>)</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>byte0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>byte1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>byte2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>byte3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fonction de Concaténation La fonction <a class="el" href="main_8c.html#a8d218edfd0f630f70ac8eadbf858985a" title="Fonction de Concaténation La fonction concatenate() prend 4 octets/caractères et va les concaténer en...">concatenate()</a> prend 4 octets/caractères et va les concaténer en respectant un ordre d'opération précis (voir ci-dessous). </p>
+<p>Fonction de Concaténation La fonction <a class="el" href="main_8c.html#a0632b0440947be94480d43031da5be77" title="Fonction de Concaténation La fonction concatenate() prend 4 octets/caractères et va les concaténer en...">concatenate()</a> prend 4 octets/caractères et va les concaténer en respectant un ordre d'opération précis (voir ci-dessous). </p>
 <p>Opération effectuées :</p>
 <p>Z[0] = Y[0] + Y[1]</p>
 <p>Z[1] = Y[0] + Y[1] + Y[2]</p>
@@ -418,15 +440,18 @@ Exemple</h3>
 <p>Z[3] = Y[2] + Y[3]</p>
 <p>Y étant l'entrée et Z la sortie </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">bytes</td><td>- caractère/octet à encoder, mis à jour suite à la fonction </td></tr>
+    <tr><td class="paramname">byte0</td><td>- correspond à Y[0], devient Z[0] suite à l'appel de la fonction </td></tr>
+    <tr><td class="paramname">byte1</td><td>- correspond à Y[1], devient Z[1] suite à l'appel de la fonction </td></tr>
+    <tr><td class="paramname">byte2</td><td>- correspond à Y[2], devient Z[2] suite à l'appel de la fonction </td></tr>
+    <tr><td class="paramname">byte3</td><td>- correspond à Y[3], devient Z[3] suite à l'appel de la fonction </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a31b70855b3bdc7fbf017db1cd5533e4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31b70855b3bdc7fbf017db1cd5533e4d">&#9670;&nbsp;</a></span>concatenateReverse()</h2>
+<a id="a7f3173258e001c229da2e6e552610299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f3173258e001c229da2e6e552610299">&#9670;&nbsp;</a></span>concatenateReverse()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -434,14 +459,36 @@ Exemple</h3>
         <tr>
           <td class="memname">void concatenateReverse </td>
           <td>(</td>
-          <td class="paramtype">unsigned char(*)&#160;</td>
-          <td class="paramname"><em>bytes</em>[4]</td><td>)</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>byte0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>byte1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>byte2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>byte3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fonction de Concaténation Inverse La fonction <a class="el" href="main_8c.html#a31b70855b3bdc7fbf017db1cd5533e4d" title="Fonction de Concaténation Inverse La fonction concatenateReverse() prend 4 octets/caractères et va in...">concatenateReverse()</a> prend 4 octets/caractères et va inverser la concaténation de <a class="el" href="main_8c.html#a8d218edfd0f630f70ac8eadbf858985a" title="Fonction de Concaténation La fonction concatenate() prend 4 octets/caractères et va les concaténer en...">concatenate()</a> en respectant un ordre d'opération précis (voir ci-dessous). </p>
+<p>Fonction de Concaténation Inverse La fonction <a class="el" href="main_8c.html#a7f3173258e001c229da2e6e552610299" title="Fonction de Concaténation Inverse La fonction concatenateReverse() prend 4 octets/caractères et va in...">concatenateReverse()</a> prend 4 octets/caractères et va inverser la concaténation de <a class="el" href="main_8c.html#a0632b0440947be94480d43031da5be77" title="Fonction de Concaténation La fonction concatenate() prend 4 octets/caractères et va les concaténer en...">concatenate()</a> en respectant un ordre d'opération précis (voir ci-dessous). </p>
 <p>Opération effectuées :</p>
 <p>Y[0] = Z[0] - Z[2] + Z[3]</p>
 <p>Y[1] = Z[2] - Z[3]</p>
@@ -449,7 +496,10 @@ Exemple</h3>
 <p>Y[3] = Z[0] - Z[1] + Z[3]</p>
 <p>Z étant l'entrée et Y la sortie </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">bytes</td><td>- caractère/octet à décoder, mis à jour suite à la fonction </td></tr>
+    <tr><td class="paramname">byte0</td><td>- correspond à Z[0], devient Y[0] suite à l'appel de la fonction </td></tr>
+    <tr><td class="paramname">byte1</td><td>- correspond à Z[1], devient Y[1] suite à l'appel de la fonction </td></tr>
+    <tr><td class="paramname">byte2</td><td>- correspond à Z[2], devient Y[2] suite à l'appel de la fonction </td></tr>
+    <tr><td class="paramname">byte3</td><td>- correspond à Z[3], devient Y[3] suite à l'appel de la fonction </td></tr>
   </table>
   </dd>
 </dl>
@@ -563,8 +613,8 @@ Exemple</h3>
 </div><!-- fragment --> 
 </div>
 </div>
-<a id="a82443875982dfd4d9b15204b99a7572d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82443875982dfd4d9b15204b99a7572d">&#9670;&nbsp;</a></span>writeInFile()</h2>
+<a id="a67c9cc078d3b7b915c88ef87601ca032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67c9cc078d3b7b915c88ef87601ca032">&#9670;&nbsp;</a></span>writeInFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -590,7 +640,7 @@ Exemple</h3>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const int *&#160;</td>
+          <td class="paramtype">const unsigned char *&#160;</td>
           <td class="paramname"><em>action</em>&#160;</td>
         </tr>
         <tr>
@@ -601,7 +651,7 @@ Exemple</h3>
       </table>
 </div><div class="memdoc">
 
-<p>Ecrit dans un fichier La fonction <a class="el" href="main_8c.html#a82443875982dfd4d9b15204b99a7572d" title="Ecrit dans un fichier La fonction writeInFile() permet d&#39;écrire des données dans un fichier basé sur ...">writeInFile()</a> permet d'écrire des données dans un fichier basé sur le fichier d'entrée et le mode choisi. </p>
+<p>Ecrit dans un fichier La fonction <a class="el" href="main_8c.html#a67c9cc078d3b7b915c88ef87601ca032" title="Ecrit dans un fichier La fonction writeInFile() permet d&#39;écrire des données dans un fichier basé sur ...">writeInFile()</a> permet d'écrire des données dans un fichier basé sur le fichier d'entrée et le mode choisi. </p>
 <dl class="section note"><dt>Note</dt><dd>l'extension "_encrypted" ou "decrypted" sera ajouté à la fin du nom du fichier selon le mode choisi </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Si un fichier du même nom existe déjà, il sera écrasé et remplacé par celui généré par la fonction </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -640,12 +690,12 @@ Exemple</h3>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="amain_8c_html_a47659298dd719a9de5d85be0950e6152"><div class="ttname"><a href="main_8c.html#a47659298dd719a9de5d85be0950e6152">readFile</a></div><div class="ttdeci">void readFile(char *fileLink, unsigned char **fileData, int *size)</div><div class="ttdoc">Lit le contenu d'un fichier La fonction readFile() permet de lire le contenu d'un fichier quelconque ...</div><div class="ttdef"><b>Definition:</b> main.c:42</div></div>
-<div class="ttc" id="amain_8c_html_af217fd161a650be40f3fa8a02fb86067"><div class="ttname"><a href="main_8c.html#af217fd161a650be40f3fa8a02fb86067">CharPermutationReverse</a></div><div class="ttdeci">void CharPermutationReverse(unsigned char *car, const unsigned char *key)</div><div class="ttdoc">Inversion de la permutation d'un octet La fonction CharPermutationReverse() va prendre un octet et le...</div><div class="ttdef"><b>Definition:</b> main.c:122</div></div>
-<div class="ttc" id="amain_8c_html_a91a8a66b2fdecdfa845d402a8a34a470"><div class="ttname"><a href="main_8c.html#a91a8a66b2fdecdfa845d402a8a34a470">ApplyXOROnByte</a></div><div class="ttdeci">void ApplyXOROnByte(unsigned char *byte, const unsigned char *key)</div><div class="ttdoc">Fonction XOR logique La fonction ApplyXOROnByte() prend un octet/caractère et va appliquer l'opératio...</div><div class="ttdef"><b>Definition:</b> main.c:244</div></div>
-<div class="ttc" id="amain_8c_html_a02a08eb62dacd37c21836b5ca4b1b14d"><div class="ttname"><a href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d">BitsToByte</a></div><div class="ttdeci">unsigned char BitsToByte(const int *bits)</div><div class="ttdoc">Conversion d'un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...</div><div class="ttdef"><b>Definition:</b> main.c:175</div></div>
-<div class="ttc" id="amain_8c_html_a7589454bffe4fedc29ce9a553d8cca22"><div class="ttname"><a href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22">ByteToBits</a></div><div class="ttdeci">int * ByteToBits(unsigned char byte)</div><div class="ttdoc">Conversion d'un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...</div><div class="ttdef"><b>Definition:</b> main.c:154</div></div>
-<div class="ttc" id="amain_8c_html_a722ee1e388734ba23b5fa2f1bd15a3a7"><div class="ttname"><a href="main_8c.html#a722ee1e388734ba23b5fa2f1bd15a3a7">CharPermutation</a></div><div class="ttdeci">void CharPermutation(unsigned char *car, const unsigned char *key)</div><div class="ttdoc">Permutation d'un octet La fonction CharPermutation() va prendre un octet et le décaler vers la droite...</div><div class="ttdef"><b>Definition:</b> main.c:106</div></div>
+<div class="ttc" id="amain_8c_html_a47659298dd719a9de5d85be0950e6152"><div class="ttname"><a href="main_8c.html#a47659298dd719a9de5d85be0950e6152">readFile</a></div><div class="ttdeci">void readFile(char *fileLink, unsigned char **fileData, int *size)</div><div class="ttdoc">Lit le contenu d'un fichier La fonction readFile() permet de lire le contenu d'un fichier quelconque ...</div><div class="ttdef"><b>Definition:</b> main.c:40</div></div>
+<div class="ttc" id="amain_8c_html_af217fd161a650be40f3fa8a02fb86067"><div class="ttname"><a href="main_8c.html#af217fd161a650be40f3fa8a02fb86067">CharPermutationReverse</a></div><div class="ttdeci">void CharPermutationReverse(unsigned char *car, const unsigned char *key)</div><div class="ttdoc">Inversion de la permutation d'un octet La fonction CharPermutationReverse() va prendre un octet et le...</div><div class="ttdef"><b>Definition:</b> main.c:120</div></div>
+<div class="ttc" id="amain_8c_html_a91a8a66b2fdecdfa845d402a8a34a470"><div class="ttname"><a href="main_8c.html#a91a8a66b2fdecdfa845d402a8a34a470">ApplyXOROnByte</a></div><div class="ttdeci">void ApplyXOROnByte(unsigned char *byte, const unsigned char *key)</div><div class="ttdoc">Fonction XOR logique La fonction ApplyXOROnByte() prend un octet/caractère et va appliquer l'opératio...</div><div class="ttdef"><b>Definition:</b> main.c:242</div></div>
+<div class="ttc" id="amain_8c_html_a02a08eb62dacd37c21836b5ca4b1b14d"><div class="ttname"><a href="main_8c.html#a02a08eb62dacd37c21836b5ca4b1b14d">BitsToByte</a></div><div class="ttdeci">unsigned char BitsToByte(const int *bits)</div><div class="ttdoc">Conversion d'un tableau de bits vers un octet/caractère La fonction BitsToByte() prend un tableau de ...</div><div class="ttdef"><b>Definition:</b> main.c:173</div></div>
+<div class="ttc" id="amain_8c_html_a7589454bffe4fedc29ce9a553d8cca22"><div class="ttname"><a href="main_8c.html#a7589454bffe4fedc29ce9a553d8cca22">ByteToBits</a></div><div class="ttdeci">int * ByteToBits(unsigned char byte)</div><div class="ttdoc">Conversion d'un octet/caractère vers un tableau de bits La fonction ByteToBits() prend un octet/carac...</div><div class="ttdef"><b>Definition:</b> main.c:152</div></div>
+<div class="ttc" id="amain_8c_html_a722ee1e388734ba23b5fa2f1bd15a3a7"><div class="ttname"><a href="main_8c.html#a722ee1e388734ba23b5fa2f1bd15a3a7">CharPermutation</a></div><div class="ttdeci">void CharPermutation(unsigned char *car, const unsigned char *key)</div><div class="ttdoc">Permutation d'un octet La fonction CharPermutation() va prendre un octet et le décaler vers la droite...</div><div class="ttdef"><b>Definition:</b> main.c:104</div></div>
 <!-- start footer part -->
 <div class="navpath" id="nav-path"><!-- id is needed for treeview function! -->
   <ul>
