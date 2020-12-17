@@ -9,7 +9,7 @@
  * @param total - nombre total d'itérations
  */
 void printProgress(const int *currentIteration, const int *total){
-    const char prefix[] = "Progres: [", suffix[] = "]";
+    const char prefix[] = "Progression: [", suffix[] = "]";
     const unsigned char prefixLength = sizeof(prefix) - 1, suffixLength = sizeof(suffix) - 1;
 
     char *progressBar = calloc(prefixLength + 100 + suffixLength + 1, 1);
@@ -30,11 +30,11 @@ void printProgress(const int *currentIteration, const int *total){
  * @return addresse où est stocké la chaîne de caractère
  */
 char *writeString(){
-    int i=0; char temp;
-    char *string = (char*) malloc (20 * sizeof(char)); //On part d'une chaîne de 20 caractères
+    int i = 0;
+    char temp, *string = (char*) malloc (20 * sizeof(char)); //On part d'une chaîne de 20 caractères
     scanf(" %c", &temp);
-    while (temp >= ' ' && temp <= '~'){
-        if (i % 19 == 1 && i > 19) string = (char*) realloc (string, (i+20) * sizeof(char)); //Si on dépasse 20 caractères, on ajoute un espace de 20 caractères à la chaîne
+    while (temp >= ' ' && temp <= '~') {
+        if (i % 19 == 1 && i > 19) string = (char *) realloc (string, (i + 20) * sizeof(char)); //Si on dépasse 20 caractères, on ajoute un espace de 20 caractères à la chaîne
         string[i] = temp;
         scanf("%c", &temp);
         i++;
@@ -62,14 +62,17 @@ void readFile(char *fileLink, unsigned char **fileData, int *size){
     FILE *sourceFile = NULL;
     if ((sourceFile = fopen(fileLink, "rb")) == NULL) fprintf(stderr, "Erreur: Impossible d'ouvrir le fichier %s", fileLink);
     else {
-        fseek(sourceFile, 0L, SEEK_END); // Recherche de la fin du fichier
-        *size = ftell(sourceFile);
-        rewind(sourceFile);// Stockage de la taille
+        fseek(sourceFile, 0L, SEEK_END); //Recherche de la fin du fichier
+        *size = ftell(sourceFile); //Stockage de la taille
+        rewind(sourceFile);
         unsigned char *temp = (unsigned char *) malloc(*size * sizeof(unsigned char)); //Création d'un tableau pour contenir les octets du fichier
         for (int i = 0; i < *size; i++) fscanf(sourceFile, "%c", &temp[i]);
         fclose(sourceFile);
         *fileData = temp;
     }
+    printf("Taille: %d, chars : |", *size);
+    for (int i = 0; i < *size; i++) printf("%c", (*fileData)[i]);
+    printf("|\n");
 }
 
 /**
@@ -177,7 +180,7 @@ void byteToBits(unsigned char *byte, unsigned char **bits){
 /**
  * Conversion d'un tableau de bits vers un octet/caractère
  * La fonction bitsToByte() prend un tableau de bits et donne en sortie un octet/caractère correspondant à sa valeur base 10
- * @param bits - pointeur vers un tableau de 8 bits
+ * @param bits - tableau de bits correspondant à la valeur en binaire de l'octet
  * @param byte - octet correspondant à la valeur en base 10 du tableau de bits
  * ### Exemple
  * ~~~~~~~~~~~~~~.c
@@ -326,7 +329,7 @@ int main() {
     printf("#        #     #     #     #           #     #     #  #     #  #     #  #     #  #        #     #  #        #     #\n");
     printf("#######  #     #     #     #           #     #######  #######  #     #  #     #  #        #     #  #######  #     #\n");
     printf("\n===================================================================================================================\n");
-    printf("Bonjour ! Cette application vous permet d'encrypter/decrypter tous types de fichier.\n");
+    printf("Bonjour ! Ce programme vous permet d'encrypter/decrypter tous types de fichier.\n");
     unsigned char action; int N;
     do {
         printf("Que voulez-vous faire ? (0 pour encryptage, 1 pour decryptage)\n");
@@ -354,7 +357,8 @@ int main() {
         printf("Enfin, entrez le nombre d'iterations a effectuer (nombre plus grand, plus de securite mais processus plus long)\n");
         scanf(" %s", temp1);
         N = strtol(temp1, &temp2, 10);
-    } while (N <= 0);
+        getchar(); //Elimine le retour à la ligne
+    } while (N < 1);
 
     int i = 0;
     printProgress(&i, &N);
@@ -387,6 +391,7 @@ int main() {
     }
     writeInFile(fileData, &size, link, &action); //fonction pour écrire les résultats dans un fichier, désactivé pour les test
     //free(fileData); //TODO gérer problème en cas de présence de caractère table ASCII étendue
-    scanf(" %c", &temp); //TODO A revoir, ici juste pour pas que la fenêtre ne se ferme pas automatiquement
+    printf("\nAppuyer sur entree pour mettre fin au programme\n");
+    getchar();
     return EXIT_SUCCESS;
 }
