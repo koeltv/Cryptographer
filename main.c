@@ -8,18 +8,18 @@
  * @param currentIteration - numéro de l'itération en cours
  * @param total - nombre total d'itérations
  */
-void printProgress(int currentIteration, int total){
+void printProgress(const int *currentIteration, const int *total){
     const char prefix[] = "Progres: [", suffix[] = "]";
-    const int prefixLength = sizeof(prefix) - 1, suffixLength = sizeof(suffix) - 1;
+    const unsigned char prefixLength = sizeof(prefix) - 1, suffixLength = sizeof(suffix) - 1;
 
-    char *buffer = calloc(prefixLength + 100 + suffixLength + 1, 1);
+    char *progressBar = calloc(prefixLength + 100 + suffixLength + 1, 1);
 
-    for (int i = 0; prefix[i] != '\0'; i++) buffer[i] = prefix[i];
-    for (int i = 0; i < 100; i++) buffer[prefixLength + i] = i < (100 - (((total - currentIteration) * 100) / total)) ? '#' : ' ';
-    for (int i = 0; suffix[i] != '\0'; i++) buffer[prefixLength + 100 + i] = suffix[i];
+    for (int i = 0; prefix[i] != '\0'; i++) progressBar[i] = prefix[i];
+    for (int i = 0; i < 100; i++) progressBar[prefixLength + i] = i < (100 - (((*total - *currentIteration) * 100) / *total)) ? '#' : ' ';
+    for (int i = 0; suffix[i] != '\0'; i++) progressBar[prefixLength + 100 + i] = suffix[i];
 
-    printf("\b\r%c[2K\r%s", 27, buffer);
-    fflush(stdout); free(buffer);
+    printf("\b\r%c[2K\r%s", 27, progressBar);
+    fflush(stdout); free(progressBar);
 }
 
 /**
@@ -148,8 +148,8 @@ void charPermutationReverse(unsigned char *byte, const unsigned char *key){
  * @param v - vecteur V de taille 8x1, mis à jour suite à la multiplication
  * @param H - matrice de taille 8x8
  */
-void multiplyMatrices(int **v, int (*H)[8]){
-    int vRes[8];
+void multiplyMatrices(unsigned char **v, unsigned char (*H)[8]){
+    unsigned char vRes[8];
     for (int rowFinal = 0, temp = 0; rowFinal < 8; rowFinal++) {
         for (int k = 0; k < 8; k++) temp += H[rowFinal][k] * (*v)[k];
         vRes[rowFinal] = temp % 2; //On fait %2 pour rester en binaire
@@ -162,38 +162,31 @@ void multiplyMatrices(int **v, int (*H)[8]){
  * La fonction byteToBits() prend un octet/caractère et donne en sortie un tableau de bits correspondant à sa valeur en binaire
  * @note Le bit de poids le plus faible se trouve en position 0
  * @param byte - caractère/octet à convertir
- * @return tableau de bits correspondant à la valeur en binaire de l'octet
+ * @param bits - tableau de bits correspondant à la valeur en binaire de l'octet
  * ### Exemple
  * ~~~~~~~~~~~~~~.c
  *  int byte[8] = byteToBits('c');
  *  for (int i=7; i>=0; i--) printf("%d", byte[i]); //On aura 01100011
  * ~~~~~~~~~~~~~~
  */
-int *byteToBits(unsigned char byte){
-    int i = 0, *bits = (int *) calloc(8, sizeof(int));
-    while (byte > 1){
-        bits[i] = byte % 2;
-        byte /= 2;
-        i++;
-    } bits[i] = byte;
-    return bits;
+void byteToBits(unsigned char *byte, unsigned char **bits){
+    *bits = (unsigned char *) calloc(8, sizeof(unsigned char));
+    for (int i = 0; (*byte) > 0; i++, *(byte) /= 2) (*bits)[i] = *byte % 2;
 }
 
 /**
  * Conversion d'un tableau de bits vers un octet/caractère
- * La fonction bitsToByte() prend un tableau de bits et donne en sorti un octet/caractère correspondant à sa valeur base 10
+ * La fonction bitsToByte() prend un tableau de bits et donne en sortie un octet/caractère correspondant à sa valeur base 10
  * @param bits - pointeur vers un tableau de 8 bits
- * @return octet correspondant à la valeur en base 10 du tableau de bits
+ * @param byte - octet correspondant à la valeur en base 10 du tableau de bits
  * ### Exemple
  * ~~~~~~~~~~~~~~.c
  *  int bits[] = {1, 1, 0, 0, 0, 1, 1, 0};
  *  printf("%c", bitsToByte(bits); //On aura 'c'
  * ~~~~~~~~~~~~~~
  */
-unsigned char bitsToByte(const int *bits){
-    unsigned char byte = 0;
-    for (int i = 0, powerOf2 = 1; i < 8; i++, powerOf2 *= 2) byte += bits[i] * powerOf2;
-    return byte;
+void bitsToByte(const unsigned char *bits, unsigned char *byte){
+    for (int i = 0, powerOf2 = 1; i < 8; i++, powerOf2 *= 2) *byte += bits[i] * powerOf2;
 }
 
 /**
@@ -204,7 +197,7 @@ unsigned char bitsToByte(const int *bits){
  * @see bitsToByte() byteToBits() multiplyMatrices()
  */
 void charApplyMatrix(unsigned char *byte){
-    int *bits = byteToBits(*byte), H[][8] = {
+    unsigned char *bits = NULL, H[][8] = {
             1, 0, 0, 0, 1, 1, 1, 1,
             1, 1, 0, 0, 0, 1, 1, 1,
             1, 1, 1, 0, 0, 0, 1, 1,
@@ -214,10 +207,11 @@ void charApplyMatrix(unsigned char *byte){
             0, 0, 1, 1, 1, 1, 1, 0,
             0, 0, 0, 1, 1, 1, 1, 1
     };
+    byteToBits(byte, &bits);
     multiplyMatrices(&bits, H); //Ce qui correspond à H x vi
-    int c[] = {1, 1, 0, 0, 0, 1, 1, 0};
+    unsigned char c[] = {1, 1, 0, 0, 0, 1, 1, 0};
     for (int j = 0; j < 8; j++) bits[j] = (bits[j] + c[j]) % 2; //Ce qui correspond à Xi = H x vi + c
-    *byte = bitsToByte(bits);
+    bitsToByte(bits, byte);
     free(bits);
 }
 
@@ -229,7 +223,7 @@ void charApplyMatrix(unsigned char *byte){
  * @see bitsToByte() byteToBits() multiplyMatrices()
  */
 void charApplyMatrixReverse(unsigned char *byte){
-    int *bits = byteToBits(*byte), HPrime[][8] = {
+    unsigned char *bits = NULL, HPrime[][8] = {
             0, 0, 1, 0, 0, 1, 0, 1,
             1, 0, 0, 1, 0, 0, 1, 0,
             0, 1, 0, 0, 1, 0, 0, 1,
@@ -239,10 +233,11 @@ void charApplyMatrixReverse(unsigned char *byte){
             1, 0, 0, 1, 0, 1, 0, 0,
             0, 1, 0, 0, 1, 0, 1, 0
     };
+    byteToBits(byte, &bits);
     multiplyMatrices(&bits, HPrime); //Ce qui correspond à H' x Xi
-    int cPrime[] = {1, 0, 1, 0, 0, 0, 0, 0};
+    unsigned char cPrime[] = {1, 0, 1, 0, 0, 0, 0, 0};
     for (int j = 0; j < 8; j++) bits[j] = (bits[j] + cPrime[j]) % 2; //Ce qui correspond à vi = H' x Xi + c'
-    *byte = bitsToByte(bits);
+    bitsToByte(bits, byte);
     free(bits);
 }
 
@@ -260,11 +255,11 @@ void charApplyMatrixReverse(unsigned char *byte){
  * @see bitsToByte() byteToBits()
  */
 void applyXOROnByte(unsigned char *byte, const unsigned char *key){
-    int *bits = byteToBits(*byte), *keyBits = byteToBits(*key);
+    unsigned char *bits = NULL, *keyBits = NULL, localKey = *key;
+    byteToBits(byte, &bits); byteToBits(&localKey, &keyBits);
     for (int i = 0; i < 8; i++) bits[i] = (bits[i] + keyBits[i]) % 2;
-    free(keyBits);
-    *byte = bitsToByte(bits);
-    free(bits);
+    bitsToByte(bits, byte);
+    free(keyBits); free(bits);
 }
 
 /**
@@ -322,7 +317,7 @@ void concatenateReverse(unsigned char *byte0, unsigned char *byte1, unsigned cha
 }
 
 //utiliser "doxygen Doxyfile" pour mettre à jour la documentation
-int main() { //TODO Changer byteToBits() et bitsToByte() pour qu'ils n'utilisent que des pointeurs
+int main() {
     printf("===================================================================================================================\n\n");
     printf("#######  #######  #     #  #######  #######  #######  #######  #######  #######  #######  #     #  #######  #######\n");
     printf("#        #     #  #     #  #     #     #     #     #  #        #     #  #     #  #     #  #     #  #        #     #\n");
@@ -339,6 +334,7 @@ int main() { //TODO Changer byteToBits() et bitsToByte() pour qu'ils n'utilisent
     } while (action < 0 || action > 1);
     if (action == 0) printf("Encryptage selectionne, ");
     else printf("Decryptage selectionne, ");
+
     int size = 0; char *link; unsigned char *fileData = NULL, temp = 1;
     do {
         printf("veuillez entrer le lien du fichier relatif au programme (ex: ../toto.txt)\n");
@@ -360,8 +356,9 @@ int main() { //TODO Changer byteToBits() et bitsToByte() pour qu'ils n'utilisent
         N = strtol(temp1, &temp2, 10);
     } while (N <= 0);
 
-    //printProgress(0, N);
-    for (int i = 1; i <= N; i++) {
+    int i = 0;
+    printProgress(&i, &N);
+    for (i = 1; i <= N; i++) {
         unsigned char iterationKey1 = 0, iterationKey2 = 0;
         int keyGeneratorIterator = 0;
         while (encryptionKey[keyGeneratorIterator] != '\0') { //Création des clés d'itérations
@@ -386,7 +383,7 @@ int main() { //TODO Changer byteToBits() et bitsToByte() pour qu'ils n'utilisent
                 charPermutationReverse(&fileData[j], &iterationKey1);
             }
         }
-        printProgress(i, N);
+        printProgress(&i, &N);
     }
     writeInFile(fileData, &size, link, &action); //fonction pour écrire les résultats dans un fichier, désactivé pour les test
     //free(fileData); //TODO gérer problème en cas de présence de caractère table ASCII étendue
