@@ -2,6 +2,27 @@
 #include <stdlib.h>
 
 /**
+ * Affiche une barre de progression
+ * La fonction printProgress() affiche une barre de progression qui s'actualise à chaque appel
+ * @note inspiration: https://gist.github.com/amullins83/24b5ef48657c08c4005a8fab837b7499
+ * @param currentIteration - numéro de l'itération en cours
+ * @param total - nombre total d'itérations
+ */
+void printProgress(int currentIteration, int total){
+    const char prefix[] = "Progres: [", suffix[] = "]";
+    const int prefixLength = sizeof(prefix) - 1, suffixLength = sizeof(suffix) - 1;
+
+    char *buffer = calloc(prefixLength + 100 + suffixLength + 1, 1);
+
+    for (int i = 0; prefix[i] != '\0'; i++) buffer[i] = prefix[i];
+    for (int i = 0; i < 100; i++) buffer[prefixLength + i] = i < (100 - (((total - currentIteration) * 100) / total)) ? '#' : ' ';
+    for (int i = 0; suffix[i] != '\0'; i++) buffer[prefixLength + 100 + i] = suffix[i];
+
+    printf("\b\r%c[2K\r%s", 27, buffer);
+    fflush(stdout); free(buffer);
+}
+
+/**
  * Lit une chaîne de caractère
  * La fonction writeString() permet de lire une chaîne de caractère quelconque terminée par un retour à la ligne
  * @note Cette fonction prend tout caractère visible à l'exception des retours à la ligne
@@ -84,7 +105,7 @@ void writeInFile(unsigned char *data, const int *size, const char *sourceLink, c
     FILE *destinationFile = fopen(destlink, "wb");
     for (int i = 0; i < *size; i++) fprintf(destinationFile, "%c", data[i]);
     fclose(destinationFile);
-    printf("Termine ! Retrouvez le resultat a l'emplacement suivant: %s", destlink);
+    printf("\nTermine ! Retrouvez le resultat a l'emplacement suivant: %s", destlink);
     free(destlink);
 }
 
@@ -127,7 +148,7 @@ void charPermutationReverse(unsigned char *byte, const unsigned char *key){
  * @param v - vecteur V de taille 8x1, mis à jour suite à la multiplication
  * @param H - matrice de taille 8x8
  */
-void multiplyMatrices(int **v, int H[][8]){
+void multiplyMatrices(int **v, int (*H)[8]){
     int vRes[8];
     for (int rowFinal = 0, temp = 0; rowFinal < 8; rowFinal++) {
         for (int k = 0; k < 8; k++) temp += H[rowFinal][k] * (*v)[k];
@@ -301,7 +322,7 @@ void concatenateReverse(unsigned char *byte0, unsigned char *byte1, unsigned cha
 }
 
 //utiliser "doxygen Doxyfile" pour mettre à jour la documentation
-int main() {
+int main() { //TODO Changer byteToBits() et bitsToByte() pour qu'ils n'utilisent que des pointeurs
     printf("===================================================================================================================\n\n");
     printf("#######  #######  #     #  #######  #######  #######  #######  #######  #######  #######  #     #  #######  #######\n");
     printf("#        #     #  #     #  #     #     #     #     #  #        #     #  #     #  #     #  #     #  #        #     #\n");
@@ -339,11 +360,12 @@ int main() {
         N = strtol(temp1, &temp2, 10);
     } while (N <= 0);
 
+    //printProgress(0, N);
     for (int i = 1; i <= N; i++) {
         unsigned char iterationKey1 = 0, iterationKey2 = 0;
         int keyGeneratorIterator = 0;
         while (encryptionKey[keyGeneratorIterator] != '\0') { //Création des clés d'itérations
-            int iterationVariation = i;
+            int iterationVariation = i; //TODO modes de chiffrement CBC et CTR
             if (action == 1) iterationVariation = N - i + 1;
             iterationKey1 += encryptionKey[keyGeneratorIterator] + iterationVariation;
             iterationKey2 *= encryptionKey[keyGeneratorIterator] + iterationVariation;
@@ -364,8 +386,10 @@ int main() {
                 charPermutationReverse(&fileData[j], &iterationKey1);
             }
         }
+        printProgress(i, N);
     }
     writeInFile(fileData, &size, link, &action); //fonction pour écrire les résultats dans un fichier, désactivé pour les test
     //free(fileData); //TODO gérer problème en cas de présence de caractère table ASCII étendue
+    scanf(" %c", &temp); //TODO A revoir, ici juste pour pas que la fenêtre ne se ferme pas automatiquement
     return EXIT_SUCCESS;
 }

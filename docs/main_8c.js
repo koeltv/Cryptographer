@@ -10,7 +10,8 @@ var main_8c =
     [ "concatenate", "main_8c.html#a0632b0440947be94480d43031da5be77", null ],
     [ "concatenateReverse", "main_8c.html#a7f3173258e001c229da2e6e552610299", null ],
     [ "main", "main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],
-    [ "multiplyMatrices", "main_8c.html#a29f906e7964b3d12c3b701af32809189", null ],
+    [ "multiplyMatrices", "main_8c.html#ac4b2ed41806dcff4c399297ab1e22a19", null ],
+    [ "printProgress", "main_8c.html#a7c20115829bd332c9c643184a120da6d", null ],
     [ "readFile", "main_8c.html#a47659298dd719a9de5d85be0950e6152", null ],
     [ "writeInFile", "main_8c.html#a67c9cc078d3b7b915c88ef87601ca032", null ],
     [ "writeString", "main_8c.html#abcf2ff60db99f9cc108e4a0b0c51beb0", null ]
