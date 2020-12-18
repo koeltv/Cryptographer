@@ -543,10 +543,10 @@ int main() {
     printf("Entrer la cle de chiffrement\n");
     char *encryptionKey = writeString();
     do {
-        char temp1[9], *temp2;
-        printf("Enfin, entrez le nombre d'iterations a effectuer entre 0 et 999 999 999 (nombre plus grand, plus de securite mais processus plus long)\n");
+        char temp1[10], *temp2;
+        printf("Enfin, entrez le nombre d'iterations a effectuer entre 0 et 999 999 (nombre plus grand, plus de securite mais processus plus long)\n");
         scanf(" %s", temp1);
-        N = strtol(temp1, &temp2, 10);
+        if ((N = strtol(temp1, &temp2, 10)) > 999999) N = 999999;
         getchar(); //Elimine le retour à la ligne
     } while (N < 1);
 
