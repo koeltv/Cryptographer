@@ -11,7 +11,6 @@
 void printProgress(const int *currentIteration, const int *total){
     const char prefix[] = "Progression: [", suffix[] = "]";
     const unsigned char prefixLength = sizeof(prefix) - 1, suffixLength = sizeof(suffix) - 1;
-
     char *progressBar = calloc(prefixLength + 100 + suffixLength + 1, 1);
 
     for (int i = 0; prefix[i] != '\0'; i++) progressBar[i] = prefix[i];
@@ -31,7 +30,7 @@ void printProgress(const int *currentIteration, const int *total){
  */
 char *writeString(){
     int i = 0;
-    char temp, *string = (char*) malloc (20 * sizeof(char)); //On part d'une chaîne de 20 caractères
+    char temp, *string = (char*) malloc(20 * sizeof(char)); //On part d'une chaîne de 20 caractères
     scanf(" %c", &temp);
     while (temp >= ' ' && temp <= '~') {
         if (i % 19 == 1 && i > 19) string = (char *) realloc (string, (i + 20) * sizeof(char)); //Si on dépasse 20 caractères, on ajoute un espace de 20 caractères à la chaîne
@@ -52,8 +51,7 @@ char *writeString(){
  */
 void readNonStandardAscii(unsigned char *character, FILE **sourceFile, int *size){
     unsigned char second;
-    fscanf(*sourceFile, "%c", &second);
-    (*size)--;
+    fscanf(*sourceFile, "%c", &second); (*size)--;
     if (*character != 226){
         switch (*character) {
             case 195:
@@ -131,6 +129,7 @@ void readNonStandardAscii(unsigned char *character, FILE **sourceFile, int *size
                     case 157: *character = 237; break;
 
                     case 183: *character = 246; break;
+                    default: printf("Caractere non connu detecte !\n"); break;
                 } break;
             case 194:
                 switch (second) {
@@ -173,20 +172,14 @@ void readNonStandardAscii(unsigned char *character, FILE **sourceFile, int *size
                     case 179: *character = 252; break;
                     case 178: *character = 253; break;
                     case 160: *character = 255; break;
+                    default: printf("Caractere non connu detecte !\n"); break;
                 } break;
-            case 198:
-                switch (second) {
-                    case 146: *character = 159; break;
-                } break;
-            case 196:
-                switch (second) {
-                    case 177: *character = 213; break;
-                } break;
+            case 198: if (second == 146) *character = 159; break;
+            case 196: if (second == 213) *character = 213; break;
         }
     } else {
         unsigned char third;
-        fscanf(*sourceFile, "%c", &third);
-        (*size)--;
+        fscanf(*sourceFile, "%c", &third); (*size)--;
         switch (second) {
             case 150:
                 switch (third) {
@@ -198,6 +191,7 @@ void readNonStandardAscii(unsigned char *character, FILE **sourceFile, int *size
                     case 132: *character = 220; break;
                     case 128: *character = 223; break;
                     case 160: *character = 254; break;
+                    default: printf("Caractere non connu detecte !\n"); break;
                 } break;
             case 148:
                 switch (third) {
@@ -214,6 +208,7 @@ void readNonStandardAscii(unsigned char *character, FILE **sourceFile, int *size
 
                     case 152: *character = 217; break;
                     case 140: *character = 218; break;
+                    default: printf("Caractere non connu detecte !\n"); break;
                 } break;
             case 149:
                 switch (third) {
@@ -229,8 +224,10 @@ void readNonStandardAscii(unsigned char *character, FILE **sourceFile, int *size
                     case 160: *character = 204; break;
                     case 144: *character = 205; break;
                     case 172: *character = 206; break;
+                    default: printf("Caractere non connu detecte !\n"); break;
                 } break;
             case 128: if (third == 151) *character = 242; break;
+            default: printf("Caractere non connu detecte !\n"); break;
         }
     }
 }
@@ -583,8 +580,7 @@ int main() {
         printProgress(&i, &N);
     }
     writeInFile(fileData, &size, link, &action); //fonction pour écrire les résultats dans un fichier, désactivé pour les test
-    //free(fileData); //TODO gérer problème en cas de présence de caractère table ASCII étendue
-    printf("\nAppuyer sur entree pour mettre fin au programme\n");
-    getchar();
+    free(fileData);
+    printf("\nAppuyer sur entree pour mettre fin au programme\n"); getchar();
     return EXIT_SUCCESS;
 }

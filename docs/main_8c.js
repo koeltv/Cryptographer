@@ -12,7 +12,8 @@ var main_8c =
     [ "main", "main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],
     [ "multiplyMatrices", "main_8c.html#a085508f51f1dd99d8fe8995a7ee00e92", null ],
     [ "printProgress", "main_8c.html#af60f7c637decc7f4d959092670b4abad", null ],
-    [ "readFile", "main_8c.html#a47659298dd719a9de5d85be0950e6152", null ],
+    [ "readFile", "main_8c.html#a5cfaaae45b9cfc7642e6beb39e632ff9", null ],
+    [ "readNonStandardAscii", "main_8c.html#aec0e9577665925ded386d43ee63587d7", null ],
     [ "writeInFile", "main_8c.html#a67c9cc078d3b7b915c88ef87601ca032", null ],
     [ "writeString", "main_8c.html#abcf2ff60db99f9cc108e4a0b0c51beb0", null ]
 ];

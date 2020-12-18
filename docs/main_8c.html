@@ -111,9 +111,12 @@ Functions</h2></td></tr>
 <tr class="memitem:abcf2ff60db99f9cc108e4a0b0c51beb0"><td align="right" class="memItemLeft" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#abcf2ff60db99f9cc108e4a0b0c51beb0">writeString</a> ()</td></tr>
 <tr class="memdesc:abcf2ff60db99f9cc108e4a0b0c51beb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une chaîne de caractère La fonction <a class="el" href="main_8c.html#abcf2ff60db99f9cc108e4a0b0c51beb0" title="Lit une chaîne de caractère La fonction writeString() permet de lire une chaîne de caractère quelconq...">writeString()</a> permet de lire une chaîne de caractère quelconque terminée par un retour à la ligne.  <a href="main_8c.html#abcf2ff60db99f9cc108e4a0b0c51beb0">More...</a><br /></td></tr>
 <tr class="separator:abcf2ff60db99f9cc108e4a0b0c51beb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47659298dd719a9de5d85be0950e6152"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a47659298dd719a9de5d85be0950e6152">readFile</a> (char *fileLink, unsigned char **fileData, int *size)</td></tr>
-<tr class="memdesc:a47659298dd719a9de5d85be0950e6152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit le contenu d'un fichier La fonction <a class="el" href="main_8c.html#a47659298dd719a9de5d85be0950e6152" title="Lit le contenu d&#39;un fichier La fonction readFile() permet de lire le contenu d&#39;un fichier quelconque ...">readFile()</a> permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au programme)  <a href="main_8c.html#a47659298dd719a9de5d85be0950e6152">More...</a><br /></td></tr>
-<tr class="separator:a47659298dd719a9de5d85be0950e6152"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec0e9577665925ded386d43ee63587d7"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#aec0e9577665925ded386d43ee63587d7">readNonStandardAscii</a> (unsigned char *character, FILE **sourceFile, int *size)</td></tr>
+<tr class="memdesc:aec0e9577665925ded386d43ee63587d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un charactère non standard La fonction <a class="el" href="main_8c.html#aec0e9577665925ded386d43ee63587d7" title="Lit un charactère non standard La fonction readNonStandardAscii() va lire un caractère ne se trouvant...">readNonStandardAscii()</a> va lire un caractère ne se trouvant pas dans la table ASCII standard, mais dans la table ASCII étendue.  <a href="main_8c.html#aec0e9577665925ded386d43ee63587d7">More...</a><br /></td></tr>
+<tr class="separator:aec0e9577665925ded386d43ee63587d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cfaaae45b9cfc7642e6beb39e632ff9"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a5cfaaae45b9cfc7642e6beb39e632ff9">readFile</a> (char *fileLink, unsigned char **fileData, int *size, const unsigned char *action)</td></tr>
+<tr class="memdesc:a5cfaaae45b9cfc7642e6beb39e632ff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit le contenu d'un fichier La fonction <a class="el" href="main_8c.html#a5cfaaae45b9cfc7642e6beb39e632ff9" title="Lit le contenu d&#39;un fichier La fonction readFile() permet de lire le contenu d&#39;un fichier quelconque ...">readFile()</a> permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au programme)  <a href="main_8c.html#a5cfaaae45b9cfc7642e6beb39e632ff9">More...</a><br /></td></tr>
+<tr class="separator:a5cfaaae45b9cfc7642e6beb39e632ff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67c9cc078d3b7b915c88ef87601ca032"><td align="right" class="memItemLeft" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a67c9cc078d3b7b915c88ef87601ca032">writeInFile</a> (unsigned char *data, const int *size, const char *sourceLink, const unsigned char *action)</td></tr>
 <tr class="memdesc:a67c9cc078d3b7b915c88ef87601ca032"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ecrit dans un fichier La fonction <a class="el" href="main_8c.html#a67c9cc078d3b7b915c88ef87601ca032" title="Ecrit dans un fichier La fonction writeInFile() permet d&#39;écrire des données dans un fichier basé sur ...">writeInFile()</a> permet d'écrire des données dans un fichier basé sur le fichier d'entrée et le mode choisi.  <a href="main_8c.html#a67c9cc078d3b7b915c88ef87601ca032">More...</a><br /></td></tr>
 <tr class="separator:a67c9cc078d3b7b915c88ef87601ca032"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -223,7 +226,7 @@ Exemple</h3>
 <p>Conversion d'un tableau de bits vers un octet/caractère La fonction <a class="el" href="main_8c.html#a9f24e4b80610d05afe7d49b8269a7c07" title="Conversion d&#39;un tableau de bits vers un octet/caractère La fonction bitsToByte() prend un tableau de ...">bitsToByte()</a> prend un tableau de bits et donne en sortie un octet/caractère correspondant à sa valeur base 10. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">bits</td><td>- pointeur vers un tableau de 8 bits </td></tr>
+    <tr><td class="paramname">bits</td><td>- tableau de bits correspondant à la valeur en binaire de l'octet </td></tr>
     <tr><td class="paramname">byte</td><td>- octet correspondant à la valeur en base 10 du tableau de bits </td></tr>
   </table>
   </dd>
@@ -622,8 +625,8 @@ Exemple</h3>
 
 </div>
 </div>
-<a id="a47659298dd719a9de5d85be0950e6152"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47659298dd719a9de5d85be0950e6152">&#9670;&nbsp;</a></span>readFile()</h2>
+<a id="a5cfaaae45b9cfc7642e6beb39e632ff9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cfaaae45b9cfc7642e6beb39e632ff9">&#9670;&nbsp;</a></span>readFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -644,7 +647,13 @@ Exemple</h3>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>size</em>&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned char *&#160;</td>
+          <td class="paramname"><em>action</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -654,7 +663,7 @@ Exemple</h3>
       </table>
 </div><div class="memdoc">
 
-<p>Lit le contenu d'un fichier La fonction <a class="el" href="main_8c.html#a47659298dd719a9de5d85be0950e6152" title="Lit le contenu d&#39;un fichier La fonction readFile() permet de lire le contenu d&#39;un fichier quelconque ...">readFile()</a> permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au programme) </p>
+<p>Lit le contenu d'un fichier La fonction <a class="el" href="main_8c.html#a5cfaaae45b9cfc7642e6beb39e632ff9" title="Lit le contenu d&#39;un fichier La fonction readFile() permet de lire le contenu d&#39;un fichier quelconque ...">readFile()</a> permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au programme) </p>
 <dl class="section warning"><dt>Warning</dt><dd>Si le fichier n'existe pas ou que la fonction n'arrive pas à le lire, elle affiche l'erreur suivante : "Erreur: Impossible d'ouvrir le fichier &lt;fichier&gt;", &lt;fichier&gt; étant le fichier que la fonction à essayer d'ouvrir </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Dans le cas d'une erreur de lecture la fonction ne change pas size </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -669,9 +678,54 @@ Exemple</h3>
 Exemple</h3>
 <div class="fragment"><div class="line"><span class="comment">//Ceci affiche le contenu du fichier test.txt à l&#39;emplacement du programme</span></div>
 <div class="line"><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *file = NULL; <span class="keywordtype">int</span> size = 0;</div>
-<div class="line"><a class="code" href="main_8c.html#a47659298dd719a9de5d85be0950e6152">readFile</a>(<span class="stringliteral">&quot;./test.txt&quot;</span>, &amp;file, &amp;size);</div>
+<div class="line"><a class="code" href="main_8c.html#a5cfaaae45b9cfc7642e6beb39e632ff9">readFile</a>(<span class="stringliteral">&quot;./test.txt&quot;</span>, &amp;file, &amp;size);</div>
 <div class="line"><span class="keywordflow">if</span> (size &gt; 0) <span class="keywordflow">for</span> (i = 0; i &lt; size; i++) printf(<span class="stringliteral">&quot;%c&quot;</span>, file[i]);</div>
 </div><!-- fragment --> 
+</div>
+</div>
+<a id="aec0e9577665925ded386d43ee63587d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec0e9577665925ded386d43ee63587d7">&#9670;&nbsp;</a></span>readNonStandardAscii()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void readNonStandardAscii </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>character</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE **&#160;</td>
+          <td class="paramname"><em>sourceFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lit un charactère non standard La fonction <a class="el" href="main_8c.html#aec0e9577665925ded386d43ee63587d7" title="Lit un charactère non standard La fonction readNonStandardAscii() va lire un caractère ne se trouvant...">readNonStandardAscii()</a> va lire un caractère ne se trouvant pas dans la table ASCII standard, mais dans la table ASCII étendue. </p>
+<dl class="section note"><dt>Note</dt><dd>Les caractères de la table ASCII étendue ne sont pas écrit en tant qu'un seul caractère, mais 2 ou 3 et ont tous une valeur entre 128 et 255 </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">character</td><td>- caractère mis à jour suite à l'appel de la fonction </td></tr>
+    <tr><td class="paramname">sourceFile</td><td>- fichier où lire le caractère </td></tr>
+    <tr><td class="paramname">size</td><td>- taille du fichier, modifié suite à la fonction </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a67c9cc078d3b7b915c88ef87601ca032"></a>
@@ -751,12 +805,12 @@ Exemple</h3>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="amain_8c_html_a29dee4cbf6ca4110ab6bb1be54ee7fc6"><div class="ttname"><a href="main_8c.html#a29dee4cbf6ca4110ab6bb1be54ee7fc6">byteToBits</a></div><div class="ttdeci">void byteToBits(unsigned char *byte, unsigned char **bits)</div><div class="ttdoc">Conversion d'un octet/caractère vers un tableau de bits La fonction byteToBits() prend un octet/carac...</div><div class="ttdef"><b>Definition:</b> main.c:172</div></div>
-<div class="ttc" id="amain_8c_html_a1517d424348a41fd69e53ea9c513c03b"><div class="ttname"><a href="main_8c.html#a1517d424348a41fd69e53ea9c513c03b">charPermutation</a></div><div class="ttdeci">void charPermutation(unsigned char *byte, const unsigned char *key)</div><div class="ttdoc">Permutation d'un octet La fonction charPermutation() va prendre un octet et le décaler vers la droite...</div><div class="ttdef"><b>Definition:</b> main.c:124</div></div>
-<div class="ttc" id="amain_8c_html_add1b3de234534512e525667bb73dc140"><div class="ttname"><a href="main_8c.html#add1b3de234534512e525667bb73dc140">charPermutationReverse</a></div><div class="ttdeci">void charPermutationReverse(unsigned char *byte, const unsigned char *key)</div><div class="ttdoc">Inversion de la permutation d'un octet La fonction charPermutationReverse() va prendre un octet et le...</div><div class="ttdef"><b>Definition:</b> main.c:140</div></div>
-<div class="ttc" id="amain_8c_html_a47659298dd719a9de5d85be0950e6152"><div class="ttname"><a href="main_8c.html#a47659298dd719a9de5d85be0950e6152">readFile</a></div><div class="ttdeci">void readFile(char *fileLink, unsigned char **fileData, int *size)</div><div class="ttdoc">Lit le contenu d'un fichier La fonction readFile() permet de lire le contenu d'un fichier quelconque ...</div><div class="ttdef"><b>Definition:</b> main.c:61</div></div>
-<div class="ttc" id="amain_8c_html_a9f24e4b80610d05afe7d49b8269a7c07"><div class="ttname"><a href="main_8c.html#a9f24e4b80610d05afe7d49b8269a7c07">bitsToByte</a></div><div class="ttdeci">void bitsToByte(const unsigned char *bits, unsigned char *byte)</div><div class="ttdoc">Conversion d'un tableau de bits vers un octet/caractère La fonction bitsToByte() prend un tableau de ...</div><div class="ttdef"><b>Definition:</b> main.c:188</div></div>
-<div class="ttc" id="amain_8c_html_a92784525604223a45a6a92d8d8d3610e"><div class="ttname"><a href="main_8c.html#a92784525604223a45a6a92d8d8d3610e">applyXOROnByte</a></div><div class="ttdeci">void applyXOROnByte(unsigned char *byte, const unsigned char *key)</div><div class="ttdoc">Fonction XOR logique La fonction applyXOROnByte() prend un octet/caractère et va appliquer l'opératio...</div><div class="ttdef"><b>Definition:</b> main.c:257</div></div>
+<div class="ttc" id="amain_8c_html_a29dee4cbf6ca4110ab6bb1be54ee7fc6"><div class="ttname"><a href="main_8c.html#a29dee4cbf6ca4110ab6bb1be54ee7fc6">byteToBits</a></div><div class="ttdeci">void byteToBits(unsigned char *byte, unsigned char **bits)</div><div class="ttdoc">Conversion d'un octet/caractère vers un tableau de bits La fonction byteToBits() prend un octet/carac...</div><div class="ttdef"><b>Definition:</b> main.c:365</div></div>
+<div class="ttc" id="amain_8c_html_a1517d424348a41fd69e53ea9c513c03b"><div class="ttname"><a href="main_8c.html#a1517d424348a41fd69e53ea9c513c03b">charPermutation</a></div><div class="ttdeci">void charPermutation(unsigned char *byte, const unsigned char *key)</div><div class="ttdoc">Permutation d'un octet La fonction charPermutation() va prendre un octet et le décaler vers la droite...</div><div class="ttdef"><b>Definition:</b> main.c:317</div></div>
+<div class="ttc" id="amain_8c_html_a5cfaaae45b9cfc7642e6beb39e632ff9"><div class="ttname"><a href="main_8c.html#a5cfaaae45b9cfc7642e6beb39e632ff9">readFile</a></div><div class="ttdeci">void readFile(char *fileLink, unsigned char **fileData, int *size, const unsigned char *action)</div><div class="ttdoc">Lit le contenu d'un fichier La fonction readFile() permet de lire le contenu d'un fichier quelconque ...</div><div class="ttdef"><b>Definition:</b> main.c:251</div></div>
+<div class="ttc" id="amain_8c_html_add1b3de234534512e525667bb73dc140"><div class="ttname"><a href="main_8c.html#add1b3de234534512e525667bb73dc140">charPermutationReverse</a></div><div class="ttdeci">void charPermutationReverse(unsigned char *byte, const unsigned char *key)</div><div class="ttdoc">Inversion de la permutation d'un octet La fonction charPermutationReverse() va prendre un octet et le...</div><div class="ttdef"><b>Definition:</b> main.c:333</div></div>
+<div class="ttc" id="amain_8c_html_a9f24e4b80610d05afe7d49b8269a7c07"><div class="ttname"><a href="main_8c.html#a9f24e4b80610d05afe7d49b8269a7c07">bitsToByte</a></div><div class="ttdeci">void bitsToByte(const unsigned char *bits, unsigned char *byte)</div><div class="ttdoc">Conversion d'un tableau de bits vers un octet/caractère La fonction bitsToByte() prend un tableau de ...</div><div class="ttdef"><b>Definition:</b> main.c:381</div></div>
+<div class="ttc" id="amain_8c_html_a92784525604223a45a6a92d8d8d3610e"><div class="ttname"><a href="main_8c.html#a92784525604223a45a6a92d8d8d3610e">applyXOROnByte</a></div><div class="ttdeci">void applyXOROnByte(unsigned char *byte, const unsigned char *key)</div><div class="ttdoc">Fonction XOR logique La fonction applyXOROnByte() prend un octet/caractère et va appliquer l'opératio...</div><div class="ttdef"><b>Definition:</b> main.c:450</div></div>
 <!-- start footer part -->
 <div class="navpath" id="nav-path"><!-- id is needed for treeview function! -->
   <ul>
