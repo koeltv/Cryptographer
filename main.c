@@ -1,9 +1,16 @@
+/**
+ * @file main.c Fichier principal du programme
+ *
+ * Ce programme n'est constitué que du fichier main.c qui contient toutes les fonctions nécessaires à son fonctionnement
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
 /**
  * Affiche une barre de progression
  * La fonction printProgress() affiche une barre de progression qui s'actualise à chaque appel
+ * @date 17 Décembre 2020
  * @note inspiration: https://gist.github.com/amullins83/24b5ef48657c08c4005a8fab837b7499
  * @param currentIteration - numéro de l'itération en cours
  * @param total - nombre total d'itérations
@@ -24,6 +31,7 @@ void printProgress(const int *currentIteration, const int *total){
 /**
  * Lit une chaîne de caractère
  * La fonction writeString() permet de lire une chaîne de caractère quelconque terminée par un retour à la ligne
+ * @date 21 Novembre 2020
  * @note Cette fonction prend tout caractère visible à l'exception des retours à la ligne
  * @attention Cette fonction ne prendra pas un espace situé en début de chaîne (ex: " exemple" donnera "exemple")
  * @return addresse où est stocké la chaîne de caractère
@@ -44,6 +52,7 @@ char *writeString(){
 /**
  * Lit un charactère non standard
  * La fonction readNonStandardAscii() va lire un caractère ne se trouvant pas dans la table ASCII standard, mais dans la table ASCII étendue
+ * @date 18 Décembre 2020
  * @note Les caractères de la table ASCII étendue ne sont pas écrit en tant qu'un seul caractère, mais 2 ou 3 et ont tous une valeur entre 128 et 255
  * @param character - caractère mis à jour suite à l'appel de la fonction
  * @param sourceFile - fichier où lire le caractère
@@ -235,6 +244,7 @@ void readNonStandardAscii(unsigned char *character, FILE **sourceFile, int *size
 /**
  * Lit le contenu d'un fichier
  * La fonction readFile() permet de lire le contenu d'un fichier quelconque dont on lui donne le lien (relatif au programme)
+ * @date 29 Octobre 2020
  * @warning Si le fichier n'existe pas ou que la fonction n'arrive pas à le lire, elle affiche l'erreur suivante : "Erreur: Impossible d'ouvrir le fichier <fichier>", <fichier> étant le fichier que la fonction à essayer d'ouvrir
  * @note Dans le cas d'une erreur de lecture la fonction ne change pas size
  * @param fileLink - lien vers le fichier à lire
@@ -268,6 +278,7 @@ void readFile(char *fileLink, unsigned char **fileData, int *size, const unsigne
 /**
  * Ecrit dans un fichier
  * La fonction writeInFile() permet d'écrire des données dans un fichier basé sur le fichier d'entrée et le mode choisi
+ * @date 21 Novembre 2020
  * @note l'extension "_encrypted" ou "decrypted" sera ajouté à la fin du nom du fichier selon le mode choisi
  * @warning Si un fichier du même nom existe déjà, il sera écrasé et remplacé par celui généré par la fonction
  * @param data - données à écrire dans le fichier
@@ -305,6 +316,7 @@ void writeInFile(unsigned char *data, const int *size, const char *sourceLink, c
 /**
  * Permutation d'un octet
  * La fonction charPermutation() va prendre un octet et le décaler vers la droite dans la table ASCII
+ * @date 29 Octobre 2020
  * @note Si la valeur dépasse 255, on repart de 0
  * @param byte - caractère/octet à permuter, mis à jour suite à la permutation
  * @param key - valeur selon laquel byte sera décalé
@@ -321,6 +333,7 @@ void charPermutation(unsigned char *byte, const unsigned char *key){
 /**
  * Inversion de la permutation d'un octet
  * La fonction charPermutationReverse() va prendre un octet et le décaler vers la gauche dans la table ASCII
+ * @date 29 Octobre 2020
  * @note Si la valeur atteint 0, on repart de 255
  * @param byte - caractère/octet à permuter, mis à jour suite à la permutation
  * @param key - valeur selon laquel byte sera décalé
@@ -337,6 +350,7 @@ void charPermutationReverse(unsigned char *byte, const unsigned char *key){
 /**
  * Multiplication matrice par vecteur
  * La fonction multiplyMatrices() effectue une multiplication entre une matrice et un vecteur dans cet ordre
+ * @date 09 Novembre 2020
  * @warning La matrice doit être de dimension 8x8 et le vecteur de dimension 8x1
  * @param v - vecteur V de taille 8x1, mis à jour suite à la multiplication
  * @param H - matrice de taille 8x8
@@ -353,6 +367,7 @@ void multiplyMatrices(unsigned char **v, unsigned char (*H)[8]){
 /**
  * Conversion d'un octet/caractère vers un tableau de bits
  * La fonction byteToBits() prend un octet/caractère et donne en sortie un tableau de bits correspondant à sa valeur en binaire
+ * @date 09 Novembre 2020
  * @note Le bit de poids le plus faible se trouve en position 0
  * @param byte - caractère/octet à convertir
  * @param bits - tableau de bits correspondant à la valeur en binaire de l'octet
@@ -370,6 +385,7 @@ void byteToBits(unsigned char *byte, unsigned char **bits){
 /**
  * Conversion d'un tableau de bits vers un octet/caractère
  * La fonction bitsToByte() prend un tableau de bits et donne en sortie un octet/caractère correspondant à sa valeur base 10
+ * @date 09 Novembre 2020
  * @param bits - tableau de bits correspondant à la valeur en binaire de l'octet
  * @param byte - octet correspondant à la valeur en base 10 du tableau de bits
  * ### Exemple
@@ -385,6 +401,7 @@ void bitsToByte(const unsigned char *bits, unsigned char *byte){
 /**
  * Fonction Matriciel
  * La fonction charApplyMatrix() prend un octet/caractère et va le multiplier par une matrice H puis effectuer une addition avec C pour encoder cet octet/caractère
+ * @date 09 Novembre 2020
  * @note La matrice H et le vecteur C sont connus auparavant
  * @param byte - caractère/octet à encoder, mis à jour suite à l'application de la fonction
  * @see bitsToByte() byteToBits() multiplyMatrices()
@@ -411,6 +428,7 @@ void charApplyMatrix(unsigned char *byte){
 /**
  * Fonction Matriciel Inverse
  * La fonction charApplyMatrixReverse() prend un octet/caractère et va le multiplier par une matrice H' puis effectuer une addition avec C' pour décoder cet octet/caractère après passage dans charApplyMatrix()
+ * @date 09 Novembre 2020
  * @note La matrice H' et le vecteur C' sont connu auparavant
  * @param byte - caractère/octet à décoder, mis à jour suite à l'application de la fonction
  * @see bitsToByte() byteToBits() multiplyMatrices()
@@ -437,6 +455,7 @@ void charApplyMatrixReverse(unsigned char *byte){
 /**
  * Fonction XOR logique
  * La fonction applyXOROnByte() prend un octet/caractère et va appliquer l'opération logique XOR individuellement entre chaque bit de l'octet et la clé d'itération n°2
+ * @date 05 Décembre 2020
  * @param byte - caractère/octet à encoder, mis à jour suite à la fonction
  * @param key - 2ème valeur (sous forme d'entier) pour faire le XOR
  * ### Exemple
@@ -460,15 +479,13 @@ void applyXOROnByte(unsigned char *byte, const unsigned char *key){
  * La fonction concatenate() prend 4 octets/caractères et va les concaténer en respectant un ordre d'opération précis (voir ci-dessous).
  * Opération effectuées :
  *
- * Z[0] = Y[0] + Y[1]
- *
- * Z[1] = Y[0] + Y[1] + Y[2]
- *
- * Z[2] = Y[1] + Y[2] + Y[3]
- *
- * Z[3] = Y[2] + Y[3]
+ * - Z[0] = Y[0] + Y[1]
+ * - Z[1] = Y[0] + Y[1] + Y[2]
+ * - Z[2] = Y[1] + Y[2] + Y[3]
+ * - Z[3] = Y[2] + Y[3]
  *
  * Y étant l'entrée et Z la sortie
+ * @date 14 Décembre 2020
  * @param byte0 - correspond à Y[0], devient Z[0] suite à l'appel de la fonction
  * @param byte1 - correspond à Y[1], devient Z[1] suite à l'appel de la fonction
  * @param byte2 - correspond à Y[2], devient Z[2] suite à l'appel de la fonction
@@ -487,15 +504,13 @@ void concatenate(unsigned char *byte0, unsigned char *byte1, unsigned char *byte
  * La fonction concatenateReverse() prend 4 octets/caractères et va inverser la concaténation de concatenate() en respectant un ordre d'opération précis (voir ci-dessous).
  * Opération effectuées :
  *
- * Y[0] = Z[0] - Z[2] + Z[3]
- *
- * Y[1] = Z[2] - Z[3]
- *
- * Y[2] = Z[1] - Z[0]
- *
- * Y[3] = Z[0] - Z[1] + Z[3]
+ * - Y[0] = Z[0] - Z[2] + Z[3]
+ * - Y[1] = Z[2] - Z[3]
+ * - Y[2] = Z[1] - Z[0]
+ * - Y[3] = Z[0] - Z[1] + Z[3]
  *
  * Z étant l'entrée et Y la sortie
+ * @date 14 Décembre 2020
  * @param byte0 - correspond à Z[0], devient Y[0] suite à l'appel de la fonction
  * @param byte1 - correspond à Z[1], devient Y[1] suite à l'appel de la fonction
  * @param byte2 - correspond à Z[2], devient Y[2] suite à l'appel de la fonction
@@ -556,7 +571,7 @@ int main() {
         unsigned char iterationKey1 = 0, iterationKey2 = 0;
         int keyGeneratorIterator = 0;
         while (encryptionKey[keyGeneratorIterator] != '\0') { //Création des clés d'itérations
-            int iterationVariation = i; //TODO modes de chiffrement CBC et CTR
+            int iterationVariation = i;
             if (action == 1) iterationVariation = N - i + 1;
             iterationKey1 += encryptionKey[keyGeneratorIterator] + iterationVariation;
             iterationKey2 *= encryptionKey[keyGeneratorIterator] + iterationVariation;

@@ -26,11 +26,11 @@ var NAVTREE =
 [
   [ "Cryptographer", "index.html", [
     [ "Manuel du Cryptographer", "index.html", null ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "Globals", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ]
+    [ "Fichiers", "files.html", [
+      [ "Liste des fichiers", "files.html", "files_dup" ],
+      [ "Variables globale", "globals.html", [
+        [ "Tout", "globals.html", null ],
+        [ "Fonctions", "globals_func.html", null ]
       ] ]
     ] ]
   ] ]
@@ -41,5 +41,5 @@ var NAVTREEINDEX =
 "dir_1f8d36950bf496cee0e0f39cb9c40961.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'cliquez pour désactiver la synchronisation du panel';
+var SYNCOFFMSG = 'cliquez pour activer la synchronisation du panel';
