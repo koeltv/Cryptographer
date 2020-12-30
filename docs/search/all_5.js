@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['readfile_16',['readFile',['../main_8c.html#a5cfaaae45b9cfc7642e6beb39e632ff9',1,'main.c']]],
-  ['readnonstandardascii_17',['readNonStandardAscii',['../main_8c.html#aec0e9577665925ded386d43ee63587d7',1,'main.c']]]
+  ['readfile_19',['readFile',['../main_8c.html#a47659298dd719a9de5d85be0950e6152',1,'main.c']]],
+  ['readtable_20',['readTable',['../main_8c.html#ad815606b7822f40bc56f55d8d2f0d1b0',1,'main.c']]]
 ];

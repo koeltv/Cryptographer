@@ -13,11 +13,12 @@ Inversement on peut demander au programme de décrypter un fichier en lui fourni
 
 C’est pour cela que l’on appelle cette méthode la cryptographie symétrique, on va passer les mêmes paramètres en entrée pour crypter ou décrypter un fichier (à part le fait que pour décrypter, il faudra le fichier crypté, bien entendu).
 ###Mode d'emploi
-A l’ouverture du programme, celui-ci commencera par vous demander si vous voulez crypter ou décrypter un fichier, après quoi 3 informations vous seront demandées dans cette ordre :
+A l’ouverture du programme, celui-ci commencera par vous demander si vous voulez crypter ou décrypter un fichier, après quoi 4 ou 5 informations vous seront demandées dans cette ordre :
 1.	L’action à effectuer (encryptage/décryptage),
 2.	Le lien du fichier à encrypter, relatif à l’emplacement du programme (ex : ../fichier/toto.txt),
 3.	La clé d’encryptage, sous forme de chaîne de caractère (ex : Ceci est une cle d’encryptage),
 4.	Le nombre d’itérations voulues (plus d’itérations donne un meilleur encryptage mais cela est plus long).
+5.  L'emplacement du fichier contenant le tableau de permutation si celui-ci n'est pas au même emplacement que le programme
 
 Une fois toutes ces informations saisies, le programme va commencer le cryptage/décryptage. Lors de ce processus, une barre de progression sera affichée et actualisé tout au long de l’exécution pour vous tenir au courant de l’état de l’encryptage/décryptage. Quand il aura fini vous serez informé par le texte suivant « Termine ! Retrouvez le resultat a l'emplacement suivant: <emplacement> », <emplacement> étant l’emplacement ou à été enregistré le fichier.
 

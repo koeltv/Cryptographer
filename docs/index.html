@@ -108,11 +108,12 @@ Présentation</h3>
 <p>C’est pour cela que l’on appelle cette méthode la cryptographie symétrique, on va passer les mêmes paramètres en entrée pour crypter ou décrypter un fichier (à part le fait que pour décrypter, il faudra le fichier crypté, bien entendu). </p>
 <h3><a class="anchor" id="autotoc_md1"></a>
 Mode d'emploi</h3>
-<p>A l’ouverture du programme, celui-ci commencera par vous demander si vous voulez crypter ou décrypter un fichier, après quoi 3 informations vous seront demandées dans cette ordre :</p><ol type="1">
+<p>A l’ouverture du programme, celui-ci commencera par vous demander si vous voulez crypter ou décrypter un fichier, après quoi 4 ou 5 informations vous seront demandées dans cette ordre :</p><ol type="1">
 <li>L’action à effectuer (encryptage/décryptage),</li>
 <li>Le lien du fichier à encrypter, relatif à l’emplacement du programme (ex : ../fichier/toto.txt),</li>
 <li>La clé d’encryptage, sous forme de chaîne de caractère (ex : Ceci est une cle d’encryptage),</li>
 <li>Le nombre d’itérations voulues (plus d’itérations donne un meilleur encryptage mais cela est plus long).</li>
+<li>L'emplacement du fichier contenant le tableau de permutation si celui-ci n'est pas au même emplacement que le programme</li>
 </ol>
 <p>Une fois toutes ces informations saisies, le programme va commencer le cryptage/décryptage. Lors de ce processus, une barre de progression sera affichée et actualisé tout au long de l’exécution pour vous tenir au courant de l’état de l’encryptage/décryptage. Quand il aura fini vous serez informé par le texte suivant « Termine ! Retrouvez le resultat a l'emplacement suivant: &lt;emplacement&gt; », &lt;emplacement&gt; étant l’emplacement ou à été enregistré le fichier.</p>
 <p>En cas d’erreur, si le fichier à encrypter n’existe pas par exemple, le programme vous indiquera cette erreur et vous donnera la possibilité de la corriger (dans le cas d’un fichier non existant, il vous proposera d’entrer à nouveau un lien vers un fichier).</p>
