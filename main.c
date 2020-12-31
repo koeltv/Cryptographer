@@ -40,7 +40,7 @@ char *writeString(){
     int i = 0;
     char temp, *string = (char*) malloc(20 * sizeof(char)); //On part d'une chaîne de 20 caractères
     scanf(" %c", &temp);
-    while (temp >= ' ' && temp <= '~') {
+    while (temp >= ' ' && temp <= '~'){
         if (i % 19 == 1 && i > 19) string = (char *) realloc (string, (i + 20) * sizeof(char)); //Si on dépasse 20 caractères, on ajoute un espace de 20 caractères à la chaîne
         string[i] = temp;
         scanf("%c", &temp);
@@ -170,26 +170,25 @@ void charPermutationReverse(unsigned char *byte, const unsigned char *key){
 void readTable(char *link, unsigned char **permutationTable){
     FILE *tableFile = NULL;
     if ((tableFile = fopen(link, "rb")) == NULL) printf("Impossible d'ouvrir la table de permutation, ");
-    else {
+    else{
         fseek(tableFile, 0L, SEEK_END); //Recherche de la fin du fichier
         int size = ftell(tableFile); //Stockage de la taille
         rewind(tableFile);
 
         if (size >= 913){
             *permutationTable = (unsigned char *) calloc(256, sizeof(unsigned char));
-            int i = 0, counter = 0;
+            int i = 0, positionInFile = 0;
             while (i < 256 && *permutationTable != NULL){
                 char temp;
-                fscanf(tableFile, "%c", &temp); counter++;
-                while (temp >= '0' && temp <= '9' && counter <= size){
+                fscanf(tableFile, "%c", &temp); positionInFile++;
+                while (temp >= '0' && temp <= '9' && positionInFile <= size){ //Lecture et assemblage des chiffres
                     (*permutationTable)[i] = (*permutationTable)[i] * 10 + temp - '0';
-                    fscanf(tableFile, "%c", &temp); counter++;
+                    fscanf(tableFile, "%c", &temp); positionInFile++;
                 }
-                for (int j = 0; j < i; j++) { //Si valeur dupliquée ou sortant de l'intervalle
+                for (int j = 0; j < i; j++){ //Si valeur dupliquée ou sortant de l'intervalle
                     if ((*permutationTable)[i] == (*permutationTable)[j]){
-                        free(*permutationTable);
-                        *permutationTable = NULL;
-                        printf("L'entier %d et/ou l'entier %d est/sont duplique(s) dans la table ou sort(ent) de l'intervalle [0, 255], ", (*permutationTable)[i], (*permutationTable)[j]);
+                        printf("L'entier n%d et/ou l'entier n%d est/sont duplique(s) dans la table ou sort(ent) de l'intervalle [0, 255], ", i, j);
+                        free(*permutationTable); *permutationTable = NULL;
                         break;
                     }
                 } i++;
@@ -228,12 +227,12 @@ void permutationWithTableReverse(unsigned char *byte, const unsigned char *permu
  * La fonction multiplyMatrices() effectue une multiplication entre une matrice et un vecteur dans cet ordre
  * @date 09 Novembre 2020
  * @warning La matrice doit être de dimension 8x8 et le vecteur de dimension 8x1
- * @param v - vecteur V de taille 8x1, mis à jour suite à la multiplication
  * @param H - matrice de taille 8x8
+ * @param v - vecteur V de taille 8x1, mis à jour suite à la multiplication
  */
-void multiplyMatrices(unsigned char **v, unsigned char (*H)[8]){
+void multiplyMatrices(unsigned char (*H)[8], unsigned char **v){
     unsigned char vRes[8];
-    for (int rowFinal = 0, temp = 0; rowFinal < 8; rowFinal++) {
+    for (int rowFinal = 0, temp = 0; rowFinal < 8; rowFinal++){
         for (int k = 0; k < 8; k++) temp += H[rowFinal][k] * (*v)[k];
         vRes[rowFinal] = temp % 2; //On fait %2 pour rester en binaire
         temp = 0;
@@ -294,7 +293,7 @@ void charApplyMatrix(unsigned char *byte){
             0, 0, 0, 1, 1, 1, 1, 1
     };
     byteToBits(byte, &bits);
-    multiplyMatrices(&bits, H); //Ce qui correspond à H x vi
+    multiplyMatrices(H, &bits); //Ce qui correspond à H x vi
     unsigned char c[] = {1, 1, 0, 0, 0, 1, 1, 0};
     for (int j = 0; j < 8; j++) bits[j] = (bits[j] + c[j]) % 2; //Ce qui correspond à Xi = H x vi + c
     bitsToByte(bits, byte);
@@ -321,7 +320,7 @@ void charApplyMatrixReverse(unsigned char *byte){
             0, 1, 0, 0, 1, 0, 1, 0
     };
     byteToBits(byte, &bits);
-    multiplyMatrices(&bits, HPrime); //Ce qui correspond à H' x Xi
+    multiplyMatrices(HPrime, &bits); //Ce qui correspond à H' x Xi
     unsigned char cPrime[] = {1, 0, 1, 0, 0, 0, 0, 0};
     for (int j = 0; j < 8; j++) bits[j] = (bits[j] + cPrime[j]) % 2; //Ce qui correspond à vi = H' x Xi + c'
     bitsToByte(bits, byte);
@@ -401,7 +400,7 @@ void concatenateReverse(unsigned char *byte0, unsigned char *byte1, unsigned cha
 }
 
 //utiliser "doxygen Doxyfile" pour mettre à jour la documentation
-int main() {
+int main(){
     printf("===================================================================================================================\n\n");
     printf("#######  #######  #     #  #######  #######  #######  #######  #######  #######  #######  #     #  #######  #######\n");
     printf("#        #     #  #     #  #     #     #     #     #  #        #     #  #     #  #     #  #     #  #        #     #\n");
@@ -412,7 +411,7 @@ int main() {
     printf("\n===================================================================================================================\n");
     printf("Bonjour ! Ce programme vous permet d'encrypter/decrypter tous types de fichier.\n");
     unsigned char action; int N;
-    do {
+    do{
         printf("Que voulez-vous faire ? (0 pour encryptage, 1 pour decryptage)\n");
         scanf(" %c", &action); action -= '0';
     } while (action < 0 || action > 1);
@@ -420,20 +419,21 @@ int main() {
     else printf("Decryptage selectionne, ");
 
     int size = 0; char *link; unsigned char *fileData = NULL, temp = 1;
-    do {
+    do{
         printf("veuillez entrer le lien du fichier relatif au programme (ex: ../toto.txt)\n");
         link = writeString();
         readFile(link, &fileData, &size);
-        if (size < 1) {
+        if (size < 1){
             fprintf(stderr, ", voulez-vous reessayer ? (0 pour oui, 1 pour non)\n");
             scanf(" %c", &temp); temp -= '0';
+            free(link);
             if (temp == 1) return EXIT_SUCCESS;
         }
     } while (size < 1);
 
     printf("Entrer la cle de chiffrement\n");
     char *encryptionKey = writeString();
-    do {
+    do{
         char temp1[10], *temp2;
         printf("Enfin, entrez le nombre d'iterations a effectuer entre 0 et 999 999 (nombre plus grand, plus de securite mais processus plus long)\n");
         scanf(" %s", temp1);
@@ -444,35 +444,34 @@ int main() {
     unsigned char *permutationTable = NULL;
     char *tableLink = NULL;
     readTable("permutation.txt", &permutationTable);
-    while (permutationTable == NULL || (permutationTable == NULL && tableLink[0] != '0')){
+    while (permutationTable == NULL){
         printf("entrer le lien de la table de permutation (ou 0 pour stopper le programme)\n");
         tableLink = writeString();
         if (tableLink[0] == '0') exit(EXIT_SUCCESS);
         else readTable(tableLink, &permutationTable);
-    }
+    } free(tableLink);
 
     int i = 0;
     printProgress(&i, &N);
-    for (i = 1; i <= N; i++) {
+    for (i = 1; i <= N; i++){
         unsigned char iterationKey1 = 0, iterationKey2 = 0;
         int keyGeneratorIterator = 0;
-        while (encryptionKey[keyGeneratorIterator] != '\0') { //Création des clés d'itérations
-            int iterationVariation = i;
-            if (action == 1) iterationVariation = N - i + 1;
+        while (encryptionKey[keyGeneratorIterator] != '\0'){ //Création des clés d'itérations
+            int iterationVariation = action == 1 ? N - i + 1 : i;
             iterationKey1 += encryptionKey[keyGeneratorIterator] + iterationVariation;
             iterationKey2 *= encryptionKey[keyGeneratorIterator] + iterationVariation;
             keyGeneratorIterator++;
         }
-        if (action == 0) { //Encodage
-            for (int j = 0; j < size; j++) {
+        if (action == 0){ //Encodage
+            for (int j = 0; j < size; j++){
                 charPermutation(&fileData[j], &iterationKey1);
                 permutationWithTable(&fileData[j], permutationTable);
                 charApplyMatrix(&fileData[j]);
                 applyXOROnByte(&fileData[j], &iterationKey2);
                 if ((j + 1) % 4 == 0) concatenate(&fileData[j - 3], &fileData[j - 2], &fileData[j - 1], &fileData[j]);
             }
-        } else { //Decodage
-            for (int j = 0; j < size; j++) {
+        } else{ //Decodage
+            for (int j = 0; j < size; j++){
                 if (j % 4 == 0 && j + 3 < size) concatenateReverse(&fileData[j], &fileData[j + 1], &fileData[j + 2], &fileData[j + 3]);
                 applyXOROnByte(&fileData[j], &iterationKey2);
                 charApplyMatrixReverse(&fileData[j]);
@@ -482,9 +481,9 @@ int main() {
         }
         printProgress(&i, &N);
     }
-    free(permutationTable);
-    writeInFile(fileData, &size, link, &action); //fonction pour écrire les résultats dans un fichier, désactivé pour les test
-    free(fileData);
+    free(permutationTable); free(encryptionKey);
+    writeInFile(fileData, &size, link, &action); //écriture des résultats dans un fichier
+    free(link); free(fileData);
     printf("\nAppuyer sur entree pour mettre fin au programme\n"); getchar();
     return EXIT_SUCCESS;
 }

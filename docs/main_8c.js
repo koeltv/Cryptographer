@@ -10,7 +10,7 @@ var main_8c =
     [ "concatenate", "main_8c.html#a0632b0440947be94480d43031da5be77", null ],
     [ "concatenateReverse", "main_8c.html#a7f3173258e001c229da2e6e552610299", null ],
     [ "main", "main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],
-    [ "multiplyMatrices", "main_8c.html#a085508f51f1dd99d8fe8995a7ee00e92", null ],
+    [ "multiplyMatrices", "main_8c.html#acde4cde3443fde670dfae34f2964a2fd", null ],
     [ "permutationWithTable", "main_8c.html#aca1f54f4622b61a551c16bc126ce506c", null ],
     [ "permutationWithTableReverse", "main_8c.html#a4daf397063868db799c1910cd3a69d6d", null ],
     [ "printProgress", "main_8c.html#af60f7c637decc7f4d959092670b4abad", null ],
